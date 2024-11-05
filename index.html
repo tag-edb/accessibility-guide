@@ -16,10 +16,17 @@
         display: block;
       }
 
-      ul {
+      menu, ol {
         display: flex;
+        flex-wrap: wrap;
         flex: 0 0;
+        margin: 0px;
+        padding: 0px;
         gap: 20px;
+      }
+
+      ol {
+        counter-reset: step-count 0;
       }
 
       li {
@@ -32,6 +39,10 @@
         border-radius: 10px;
       }
 
+      ol > li {
+        counter-increment: step-count 1;
+      }
+
       li > a {
         display: block;
         box-sizing: border-box;
@@ -40,7 +51,25 @@
         text-decoration: inherit;
         color: inherit;
       }
+
+      ol > li > a::before {
+        content: counter(step-count) '. '
+      }
+
+      li:has(> a[data-followed]) {
+        background-color: lightgray;
+        color: dimgray;
+      }
     </style>
+    <script>
+      window.addEventListener("hashchange", (event) => {
+        const oldHash = URL.parse(event.oldURL).hash;
+        const newHash = URL.parse(event.newURL).hash;
+        const link = document
+          .querySelector(`section${oldHash} li > a[href="${newHash}"]`)
+          ?.setAttribute("data-followed", "");
+      });
+    </script>
   </head>
   <!---->
   <body>
@@ -50,26 +79,63 @@
     <!---->
     <main>
       <section>
-        <h2>Why is it hard to use your phone?</h2>
-        <ul>
+        <h2>Why is it hard to use your smartphone?</h2>
+        <p>Choose one of the options below.</p>
+        <menu>
           <li>
             Things on the screen are too small
           </li>
           <li>
             <a href="#writing-hard-to-read">
-              The writing on the screen is hard to read
+              Reading the words on the screen is hard
             </a>
           </li>
-        </ul>
+        </menu>
       </section>
       <!---->
       <section id="writing-hard-to-read">
-        <h2>Why is the writing on the screen hard to read?</h2>
-        <ul>
+        <h2>What would make the words easier to read?</h2>
+        <p>Choose one of the options below.</p>
+        <menu>
           <li>
-            The letters are too small
+            <a href="#make-the-letters-bigger">Make the letters bigger</a>
           </li>
-        </ul>
+          <li>
+            <a href="#change-the-colour-of-the-words">Change the colour of the words so they are easier to see</a>
+          </li>
+          <li>
+            <a href="#make-the-phone-read-the-words-aloud">Make the phone read the words aloud</a>
+          </li>
+        </menu>
+      </section>
+      <!---->
+      <section id="make-the-letters-bigger">
+        <h2>Make the letters bigger</h2>
+        <p>Follow these steps. Choose a step to find out how to do it.</p>
+        <ol>
+          <li>
+            <a href="#open-the-settings-app">Open the Settings app</a>
+          </li>
+          <li>
+            <a>Search for the word "font"</a>
+          </li>
+          <li>
+            <a>Choose an option that mentions "font size"</a>
+          </li>
+          <li>
+            <a>Increase the font size</a>
+          </li>
+        </ol>
+      </section>
+      <!---->
+      <section id="open-the-settings-app">
+        <h2>Open the Settings app</h2>
+        <p>Use one of these ways. Choose a way to find out how to do it.</p>
+        <menu>
+          <li><a>Talk to your smartphone to tell it to open the Settings</a></li>
+        </menu>
+        <p>When you are done, choose the button bellow to carry on.</p>
+        <button onclick="history.back()">Carry on</button>
       </section>
     </main>
   </body>
