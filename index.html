@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Accessibility Guide</title>
+    <style>
+      body {
+        font-size: larger;
+        font-family: sans-serif;
+      }
+
+      section {
+        display: none;
+      }
+
+      section:first-child:not(:has(~ :target)), section:target {
+        display: block;
+      }
+
+      ul {
+        display: flex;
+        flex: 0 0;
+        gap: 20px;
+      }
+
+      li {
+        display: block;
+        margin: 0px;
+        padding: 10px;
+        width: 200px;
+        height: 200px;
+        border: 5px solid black;
+        border-radius: 10px;
+      }
+
+      li > a {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        text-decoration: inherit;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <!---->
+  <body>
+    <header>
+      <h1>Accessibility Guide</h1>
+    </header>
+    <!---->
+    <main>
+      <section>
+        <h2>Why is it hard to use your phone?</h2>
+        <ul>
+          <li>
+            Things on the screen are too small
+          </li>
+          <li>
+            <a href="#writing-hard-to-read">
+              The writing on the screen is hard to read
+            </a>
+          </li>
+        </ul>
+      </section>
+      <!---->
+      <section id="writing-hard-to-read">
+        <h2>Why is the writing on the screen hard to read?</h2>
+        <ul>
+          <li>
+            The letters are too small
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
