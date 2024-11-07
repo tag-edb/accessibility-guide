@@ -62,12 +62,16 @@
       }
     </style>
     <script>
-      window.addEventListener("hashchange", (event) => {
-        const oldHash = URL.parse(event.oldURL).hash;
-        const newHash = URL.parse(event.newURL).hash;
-        const link = document
-          .querySelector(`section${oldHash} li > a[href="${newHash}"]`)
-          ?.setAttribute("data-followed", "");
+      history.replaceState({depth: 0}, "");
+
+      document.addEventListener("click", (event) => {
+        if (event.target.tagName === "A" && !(event.target.hasAttribute("data-back"))) {
+          event.target.setAttribute("data-followed", "");
+          const depth = history.state.depth;
+          location.assign(event.target.href);
+          history.replaceState({depth: depth + 1}, "");
+          event.preventDefault();
+        }
       });
     </script>
   </head>
@@ -135,7 +139,7 @@
           <li><a>Talk to your smartphone to tell it to open the Settings</a></li>
         </menu>
         <p>When you are done, choose the button bellow to carry on.</p>
-        <button onclick="history.back()">Carry on</button>
+        <button data-back onclick="history.back()">Carry on</button>
       </section>
     </main>
   </body>
