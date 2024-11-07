@@ -62,15 +62,22 @@
       }
     </style>
     <script>
-      history.replaceState({depth: 0}, "");
+      let depth = 0;
+      history.replaceState({depth: depth}, "");
 
-      document.addEventListener("click", (event) => {
-        if (event.target.tagName === "A" && !(event.target.hasAttribute("data-back"))) {
-          event.target.setAttribute("data-followed", "");
-          const depth = history.state.depth;
-          location.assign(event.target.href);
-          history.replaceState({depth: depth + 1}, "");
-          event.preventDefault();
+      window.addEventListener("hashchange", (event) => {
+        if (history.state === null) {
+          const oldHash = URL.parse(event.oldURL).hash;
+          const newHash = URL.parse(event.newURL).hash;
+          document
+            .querySelector(
+              `section${oldHash === "" ? ":not([id])" : oldHash} li > a[href="${newHash}"]`
+            )
+            ?.setAttribute("data-followed", "");
+          depth += 1;
+          history.replaceState({depth: depth}, "");
+        } else {
+          depth = history.state.depth;
         }
       });
     </script>
@@ -128,6 +135,16 @@
           </li>
           <li>
             <a>Increase the font size</a>
+          </li>
+        </ol>
+      </section>
+      <!---->
+      <section id="make-the-phone-read-the-words-aloud">
+        <h2>Make the phone read the words aloud</h2>
+        <p>Follow these steps. Choose a step to find out how to do it.</p>
+        <ol>
+          <li>
+            <a href="#open-the-settings-app">Open the Settings app</a>
           </li>
         </ol>
       </section>
