@@ -2,69 +2,27 @@
 <html>
   <head>
     <title>Accessibility Guide</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script type="module" src="components.js"></script>
     <style>
       body {
         font-size: larger;
         font-family: sans-serif;
       }
 
-      section {
+      screen-body {
         display: none;
       }
 
-      section:first-child:not(:has(~ :target)), section:target {
+      screen-body:first-child:not(:has(~ :target)),
+      screen-body:target {
         display: block;
       }
 
-      menu, ol {
-        display: flex;
-        flex-wrap: wrap;
-        flex: 0 0;
-        margin: 0px;
-        padding: 0px;
-        gap: 20px;
-      }
-
-      ol {
-        counter-reset: step-count 0;
-      }
-
-      li {
-        display: block;
-        margin: 0px;
-        padding: 10px;
-        width: 200px;
-        height: 200px;
-        border: 5px solid black;
-        border-radius: 10px;
-      }
-
-      ol > li {
-        counter-increment: step-count 1;
-      }
-
-      li > a {
-        display: block;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        text-decoration: inherit;
-        color: inherit;
-      }
-
-      ol > li > a::before {
-        content: counter(step-count) '. '
-      }
-
-      li:has(> a[data-followed]) {
-        background-color: lightgray;
-        color: dimgray;
-      }
     </style>
     <script>
       let depth = 0;
-      history.replaceState({depth: depth}, "");
+      history.replaceState({ depth: depth }, "");
 
       window.addEventListener("hashchange", (event) => {
         if (history.state === null) {
@@ -72,93 +30,87 @@
           const newHash = URL.parse(event.newURL).hash;
           document
             .querySelector(
-              `section${oldHash === "" ? ":not([id])" : oldHash} li > a[href="${newHash}"]`
+              `screen-body${
+                oldHash === "" ? ":not([id])" : oldHash
+              } *[href="${newHash}"]`
             )
-            ?.setAttribute("data-followed", "");
+            ?.setAttribute("followed", "");
           depth += 1;
-          history.replaceState({depth: depth}, "");
+          history.replaceState({ depth: depth }, "");
         } else {
           depth = history.state.depth;
         }
       });
+
+      document.addEventListener("click", (event) => {
+        if (event.target.matches(".back-link button")) {
+          history.back();
+        }
+      });
     </script>
   </head>
-  <!---->
+
   <body>
+
     <header>
       <h1>Accessibility Guide</h1>
     </header>
-    <!---->
+
     <main>
-      <section>
-        <h2>Why is it hard to use your smartphone?</h2>
-        <p>Choose one of the options below.</p>
-        <menu>
-          <li>
-            Things on the screen are too small
-          </li>
-          <li>
-            <a href="#writing-hard-to-read">
-              Reading the words on the screen is hard
-            </a>
-          </li>
-        </menu>
-      </section>
-      <!---->
-      <section id="writing-hard-to-read">
-        <h2>What would make the words easier to read?</h2>
-        <p>Choose one of the options below.</p>
-        <menu>
-          <li>
-            <a href="#make-the-letters-bigger">Make the letters bigger</a>
-          </li>
-          <li>
-            <a href="#change-the-colour-of-the-words">Change the colour of the words so they are easier to see</a>
-          </li>
-          <li>
-            <a href="#make-the-phone-read-the-words-aloud">Make the phone read the words aloud</a>
-          </li>
-        </menu>
-      </section>
-      <!---->
-      <section id="make-the-letters-bigger">
-        <h2>Make the letters bigger</h2>
-        <p>Follow these steps. Choose a step to find out how to do it.</p>
-        <ol>
-          <li>
-            <a href="#open-the-settings-app">Open the Settings app</a>
-          </li>
-          <li>
-            <a>Search for the word "font"</a>
-          </li>
-          <li>
-            <a>Choose an option that mentions "font size"</a>
-          </li>
-          <li>
-            <a>Increase the font size</a>
-          </li>
-        </ol>
-      </section>
-      <!---->
-      <section id="make-the-phone-read-the-words-aloud">
-        <h2>Make the phone read the words aloud</h2>
-        <p>Follow these steps. Choose a step to find out how to do it.</p>
-        <ol>
-          <li>
-            <a href="#open-the-settings-app">Open the Settings app</a>
-          </li>
-        </ol>
-      </section>
-      <!---->
-      <section id="open-the-settings-app">
-        <h2>Open the Settings app</h2>
-        <p>Use one of these ways. Choose a way to find out how to do it.</p>
-        <menu>
-          <li><a>Talk to your smartphone to tell it to open the Settings</a></li>
-        </menu>
-        <p>When you are done, choose the button bellow to carry on.</p>
-        <button data-back onclick="history.back()">Carry on</button>
-      </section>
+
+      <screen-body>
+        <screen-title>Why is it hard to use your smartphone?</screen-title>
+        <screen-menu>
+          <menu-item>Things on the screen are too small</menu-item>
+          <menu-item href="#writing-hard-to-read">
+            Reading the words on the screen is hard
+          </menu-item>
+        </screen-menu>
+      </screen-body>
+
+      <screen-body id="writing-hard-to-read">
+        <screen-title>What would make the words easier to read?</screen-title>
+        <screen-menu>
+          <menu-item href="#make-the-letters-bigger">
+            Make the letters bigger
+          </menu-item>
+          <menu-item href="#change-the-colour-of-the-words">
+            Change the colour of the words so they are easier to see
+          </menu-item>
+          <menu-item href="#make-the-phone-read-the-words-aloud">
+            Make the phone read the words aloud
+          </menu-item>
+        </screen-menu>
+      </screen-body>
+
+      <screen-body id="make-the-letters-bigger">
+        <screen-title>Make the letters bigger</screen-title>
+        <screen-recipe>
+          <recipe-item href="#open-the-settings-app">
+            Open the Settings app
+          </recipe-item>
+          <recipe-item>Search for the word "font"</recipe-item>
+          <recipe-item>Choose an option that mentions "font size"</recipe-item>
+          <recipe-item>Increase the font size</recipe-item>
+        </screen-recipe>
+      </screen-body>
+
+      <screen-body id="make-the-phone-read-the-words-aloud">
+        <screen-title>Make the phone read the words aloud</h2>
+        <screen-recipe>
+          <recipe-item href="#open-the-settings-app">
+            Open the Settings app
+          </recipe-item>
+        </screen-recipe>
+      </screen-body>
+
+      <screen-body id="open-the-settings-app">
+        <screen-title>Open the Settings app</screen-title>
+        <screen-menu>
+          <menu-item>Talk to your smartphone to tell it to open the Settings</menu-item>
+        </screen-menu>
+      </screen-body>
+
     </main>
   </body>
 </html>
