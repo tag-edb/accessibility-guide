@@ -1,0 +1,13 @@
+body {
+  font-size: larger;
+  font-family: sans-serif;
+}
+
+screen-body {
+  display: none;
+}
+
+screen-body:first-child:not(:has(~ :target)),
+screen-body:target {
+  display: block;
+}

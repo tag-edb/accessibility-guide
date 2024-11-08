@@ -4,50 +4,8 @@
     <title>Accessibility Guide</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="module" src="components.js"></script>
-    <style>
-      body {
-        font-size: larger;
-        font-family: sans-serif;
-      }
-
-      screen-body {
-        display: none;
-      }
-
-      screen-body:first-child:not(:has(~ :target)),
-      screen-body:target {
-        display: block;
-      }
-
-    </style>
-    <script>
-      let depth = 0;
-      history.replaceState({ depth: depth }, "");
-
-      window.addEventListener("hashchange", (event) => {
-        if (history.state === null) {
-          const oldHash = URL.parse(event.oldURL).hash;
-          const newHash = URL.parse(event.newURL).hash;
-          document
-            .querySelector(
-              `screen-body${
-                oldHash === "" ? ":not([id])" : oldHash
-              } *[href="${newHash}"]`
-            )
-            ?.setAttribute("followed", "");
-          depth += 1;
-          history.replaceState({ depth: depth }, "");
-        } else {
-          depth = history.state.depth;
-        }
-      });
-
-      document.addEventListener("click", (event) => {
-        if (event.target.matches(".back-link button")) {
-          history.back();
-        }
-      });
-    </script>
+    <link rel="stylesheet" href="index.css"></style>
+    <script src="index.js"></script>
   </head>
 
   <body>
