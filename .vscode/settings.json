@@ -1,0 +1,13 @@
+{
+  "xml.references": [
+    {
+      "pattern": "**/*.xml",
+      "expressions": [
+        {
+          "from": "@href",
+          "to": "@id"
+        }
+      ]
+    }
+  ]
+}

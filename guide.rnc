@@ -1,0 +1,10 @@
+start = screens
+screens = element screens {screen-body+}
+screen-body = element screen-body {id, screen-title, (screen-menu|screen-recipe)+}
+id = attribute id {xsd:ID}
+screen-title = element screen-title {text}
+screen-menu = element screen-menu {menu-item+}
+menu-item = element menu-item {href?, text}
+screen-recipe = element screen-recipe {recipe-item+}
+recipe-item = element recipe-item {href?, text}
+href = attribute href {xsd:IDREF}
