@@ -134,9 +134,13 @@ class MainItem extends ScreenItem {
   ];
 
   render() {
-    const linkedHeading = this.href
-      ? document.querySelector(`screen-body${this.href} > screen-title`)
+    const linkedScreen = this.href
+      ? document.querySelector(`screen-body${this.href}`)
       : null;
+    if (this.href && !linkedScreen) {
+      console.error(`Item href ${this.href} invalid`);
+    }
+    const linkedHeading = linkedScreen?.querySelector(`screen-title`);
     return html`
       <li>
         <a
