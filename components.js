@@ -134,13 +134,17 @@ class MainItem extends ScreenItem {
   ];
 
   render() {
+    const linkedHeading = this.href
+      ? document.querySelector(`screen-body${this.href} > screen-title`)
+      : null;
     return html`
       <li>
         <a
           class="block-link${this.followed ? " followed" : ""}"
           href="${this.href}"
-          ><slot></slot
-        ></a>
+        >
+          <slot>${linkedHeading?.innerText}</slot>
+        </a>
       </li>
     `;
   }
