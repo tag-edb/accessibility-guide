@@ -1,10 +1,8 @@
-<!ELEMENT screens (screen-body+)>
-<!ELEMENT screen-body (screen-title,(screen-menu|screen-recipe))>
-<!ATTLIST screen-body id ID #REQUIRED>
-<!ELEMENT screen-title (#PCDATA)>
-<!ELEMENT screen-menu (menu-item+)>
-<!ELEMENT menu-item (#PCDATA)>
-<!ATTLIST menu-item href IDREF #IMPLIED>
-<!ELEMENT screen-recipe (recipe-item+)>
-<!ELEMENT recipe-item (#PCDATA)>
-<!ATTLIST recipe-item href IDREF #IMPLIED>
+<!ELEMENT chunks (chunk+)>
+<!ELEMENT chunk (title,(menu|recipe))>
+<!ATTLIST chunk id ID #REQUIRED>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT menu (item+)>
+<!ELEMENT item (#PCDATA)>
+<!ATTLIST item ref IDREF #IMPLIED>
+<!ELEMENT recipe (item+)>
