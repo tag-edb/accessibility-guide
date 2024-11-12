@@ -1,7 +1,7 @@
 <?xml-model href="guide.rnc"?>
 <chunks>
 
-<chunk id="default">
+<chunk id="root">
   <title>Why is it hard to use your smartphone?</title>
   <menu>
     <item>Things on the screen are too small</item>

@@ -1,20 +1,50 @@
-let depth = 0;
-history.replaceState({ depth: depth }, "");
+// @ts-ignore
+import { html, render, nothing } from "lit";
 
-window.addEventListener("hashchange", (event) => {
-  if (history.state === null) {
-    const oldHash = URL.parse(event.oldURL).hash;
-    const newHash = URL.parse(event.newURL).hash;
-    document
-      .querySelector(
-        `screen-body${
-          oldHash === "" ? ":not([id])" : oldHash
-        } *[href="${newHash}"]`
-      )
-      ?.setAttribute("followed", "");
-    depth += 1;
-    history.replaceState({ depth: depth }, "");
-  } else {
-    depth = history.state.depth;
-  }
-});
+/**
+ * @param {string} url
+ * @returns {Promise<XMLDocument>}
+ */
+async function getGuide(url) {
+  const parser = new DOMParser();
+  const response = await fetch(url);
+  return parser.parseFromString(await response.text(), "text/xml");
+}
+
+/**
+ * @param {XMLDocument} guide
+ * @returns {void}
+ */
+function renderGuide(guide, path) {
+  const root = guide.querySelector(`chunk#root`);
+  renderChunk(root);
+}
+
+/**
+ * @param {Element} chunk
+ */
+function renderChunk(chunk) {
+  const title = chunk.querySelector("title");
+  const menu = chunk.querySelector("menu");
+  const recipe = chunk.querySelector("recipe");
+  return html`
+    <screen-body>
+      ${title ? renderTitle(title) : nothing}
+      ${menu ? renderMenu(menu) : recipe ? renderRecipe(recipe) : nothing}
+    </screen-body>
+  `;
+}
+
+/**
+ * @param {Element} title
+ */
+function renderTitle(title) {
+  return html` <screen-title>title.innerText</screen-title> `;
+}
+
+/**
+ * @param {Element} menu
+ */
+function renderMenu(menu) {
+  return html``;
+}

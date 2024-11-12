@@ -4,7 +4,7 @@
       "pattern": "**/*.xml",
       "expressions": [
         {
-          "from": "@href",
+          "from": "@ref",
           "to": "@id"
         }
       ]

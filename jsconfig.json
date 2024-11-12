@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "target": "ES2021",
+    "paths": {
+      "lit": ["https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js"]
+    }
+  }
+}
