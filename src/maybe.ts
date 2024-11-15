@@ -22,10 +22,6 @@ class Just<T> implements Maybe<T> {
   map2<U, V>(maybeY: Maybe<U>, f: (x: T, y: U) => V): Maybe<V> {
     return maybeY.andThen((y) => new Just(f(this.#value, y)));
   }
-
-  else(_: Maybe<T>): Maybe<T> {
-    return this;
-  }
 }
 
 class Nothing<T> implements Maybe<T> {
@@ -39,10 +35,6 @@ class Nothing<T> implements Maybe<T> {
 
   map2<U, V>(_: Maybe<U>, __: (x: T, y: U) => V): Maybe<V> {
     return new Nothing();
-  }
-
-  else<U>(that: Maybe<U>): Maybe<U> {
-    return that;
   }
 }
 
