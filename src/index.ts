@@ -8,31 +8,33 @@ type Guide = Map<Id, Chunk>;
 type Chunk = {
   id: Id;
   title: string;
-  //content: Menu | Recipe;
+  content: Content;
 };
 
 type Menu = {
   type: "menu";
-  items: [Item];
+  items: Item[];
 };
 
 type Recipe = {
   type: "recipe";
-  items: [Item];
+  items: Item[];
 };
 
+type Content = Menu | Recipe;
+
 type Item = {
-  ref: Id;
+  ref: Id | null;
   text: string;
 };
 
-async function fetchXML(url: string): Promise<XMLDocument> {
+export async function fetchXML(url: string): Promise<XMLDocument> {
   const parser = new DOMParser();
   const response = await fetch(url);
   return parser.parseFromString(await response.text(), "text/xml");
 }
 
-function guideFromXML(xml: XMLDocument): Maybe<Guide> {
+export function guideFromXML(xml: XMLDocument): Maybe<Guide> {
   return Array.from(xml.querySelectorAll("chunk")).reduce(
     (maybeGuide, element) => {
       const maybeChunk = chunkFromXML(element);
@@ -45,24 +47,31 @@ function guideFromXML(xml: XMLDocument): Maybe<Guide> {
 }
 
 function chunkFromXML(xml: Element): Maybe<Chunk> {
+  let child;
   return maybe.all({
     id: maybe.from(xml.getAttribute("id")),
-    title: maybe.from(xml.querySelector("title")?.innerText)
-    //content: contentFromXML(xml)
+    title: maybe.from(xml.querySelector("title")?.textContent),
+    content: (child = xml.querySelector("menu"))
+      ? maybe.all({
+          type: maybe.just("menu" as "menu"),
+          items: itemsFromXML(child)
+        })
+      : (child = xml.querySelector("recipe"))
+      ? maybe.all({
+          type: maybe.just("recipe" as "recipe"),
+          items: itemsFromXML(child)
+        })
+      : (maybe.nothing() as Maybe<Content>)
   });
 }
 
-/*
-function contentFromXML(xml: Element): Maybe<Menu | Recipe> {
-  return maybe.all({
-    type: maybe
-      .from(xml.querySelector("menu"))
-      .map(() => "menu" as "menu"),
-    items: maybe.all(Array.from(xml.querySelectorAll)
-  });
+function itemsFromXML(xml: Element): Maybe<Item[]> {
+  return maybe.all(
+    Array.from(xml.querySelectorAll("item")).map((item) =>
+      maybe.all({
+        ref: maybe.just(item.getAttribute("ref")),
+        text: maybe.from(item.textContent)
+      })
+    )
+  );
 }
-
-function itemsFromXML(xml: Element): Maybe<[Item]> {
-  return Array.from(xml.querySelectorAll('item')).map
-}
-*/

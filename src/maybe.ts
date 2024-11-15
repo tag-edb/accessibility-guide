@@ -63,15 +63,17 @@ export function nothing<T>(): Maybe<T> {
 export function all<O extends Array<Maybe<any>> | Record<string, Maybe<any>>>(
   object: O
 ): Maybe<{ [K in keyof O]: O[K] extends Maybe<infer V> ? V : never }> {
-  return Object.entries(object).reduce(
+  const blank = just(
+    new (object.constructor as {
+      new (): { [K in keyof O]: O[K] extends Maybe<infer V> ? V : never };
+    })()
+  );
+  return (Object.entries(object) as [keyof O, Maybe<any>][]).reduce(
     (maybeObject, [key, maybeValue]) =>
-      maybeObject.map2(maybeValue, (object_, value) =>
-        Object.assign(object_, Object.fromEntries([[key, value]]))
-      ),
-    just(
-      new (<{ new (...args: Array<any>): typeof object }>(
-        object.constructor
-      ))() as { [K in keyof O]: O[K] extends Maybe<infer V> ? V : never }
-    )
+      maybeObject.map2(maybeValue, (object_, value) => {
+        object_[key] = value;
+        return object_;
+      }),
+    blank
   );
 }
