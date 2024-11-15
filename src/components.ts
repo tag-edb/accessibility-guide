@@ -1,24 +1,20 @@
-import {
-  LitElement,
-  css,
-  html,
-  nothing
-} from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { LitElement, css, html, nothing } from "lit";
 
 customElements.define(
-  "screen-body",
+  "chunk-chunk",
 
-  class ScreenBody extends LitElement {
+  class ChunkChunk extends LitElement {
     static properties = {
-      id: { type: String }
+      guide: { attribute: false },
+      path: { attibute: false }
     };
 
     render() {
       return html`
-        <section>
+        <div>
           <slot></slot>
           ${this.id ? html`<screen-backlink></screen-backlink>` : nothing}
-        </section>
+        </div>
       `;
     }
   }
