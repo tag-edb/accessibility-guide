@@ -47,21 +47,25 @@ export function guideFromXML(xml: XMLDocument): Maybe<Guide> {
 }
 
 function chunkFromXML(xml: Element): Maybe<Chunk> {
-  let child;
   return maybe.all({
     id: maybe.from(xml.getAttribute("id")),
     title: maybe.from(xml.querySelector("title")?.textContent),
-    content: (child = xml.querySelector("menu"))
-      ? maybe.all({
+    content: maybe
+      .from(xml.querySelector("menu"))
+      .andThen((menu) =>
+        maybe.all({
           type: maybe.just("menu" as "menu"),
-          items: itemsFromXML(child)
+          items: itemsFromXML(menu)
         })
-      : (child = xml.querySelector("recipe"))
-      ? maybe.all({
-          type: maybe.just("recipe" as "recipe"),
-          items: itemsFromXML(child)
-        })
-      : (maybe.nothing() as Maybe<Content>)
+      )
+      .orElse(
+        maybe.from(xml.querySelector("recipe")).andThen((recipe) =>
+          maybe.all({
+            type: maybe.just("recipe" as "recipe"),
+            items: itemsFromXML(recipe)
+          })
+        )
+      )
   });
 }
 
