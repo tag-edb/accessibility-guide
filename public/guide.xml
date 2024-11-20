@@ -14,7 +14,7 @@
 <chunk id="writing-hard-to-read">
   <title>What would make the words easier to read?</title>
   <menu>
-    <item ref="writing-hard-to-read">
+    <item ref="make-the-letters-bigger">
       Make the letters bigger
     </item>
     <item ref="change-the-colour-of-the-words">
@@ -29,7 +29,7 @@
 <chunk id="make-the-letters-bigger">
   <title>Make the letters bigger</title>
   <recipe>
-    <item ref="open-the-settings-appy">
+    <item ref="open-the-settings-app">
       Open the Settings app
     </item>
     <item ref="search-for-the-word-font"></item>

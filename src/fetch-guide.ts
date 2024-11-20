@@ -1,40 +1,18 @@
 import { Maybe } from "./maybe";
 import * as maybe from "./maybe";
+import { Guide, Chunk, Item } from "./guide";
 
-type Id = string;
+export async function fetchGuide(url: string): Promise<Guide> {
+  return fetchXML(url).then((xml) => guideFromXML(xml).toPromise());
+}
 
-type Guide = Map<Id, Chunk>;
-
-type Chunk = {
-  id: Id;
-  title: string;
-  content: Content;
-};
-
-type Menu = {
-  type: "menu";
-  items: Item[];
-};
-
-type Recipe = {
-  type: "recipe";
-  items: Item[];
-};
-
-type Content = Menu | Recipe;
-
-type Item = {
-  ref: Id | null;
-  text: string;
-};
-
-export async function fetchXML(url: string): Promise<XMLDocument> {
+async function fetchXML(url: string): Promise<XMLDocument> {
   const parser = new DOMParser();
   const response = await fetch(url);
   return parser.parseFromString(await response.text(), "text/xml");
 }
 
-export function guideFromXML(xml: XMLDocument): Maybe<Guide> {
+function guideFromXML(xml: XMLDocument): Maybe<Guide> {
   return Array.from(xml.querySelectorAll("chunk")).reduce(
     (maybeGuide, element) => {
       const maybeChunk = chunkFromXML(element);
