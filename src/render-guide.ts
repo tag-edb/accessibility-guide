@@ -1,4 +1,4 @@
-import { html, HTMLTemplateResult } from "lit";
+import { html, HTMLTemplateResult, nothing } from "lit";
 import * as maybe from "./maybe";
 import { Guide, Chunk, Item } from "./guide";
 import * as guide from "./guide";
@@ -41,15 +41,13 @@ export function expandItem(gde: Guide, path: Path, state: State): State {
         );
 
   const item = (path: Path, itm: Item, state: ItemState): ItemState =>
-    /*path.length === 0
-      ? state
-      :*/ maybe
+    maybe
       .from(itm.ref)
       .andThen((ref) => guide.get(gde, ref))
       .map<ItemState>((chnk) => [
         chunk(path, chnk, state.length === 0 ? [] : state[0])
       ])
-      .withDefault([]);
+      .withDefault(state);
 
   return guide
     .getRoot(gde)
@@ -59,23 +57,26 @@ export function expandItem(gde: Guide, path: Path, state: State): State {
 
 export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   const chunk = (path: Path, chnk: Chunk, state: State): HTMLTemplateResult =>
-    html`
-      <div>
-        <h2>${JSON.stringify(path)}: ${chnk.id} -> ${chnk.title}</h2>
-        ${chnk.content.type === "menu"
-          ? menu(path, chnk.content.items, state as MenuState)
-          : chnk.content.type === "recipe"
-          ? recipe(path, chnk.content.items, state as RecipeState)
-          : "BAD CHUNK CONTENT"}
-      </div>
-    `;
+    chnk.content.type === "menu"
+      ? menu(path, chnk.title, chnk.content.items, state as MenuState)
+      : chnk.content.type === "recipe"
+      ? recipe(path, chnk.content.items, state as RecipeState)
+      : html`BAD CHUNK CONTENT`;
 
-  const menu = (path: Path, itms: Item[], state: MenuState) => html`
-    <menu>
+  const menu = (
+    path: Path,
+    title: string,
+    itms: Item[],
+    state: MenuState
+  ) => html`
+    <div>
       ${state.length === 0
-        ? itms.map((itm, n) => item([...path, n], itm, []))
+        ? html`
+            <h2>${title}</h2>
+            <menu>${itms.map((itm, n) => item([...path, n], itm, []))}</menu>
+          `
         : item([...path, state[0]], itms[state[0]], state[1])}
-    </menu>
+    </div>
   `;
 
   const recipe = (path: Path, itms: Item[], state: RecipeState) => html`
@@ -98,16 +99,14 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
           })
         )}
     >
+      <p>${JSON.stringify(path)}: ${itm.text} -> ${itm.ref}</p>
       ${state.length === 0
-        ? `${JSON.stringify(path)}: ${itm.text} -> ${itm.ref}`
-        : [
-            `${JSON.stringify(path)}: ${itm.text} -> ${itm.ref}`,
-            maybe
-              .from(itm.ref)
-              .andThen((ref) => guide.get(gde, ref))
-              .map((ref) => chunk(path, ref, state[0]))
-              .withDefault("MISSING REFERENCE")
-          ]}
+        ? nothing
+        : maybe
+            .from(itm.ref)
+            .andThen((ref) => guide.get(gde, ref))
+            .map((ref) => chunk(path, ref, state[0]))
+            .withDefault("MISSING REFERENCE")}
     </li>
   `;
 

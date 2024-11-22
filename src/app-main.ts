@@ -42,7 +42,7 @@ customElements.define(
 
     render() {
       return [
-        html`<p>STATE: ${JSON.stringify(this.state)}</p>`,
+        // html`<p>STATE: ${JSON.stringify(this.state)}</p>`,
         this._guide
           .map((guide) => renderGuide(guide, this.state))
           .withDefault(html`<h1>GUIDE NOT LOADED</h1>`)
