@@ -1,7 +1,8 @@
 import { LitElement, html } from "lit";
 import { Guide } from "./guide";
 import { fetchGuide } from "./fetch-guide";
-import { renderGuide, expandItem, State } from "./render-guide";
+import { State, expandItem, nextItem } from "./nav-guide";
+import { renderGuide } from "./render-guide";
 import { Maybe } from "./maybe";
 import * as maybe from "./maybe";
 
@@ -9,29 +10,30 @@ customElements.define(
   "app-main",
 
   class AppMain extends LitElement {
-    declare state: State;
     private declare _guide: Maybe<Guide>;
+    private declare _state: State;
 
     static properties = {
-      state: { type: Array },
-      _guide: { state: true }
+      _guide: { state: true },
+      _state: { state: true }
     };
 
     constructor() {
       super();
-      this.state = [];
       this._guide = maybe.nothing();
+      this._state = [];
       fetchGuide("guide.xml").then((guide) => {
         this._guide = maybe.just(guide);
-        history.replaceState(this.state, "");
+        history.replaceState(this._state, "");
         addEventListener("popstate", (e) => {
-          console.log("POPSTATE");
-          this.state = e.state;
+          this._state = e.state;
         });
-        this.addEventListener("guide-click", (e) => {
-          console.log(`CLICK: ${e.detail.path}`);
-          this.state = expandItem(guide, e.detail.path, this.state);
-          history.pushState(this.state, "");
+        this.addEventListener("guide-expand", (e) => {
+          this._state = expandItem(guide, this._state, e.detail.index);
+          history.pushState(this._state, "");
+        });
+        this.addEventListener("guide-next", () => {
+          this._state = nextItem(guide, this._state);
         });
       });
     }
@@ -41,18 +43,16 @@ customElements.define(
     }
 
     render() {
-      return [
-        // html`<p>STATE: ${JSON.stringify(this.state)}</p>`,
-        this._guide
-          .map((guide) => renderGuide(guide, this.state))
-          .withDefault(html`<h1>GUIDE NOT LOADED</h1>`)
-      ];
+      return this._guide
+        .map((guide) => renderGuide(guide, this._state))
+        .withDefault(html`<h1>GUIDE NOT LOADED</h1>`);
     }
   }
 );
 
 declare global {
   interface HTMLElementEventMap {
-    "guide-click": CustomEvent;
+    "guide-expand": CustomEvent;
+    "guide-next": CustomEvent;
   }
 }

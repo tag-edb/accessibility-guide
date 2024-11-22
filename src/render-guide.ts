@@ -1,105 +1,83 @@
 import { html, HTMLTemplateResult, nothing } from "lit";
 import * as maybe from "./maybe";
-import { Guide, Chunk, Item } from "./guide";
+import { Guide, Chunk, Menu, Recipe, Item } from "./guide";
 import * as guide from "./guide";
-
-type Path = number[];
-
-export type State = MenuState | RecipeState;
-type MenuState = [] | [number, ItemState];
-type RecipeState = [] | ItemState[];
-type ItemState = [] | [State];
-
-export function expandItem(gde: Guide, path: Path, state: State): State {
-  const chunk = (path: Path, chnk: Chunk, state: State): State =>
-    chnk.content.type === "menu"
-      ? menu(path, chnk.content.items, state as MenuState)
-      : chnk.content.type === "recipe"
-      ? recipe(path, chnk.content.items, state as RecipeState)
-      : state;
-
-  const menu = (path: Path, itms: Item[], state: MenuState): MenuState =>
-    path.length === 0
-      ? state
-      : [
-          path[0],
-          item(path.slice(1), itms[path[0]], state.length === 0 ? [] : state[1])
-        ];
-
-  const recipe = (path: Path, itms: Item[], state: RecipeState): RecipeState =>
-    path.length === 0
-      ? state
-      : state.length <= path[0]
-      ? recipe(path, itms, [
-          ...state,
-          ...Array(path[0] + 1 - state.length).fill([])
-        ])
-      : state.toSpliced(
-          path[0],
-          1,
-          item(path.slice(1), itms[path[0]], state[path[0]])
-        );
-
-  const item = (path: Path, itm: Item, state: ItemState): ItemState =>
-    maybe
-      .from(itm.ref)
-      .andThen((ref) => guide.get(gde, ref))
-      .map<ItemState>((chnk) => [
-        chunk(path, chnk, state.length === 0 ? [] : state[0])
-      ])
-      .withDefault(state);
-
-  return guide
-    .getRoot(gde)
-    .map((chnk) => chunk(path, chnk, state))
-    .withDefault(state);
-}
+import { Path, State, MenuState, RecipeState, ItemState } from "./nav-guide";
+import { classMap } from "lit/directives/class-map.js";
 
 export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   const chunk = (path: Path, chnk: Chunk, state: State): HTMLTemplateResult =>
     chnk.content.type === "menu"
-      ? menu(path, chnk.title, chnk.content.items, state as MenuState)
-      : chnk.content.type === "recipe"
-      ? recipe(path, chnk.content.items, state as RecipeState)
-      : html`BAD CHUNK CONTENT`;
+      ? menu(path, chnk.title, chnk.content, state as MenuState)
+      : recipe(path, chnk.content, state as RecipeState);
 
-  const menu = (
-    path: Path,
-    title: string,
-    itms: Item[],
-    state: MenuState
-  ) => html`
+  const menu = (path: Path, title: string, mnu: Menu, state: MenuState) => html`
     <div>
       ${state.length === 0
         ? html`
             <h2>${title}</h2>
-            <menu>${itms.map((itm, n) => item([...path, n], itm, []))}</menu>
+            <menu
+              >${mnu.items.map((itm, n) =>
+                item([...path, n], itm, [], true, n)
+              )}</menu
+            >
           `
-        : item([...path, state[0]], itms[state[0]], state[1])}
+        : item([...path, state[0]], mnu.items[state[0]], state[1], false)}
     </div>
   `;
 
-  const recipe = (path: Path, itms: Item[], state: RecipeState) => html`
+  const recipe = (path: Path, rcpe: Recipe, state: RecipeState) => html`
     <ol>
       ${state.length === 0
-        ? item([...path, 0], itms[0], [])
-        : itms
+        ? item([...path, 0], rcpe.items[0], [], true)
+        : rcpe.items
             .slice(0, state.length)
-            .map((itm, n) => item([...path, n], itm, state[n]))}
+            .map((itm, idx) =>
+              item([...path, idx], itm, state[idx], idx === state.length - 1)
+            )}
     </ol>
   `;
 
-  const item = (path: Path, itm: Item, state: ItemState) => html`
-    <li
-      @click=${(e: MouseEvent) =>
-        e.target?.dispatchEvent(
-          new CustomEvent("guide-click", {
-            bubbles: true,
-            detail: { path: path }
-          })
-        )}
-    >
-      <p>${JSON.stringify(path)}: ${itm.text} -> ${itm.ref}</p>
+  const item = (
+    path: Path,
+    itm: Item,
+    state: ItemState,
+    isLive: boolean,
+    index?: number
+  ) => html`
+    <li class=${classMap({ live: isLive && state.length === 0 })}>
+      <p>
+        ${JSON.stringify(path)}: ${itm.text} -> ${itm.ref}
+        ${isLive && state.length === 0
+          ? [
+              index !== undefined || itm.ref !== undefined
+                ? html` <button
+                    @click=${(e: MouseEvent) =>
+                      e.target?.dispatchEvent(
+                        new CustomEvent("guide-expand", {
+                          bubbles: true,
+                          detail: { index: index }
+                        })
+                      )}
+                  >
+                    EXPAND
+                  </button>`
+                : nothing,
+              index === undefined
+                ? html`<button
+                    @click=${(e: MouseEvent) =>
+                      e.target?.dispatchEvent(
+                        new CustomEvent("guide-next", {
+                          bubbles: true
+                        })
+                      )}
+                  >
+                    NEXT
+                  </button> `
+                : nothing
+            ]
+          : nothing}
+      </p>
       ${state.length === 0
         ? nothing
         : maybe
@@ -115,84 +93,3 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     .map((chnk) => chunk([], chnk, state))
     .withDefault(html`MISSING ROOT`);
 }
-
-/*
-customElements.define("guide-chunk", GuideChunk);
-declare global {
-  interface HTMLELementTagNameMap {
-    "guide-chunk": GuideChunk;
-  }
-}
-
-class GuideContent extends GuideElement {
-  declare source: Content;
-
-  static properties = {
-    ...super.properties,
-    source: { attribute: false }
-  };
-}
-
-export class GuideMenu extends GuideContent {
-  #renderItem(n: number, item: Item, state: State) {
-    return html`<guide-item
-      .guide=${this.guide}
-      .source=${item}
-      .path=${[...this.path, n]}
-      .state=${state}
-    ></guide-item>`;
-  }
-
-  render() {
-    const [selection, childState] =
-      this.state instanceof Array ? this.state : [undefined, undefined];
-    return this.state instancef Array && this.
-      ? html`
-          <p>Choose one of these</p>
-          ${[...this.source.items.entries()].map(([idx, item]) =>
-            this.#renderItem(idx, item, [0, []])
-          )}
-        `
-      : selection < this.source.items.length
-      ? this.#renderItem(selection, this.source.items[selection], childState as State)
-      : html`INVALID STATE`;
-  }
-}
-
-customElements.define("guide-menu", GuideMenu);
-declare global {
-  interface HTMLELementTagNameMap {
-    "guide-menu": GuideMenu;
-  }
-}
-
-class GuideItem extends GuideElement {
-  declare source: Item;
-
-  static properties = {
-    ...super.properties,
-    source: { attribute: false }
-  };
-
-  render() {
-    const [selection, childStates] = this.state;
-    return selection === 0
-      ? html`<p>${this.source.text}</p>`
-      : selection === 1 && this.source.ref !== null
-      ? html` <guide-chunk
-          .guide=${this.guide}
-          .path=${this.path}
-          .state=${childStates[0]}
-          .chunkId=${this.source.ref}
-        ></guide-chunk>`
-      : html`INVALID STATE`;
-  }
-}
-
-customElements.define("guide-item", GuideItem);
-declare global {
-  interface HTMLELementTagNameMap {
-    "guide-item": GuideItem;
-  }
-}
-*/

@@ -32,8 +32,7 @@ a:hover {
 app-main {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  /*flex-wrap: wrap;*/
+  flex-wrap: wrap;
   flex: 0 0;
   margin: 0px;
   padding: 0px;
@@ -47,10 +46,11 @@ app-main li {
   display: contents;
 }
 
-app-main h2 {
-  width: 100%;
+.gone {
+  opacity: 0;
+  width: 0;
 }
-
+app-main h2,
 app-main li > p {
   display: block;
   margin: 0px;
@@ -59,4 +59,9 @@ app-main li > p {
   height: 200px;
   border: 5px solid black;
   border-radius: 10px;
+  transition: opacity 0.5s, width 0.5s 0.5s;
+}
+
+app-main li.live > p {
+  background-color: yellow;
 }

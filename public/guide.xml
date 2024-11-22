@@ -42,9 +42,9 @@
 
 <chunk id="search-for-the-word-font">
   <title>Search for the word "font"</title>
-  <menu>
+  <recipe>
     <item>Hello</item>
-  </menu>
+  </recipe>
 </chunk>
 
 <chunk id="make-the-phone-read-the-words-aloud">
