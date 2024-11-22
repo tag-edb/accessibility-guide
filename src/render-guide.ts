@@ -13,16 +13,14 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
 
   const menu = (path: Path, title: string, mnu: Menu, state: MenuState) => html`
     <div>
-      ${state.length === 0
-        ? html`
-            <h2>${title}</h2>
-            <menu
-              >${mnu.items.map((itm, n) =>
-                item([...path, n], itm, [], true, n)
-              )}</menu
-            >
-          `
-        : item([...path, state[0]], mnu.items[state[0]], state[1], false)}
+      <h2 class=${classMap({ live: state.length === 0 })}>${title}</h2>
+      <menu>
+        ${state.length === 0
+          ? html`
+              ${mnu.items.map((itm, n) => item([...path, n], itm, [], true, n))}
+            `
+          : item([...path, state[0]], mnu.items[state[0]], state[1], false)}
+      </menu>
     </div>
   `;
 

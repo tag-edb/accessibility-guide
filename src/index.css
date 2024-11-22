@@ -46,10 +46,6 @@ app-main li {
   display: contents;
 }
 
-.gone {
-  opacity: 0;
-  width: 0;
-}
 app-main h2,
 app-main li > p {
   display: block;
@@ -59,9 +55,16 @@ app-main li > p {
   height: 200px;
   border: 5px solid black;
   border-radius: 10px;
-  transition: opacity 0.5s, width 0.5s 0.5s;
+  transition: opacity 0.5s, width 0.5s 0.5s, display 0s 1s allow-discrete;
 }
 
-app-main li.live > p {
+app-main h2.live,
+li.live > p {
   background-color: yellow;
+}
+
+li:not(.live) {
+  opacity: 0;
+  width: 0;
+  display: none;
 }
