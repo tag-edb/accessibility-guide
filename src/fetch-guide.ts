@@ -52,7 +52,9 @@ function itemsFromXML(xml: Element): Maybe<Item[]> {
     Array.from(xml.querySelectorAll("item")).map((item) =>
       maybe.all({
         ref: maybe.just(item.getAttribute("ref")),
-        text: maybe.from(item.textContent)
+        text: maybe
+          .from(item.textContent?.trim())
+          .map((text) => (text.length === 0 ? null : text))
       })
     )
   );

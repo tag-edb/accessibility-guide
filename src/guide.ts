@@ -25,7 +25,7 @@ export type Content = Menu | Recipe;
 
 export type Item = {
   ref: Id | null;
-  text: string;
+  text: string | null;
 };
 
 export function get(guide: Guide, id: string): Maybe<Chunk> {

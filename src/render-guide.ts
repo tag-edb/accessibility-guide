@@ -6,88 +6,121 @@ import { Path, State, MenuState, RecipeState, ItemState } from "./nav-guide";
 import { classMap } from "lit/directives/class-map.js";
 
 export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
-  const chunk = (path: Path, chnk: Chunk, state: State): HTMLTemplateResult =>
+  const chunk = (
+    chnk: Chunk,
+    state: State,
+    live: boolean
+  ): HTMLTemplateResult =>
     chnk.content.type === "menu"
-      ? menu(path, chnk.title, chnk.content, state as MenuState)
-      : recipe(path, chnk.content, state as RecipeState);
+      ? menu(chnk.title, chnk.content, state as MenuState, live)
+      : recipe(chnk.content, state as RecipeState, live);
 
-  const menu = (path: Path, title: string, mnu: Menu, state: MenuState) => html`
-    <div>
-      <h2 class=${classMap({ live: state.length === 0 })}>${title}</h2>
-      <menu>
-        ${state.length === 0
-          ? html`
-              ${mnu.items.map((itm, n) => item([...path, n], itm, [], true, n))}
-            `
-          : item([...path, state[0]], mnu.items[state[0]], state[1], false)}
-      </menu>
-    </div>
-  `;
+  const menu = (
+    title: string,
+    mnu: Menu,
+    state: MenuState,
+    live: boolean
+  ): HTMLTemplateResult =>
+    html`
+      <div class="menu">
+        <div
+          class=${classMap({
+            item: true,
+            question: true,
+            live: live && state.length === 0
+          })}
+        >
+          <h2>${title}</h2>
+        </div>
+        <menu>
+          ${mnu.items.map((itm, n) =>
+            item(
+              itm,
+              state.length === 0 || state[0] !== n ? [] : state[1],
+              live && (state.length === 0 || state[0] === n),
+              n
+            )
+          )}
+        </menu>
+      </div>
+    `;
 
-  const recipe = (path: Path, rcpe: Recipe, state: RecipeState) => html`
-    <ol>
-      ${state.length === 0
-        ? item([...path, 0], rcpe.items[0], [], true)
-        : rcpe.items
-            .slice(0, state.length)
-            .map((itm, idx) =>
-              item([...path, idx], itm, state[idx], idx === state.length - 1)
-            )}
-    </ol>
-  `;
+  const recipe = (
+    rcpe: Recipe,
+    state: RecipeState,
+    live: boolean
+  ): HTMLTemplateResult =>
+    state.length === 0
+      ? recipe(rcpe, [[]], live)
+      : html`
+          <ol class="recipe">
+            ${rcpe.items
+              .slice(0, state.length)
+              .map((itm, idx) =>
+                item(itm, state[idx], live && idx === state.length - 1)
+              )}
+          </ol>
+        `;
 
   const item = (
-    path: Path,
     itm: Item,
     state: ItemState,
-    isLive: boolean,
+    live: boolean,
     index?: number
-  ) => html`
-    <li class=${classMap({ live: isLive && state.length === 0 })}>
-      <p>
-        ${JSON.stringify(path)}: ${itm.text} -> ${itm.ref}
-        ${isLive && state.length === 0
-          ? [
-              index !== undefined || itm.ref !== undefined
-                ? html` <button
-                    @click=${(e: MouseEvent) =>
-                      e.target?.dispatchEvent(
-                        new CustomEvent("guide-expand", {
-                          bubbles: true,
-                          detail: { index: index }
-                        })
-                      )}
-                  >
-                    EXPAND
-                  </button>`
-                : nothing,
-              index === undefined
-                ? html`<button
-                    @click=${(e: MouseEvent) =>
-                      e.target?.dispatchEvent(
-                        new CustomEvent("guide-next", {
-                          bubbles: true
-                        })
-                      )}
-                  >
-                    NEXT
-                  </button> `
-                : nothing
-            ]
-          : nothing}
-      </p>
-      ${state.length === 0
-        ? nothing
-        : maybe
-            .from(itm.ref)
-            .andThen((ref) => guide.get(gde, ref))
-            .map((ref) => chunk(path, ref, state[0]))
-            .withDefault("MISSING REFERENCE")}
-    </li>
-  `;
+  ): HTMLTemplateResult =>
+    html`
+      <li>
+        <div class=${classMap({ item: true, live: live })}>
+          <p>
+            ${itm.text ??
+            maybe
+              .from(itm.ref)
+              .andThen((ref) => guide.get(gde, ref))
+              .map((chnk) => chnk.title)
+              .withDefault("MISSING REFERENCE")}
+            ${live && state.length === 0
+              ? [
+                  index !== undefined || itm.ref !== null
+                    ? html` <button
+                        @click=${(e: MouseEvent) =>
+                          e.target?.dispatchEvent(
+                            new CustomEvent("guide-expand", {
+                              bubbles: true,
+                              detail: { index: index }
+                            })
+                          )}
+                      >
+                        EXPAND
+                      </button>`
+                    : nothing,
+                  index === undefined
+                    ? html`<button
+                        @click=${(e: MouseEvent) =>
+                          e.target?.dispatchEvent(
+                            new CustomEvent("guide-next", {
+                              bubbles: true
+                            })
+                          )}
+                      >
+                        NEXT
+                      </button> `
+                    : nothing
+                ]
+              : nothing}
+          </p>
+        </div>
+        ${state.length === 0
+          ? nothing
+          : maybe
+              .from(itm.ref)
+              .andThen((ref) => guide.get(gde, ref))
+              .map((chnk) => chunk(chnk, state[0], live))
+              .withDefault("MISSING REFERENCE")}
+      </li>
+    `;
 
   return guide
     .getRoot(gde)
-    .map((chnk) => chunk([], chnk, state))
+    .map((chnk) => chunk(chnk, state, true))
     .withDefault(html`MISSING ROOT`);
 }

@@ -3,6 +3,7 @@ export interface Maybe<T> {
   map2<U, V>(maybeY: Maybe<U>, f: (x: T, y: U) => V): Maybe<V>;
   andThen<U>(f: (x: T) => Maybe<U>): Maybe<U>;
   orElse<U>(maybeY: Maybe<U>): Maybe<T | U>;
+  filter(f: (x: T) => boolean): Maybe<T>;
   withDefault<U>(y: U): T | U;
   toPromise(): Promise<T>;
 }
@@ -30,6 +31,10 @@ export class Just<T> implements Maybe<T> {
     return this;
   }
 
+  filter(f: (x: T) => boolean): Maybe<T> {
+    return f(this.#value) ? this : new Nothing();
+  }
+
   withDefault<U>(_: U): T {
     return this.#value;
   }
@@ -54,6 +59,10 @@ export class Nothing<T> implements Maybe<T> {
 
   orElse<U>(maybeY: Maybe<U>): Maybe<U> {
     return maybeY;
+  }
+
+  filter(_: (_: T) => boolean): Nothing<T> {
+    return this;
   }
 
   withDefault<U>(y: U): U {

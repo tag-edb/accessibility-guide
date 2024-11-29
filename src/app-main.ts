@@ -22,7 +22,7 @@ customElements.define(
       super();
       this._guide = maybe.nothing();
       this._state = [];
-      fetchGuide("guide.xml").then((guide) => {
+      fetchGuide("guide-ai.xml").then((guide) => {
         this._guide = maybe.just(guide);
         history.replaceState(this._state, "");
         addEventListener("popstate", (e) => {

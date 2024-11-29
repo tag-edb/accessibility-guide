@@ -29,42 +29,130 @@ a:hover {
   }
 }
 
-app-main {
-  width: 100%;
+.wrap {
   display: flex;
-  flex-wrap: wrap;
-  flex: 0 0;
-  margin: 0px;
-  padding: 0px;
-  gap: 20px;
+  flex-direction: column-reverse;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  overflow: scroll;
 }
 
-app-main div,
+app-main,
+app-main div.menu,
 app-main menu,
 app-main ol,
 app-main li {
-  display: contents;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0;
+  margin: 0px;
+  padding: 0px;
 }
 
-app-main h2,
-app-main li > p {
+app-main menu {
+  flex-direction: row;
+  justify-content: center;
+}
+
+app-main .item {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+app-main .item > * {
+  position: relative;
+  left: 10px;
+  top: 10px;
   display: block;
+  box-sizing: border-box;
   margin: 0px;
   padding: 0px;
   width: 200px;
   height: 200px;
   border: 5px solid black;
   border-radius: 10px;
-  transition: opacity 0.5s, width 0.5s 0.5s, display 0s 1s allow-discrete;
+  background-color: white;
 }
 
-app-main h2.live,
-li.live > p {
-  background-color: yellow;
+:root {
+  --animation-unit: 2s;
 }
 
-li:not(.live) {
-  opacity: 0;
-  width: 0;
-  display: none;
+app-main .item.question:not(.live) {
+  animation: var(--animation-unit) var(--animation-unit) fade-out-shrink
+    forwards;
+}
+
+app-main :not(app-main) > .menu > .item.question.live,
+app-main :not(app-main) > .menu > menu > li > .item.live,
+app-main :not(app-main) > .recipe > li > .item.live {
+  animation: var(--animation-unit) calc(2 * var(--animation-unit)) grow-fade-in
+    backwards;
+}
+
+app-main :not(app-main) > .recipe > li:not(:first-child) > .item.live {
+  animation: calc(var(--animation-unit) / 2) fade-in backwards;
+}
+
+app-main menu > li > .item:not(.live) {
+  animation: var(--animation-unit) fade-out-shrink forwards;
+}
+
+@keyframes fade-out-shrink {
+  0% {
+    opacity: 1;
+    width: 220px;
+    height: 220px;
+  }
+
+  25% {
+    opacity: 0;
+    width: 220px;
+    height: 220px;
+  }
+
+  100% {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+  }
+}
+
+@keyframes grow-fade-in {
+  0% {
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+  }
+
+  50% {
+    opacity: 0;
+    width: 220px;
+    height: 220px;
+  }
+
+  100% {
+    opacity: 1;
+    width: 220px;
+    height: 220px;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    height: 0px;
+  }
+
+  100% {
+    opacity: 1;
+    height: 220px;
+  }
 }
