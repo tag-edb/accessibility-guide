@@ -4,13 +4,15 @@ import * as maybe from "./maybe";
 
 export type Path = number[];
 
-export type State = MenuState | RecipeState;
+export type State = { state: ChunkState; exhausted: boolean };
+
+export type ChunkState = MenuState | RecipeState;
 export type MenuState = [] | [number, ItemState];
 export type RecipeState = [] | ItemState[];
-export type ItemState = [] | [State];
+export type ItemState = [] | [ChunkState];
 
 export function expandItem(gde: Guide, state: State, index: number = 0): State {
-  const chunk = (chnk: Chunk, state: State): Maybe<State> =>
+  const chunk = (chnk: Chunk, state: ChunkState): Maybe<ChunkState> =>
     chnk.content.type === "menu"
       ? menu(chnk.content, state as MenuState)
       : recipe(chnk.content, state as RecipeState);
@@ -42,12 +44,13 @@ export function expandItem(gde: Guide, state: State, index: number = 0): State {
           .map((chunkState) => [chunkState]);
 
   return getRoot(gde)
-    .andThen((chnk) => chunk(chnk, state))
-    .withDefault(state);
+    .andThen((chnk) => chunk(chnk, state.state))
+    .map((chunkState) => ({ state: chunkState, exhausted: false }))
+    .withDefault({ state: state.state, exhausted: true });
 }
 
 export function nextItem(gde: Guide, state: State): State {
-  const chunk = (chnk: Chunk, state: State): Maybe<State> =>
+  const chunk = (chnk: Chunk, state: ChunkState): Maybe<ChunkState> =>
     chnk.content.type === "menu"
       ? menu(chnk.content, state as MenuState)
       : recipe(chnk.content, state as RecipeState);
@@ -81,6 +84,7 @@ export function nextItem(gde: Guide, state: State): State {
           .map((chunkState) => [chunkState]);
 
   return getRoot(gde)
-    .andThen((chnk) => chunk(chnk, state))
-    .withDefault(state);
+    .andThen((chnk) => chunk(chnk, state.state))
+    .map((chunkState) => ({ state: chunkState, exhausted: false }))
+    .withDefault({ state: state.state, exhausted: true });
 }

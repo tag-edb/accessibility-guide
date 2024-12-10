@@ -1,24 +1,37 @@
 import { html, HTMLTemplateResult, nothing } from "lit";
+import { Maybe } from "./maybe";
 import * as maybe from "./maybe";
 import { Guide, Chunk, Menu, Recipe, Item } from "./guide";
 import * as guide from "./guide";
-import { Path, State, MenuState, RecipeState, ItemState } from "./nav-guide";
+import {
+  ChunkState,
+  State,
+  MenuState,
+  RecipeState,
+  ItemState
+} from "./nav-guide";
 import { classMap } from "lit/directives/class-map.js";
 
 export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
+  const root = (rt: Chunk): HTMLTemplateResult =>
+    html`
+      ${chunk(rt, state.state, true)}
+      ${state.exhausted ? html`<h1>YOU'VE FINISHED!</h1>` : nothing}
+    `;
+
   const chunk = (
     chnk: Chunk,
-    state: State,
+    chunkState: ChunkState,
     live: boolean
   ): HTMLTemplateResult =>
     chnk.content.type === "menu"
-      ? menu(chnk.title, chnk.content, state as MenuState, live)
-      : recipe(chnk.content, state as RecipeState, live);
+      ? menu(chnk.title, chnk.content, chunkState as MenuState, live)
+      : recipe(chnk.content, chunkState as RecipeState, live);
 
   const menu = (
     title: string,
     mnu: Menu,
-    state: MenuState,
+    menuState: MenuState,
     live: boolean
   ): HTMLTemplateResult =>
     html`
@@ -27,17 +40,17 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
           class=${classMap({
             item: true,
             question: true,
-            live: live && state.length === 0
+            live: live && menuState.length === 0
           })}
         >
           <h2>${title}</h2>
         </div>
         <menu>
           ${mnu.items.map((itm, n) =>
-            item(
+            option(
               itm,
-              state.length === 0 || state[0] !== n ? [] : state[1],
-              live && (state.length === 0 || state[0] === n),
+              menuState.length === 0 || menuState[0] !== n ? [] : menuState[1],
+              live && (menuState.length === 0 || menuState[0] === n),
               n
             )
           )}
@@ -47,80 +60,107 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
 
   const recipe = (
     rcpe: Recipe,
-    state: RecipeState,
+    recipeState: RecipeState,
     live: boolean
   ): HTMLTemplateResult =>
-    state.length === 0
+    recipeState.length === 0
       ? recipe(rcpe, [[]], live)
       : html`
           <ol class="recipe">
             ${rcpe.items
-              .slice(0, state.length)
+              .slice(0, recipeState.length)
               .map((itm, idx) =>
-                item(itm, state[idx], live && idx === state.length - 1)
+                step(
+                  itm,
+                  recipeState[idx],
+                  live && idx === recipeState.length - 1
+                )
               )}
           </ol>
         `;
 
-  const item = (
+  const step = (
     itm: Item,
-    state: ItemState,
-    live: boolean,
-    index?: number
+    itemState: ItemState,
+    live: boolean
   ): HTMLTemplateResult =>
     html`
       <li>
         <div class=${classMap({ item: true, live: live })}>
           <p>
-            ${itm.text ??
-            maybe
-              .from(itm.ref)
-              .andThen((ref) => guide.get(gde, ref))
-              .map((chnk) => chnk.title)
-              .withDefault("MISSING REFERENCE")}
+            ${itemText(itm)}
+            ${!state.exhausted && live && itemState.length === 0
+              ? [
+                  itm.ref !== null
+                    ? choiceButton("HOW DO I DO THAT?", "guide-expand")
+                    : nothing,
+                  choiceButton("OKAY, WHAT'S NEXT", "guide-next")
+                ]
+              : nothing}
           </p>
-          ${live && state.length === 0
-            ? [
-                index !== undefined || itm.ref !== null
-                  ? html` <button
-                      @click=${(e: MouseEvent) =>
-                        e.target?.dispatchEvent(
-                          new CustomEvent("guide-expand", {
-                            bubbles: true,
-                            detail: { index: index }
-                          })
-                        )}
-                    >
-                      EXPAND
-                    </button>`
-                  : nothing,
-                index === undefined
-                  ? html`<button
-                      @click=${(e: MouseEvent) =>
-                        e.target?.dispatchEvent(
-                          new CustomEvent("guide-next", {
-                            bubbles: true
-                          })
-                        )}
-                    >
-                      NEXT
-                    </button> `
-                  : nothing
-              ]
-            : nothing}
         </div>
-        ${state.length === 0
+        ${itemState.length === 0
           ? nothing
-          : maybe
-              .from(itm.ref)
-              .andThen((ref) => guide.get(gde, ref))
-              .map((chnk) => chunk(chnk, state[0], live))
+          : itemLink(itm)
+              .map((chnk) => chunk(chnk, itemState[0], live))
               .withDefault("MISSING REFERENCE")}
       </li>
     `;
 
+  const option = (
+    itm: Item,
+    itemState: ItemState,
+    live: boolean,
+    index: number
+  ): HTMLTemplateResult =>
+    html`
+      <li>
+        <div class=${classMap({ item: true, live: live })}>
+          <p>
+            ${itemText(itm)}
+            ${!state.exhausted && live && itemState.length === 0
+              ? choiceButton("CHOOSE THIS", "guide-expand", { index: index })
+              : nothing}
+          </p>
+        </div>
+        ${itemState.length === 0
+          ? nothing
+          : itemLink(itm)
+              .map((chnk) => chunk(chnk, itemState[0], live))
+              .withDefault("MISSING REFERENCE")}
+      </li>
+    `;
+
+  const choiceButton = (
+    text: string,
+    eventType: string,
+    eventDetail?: any
+  ): HTMLTemplateResult =>
+    html`
+      <button
+        @click=${(e: MouseEvent) =>
+          e.target?.dispatchEvent(
+            new CustomEvent(eventType, {
+              bubbles: true,
+              detail: eventDetail
+            })
+          )}
+      >
+        ${text}
+      </button>
+    `;
+
+  const itemText = (itm: Item): string =>
+    itm.text ??
+    itemLink(itm)
+      .map((chnk) => chnk.title)
+      .withDefault("MISSING REFERENCE");
+
+  const itemLink = (itm: Item): Maybe<Chunk> =>
+    maybe.from(itm.ref).andThen((ref) => guide.get(gde, ref));
+
   return guide
     .getRoot(gde)
-    .map((chnk) => chunk(chnk, state, true))
+    .map((rt) => root(rt))
     .withDefault(html`MISSING ROOT`);
 }

@@ -18,6 +18,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -93,8 +94,13 @@ app-main .item.question:not(.live) {
 app-main :not(app-main) > .menu > .item.question.live,
 app-main :not(app-main) > .menu > menu > li > .item.live,
 app-main :not(app-main) > .recipe > li > .item.live {
-  animation: var(--animation-unit) calc(2 * var(--animation-unit)) grow-fade-in
-    backwards;
+  animation: var(--animation-unit) grow-fade-in backwards;
+}
+
+.menu > menu > li > .menu > .item.question.live,
+.menu > menu > li > .menu > menu > li > .item.live,
+.menu > menu > li > .recipe > li > .item.live {
+  animation-delay: var(--animation-unit);
 }
 
 app-main :not(app-main) > .recipe > li:not(:first-child) > .item.live {

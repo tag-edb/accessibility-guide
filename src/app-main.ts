@@ -21,7 +21,7 @@ customElements.define(
     constructor() {
       super();
       this._guide = maybe.nothing();
-      this._state = [];
+      this._state = { state: [], exhausted: false };
       fetchGuide("guide-ai.xml").then((guide) => {
         this._guide = maybe.just(guide);
         history.replaceState(this._state, "");
@@ -29,11 +29,12 @@ customElements.define(
           this._state = e.state;
         });
         this.addEventListener("guide-expand", (e) => {
-          this._state = expandItem(guide, this._state, e.detail.index);
+          this._state = expandItem(guide, this._state, e.detail?.index);
           history.pushState(this._state, "");
         });
         this.addEventListener("guide-next", () => {
           this._state = nextItem(guide, this._state);
+          history.pushState(this._state, "");
         });
       });
     }
