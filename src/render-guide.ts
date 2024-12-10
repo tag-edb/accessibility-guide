@@ -78,36 +78,36 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
               .andThen((ref) => guide.get(gde, ref))
               .map((chnk) => chnk.title)
               .withDefault("MISSING REFERENCE")}
-            ${live && state.length === 0
-              ? [
-                  index !== undefined || itm.ref !== null
-                    ? html` <button
-                        @click=${(e: MouseEvent) =>
-                          e.target?.dispatchEvent(
-                            new CustomEvent("guide-expand", {
-                              bubbles: true,
-                              detail: { index: index }
-                            })
-                          )}
-                      >
-                        EXPAND
-                      </button>`
-                    : nothing,
-                  index === undefined
-                    ? html`<button
-                        @click=${(e: MouseEvent) =>
-                          e.target?.dispatchEvent(
-                            new CustomEvent("guide-next", {
-                              bubbles: true
-                            })
-                          )}
-                      >
-                        NEXT
-                      </button> `
-                    : nothing
-                ]
-              : nothing}
           </p>
+          ${live && state.length === 0
+            ? [
+                index !== undefined || itm.ref !== null
+                  ? html` <button
+                      @click=${(e: MouseEvent) =>
+                        e.target?.dispatchEvent(
+                          new CustomEvent("guide-expand", {
+                            bubbles: true,
+                            detail: { index: index }
+                          })
+                        )}
+                    >
+                      EXPAND
+                    </button>`
+                  : nothing,
+                index === undefined
+                  ? html`<button
+                      @click=${(e: MouseEvent) =>
+                        e.target?.dispatchEvent(
+                          new CustomEvent("guide-next", {
+                            bubbles: true
+                          })
+                        )}
+                    >
+                      NEXT
+                    </button> `
+                  : nothing
+              ]
+            : nothing}
         </div>
         ${state.length === 0
           ? nothing
