@@ -86,29 +86,22 @@ app-main .item > * {
   --animation-unit: 2s;
 }
 
-app-main .item.question:not(.live) {
+.item {
+  animation: var(--animation-unit) grow-fade-in backwards;
+}
+
+.tree:not(.tip) > .question {
   animation: var(--animation-unit) var(--animation-unit) fade-out-shrink
     forwards;
 }
 
-app-main :not(app-main) > .menu > .item.question.live,
-app-main :not(app-main) > .menu > menu > li > .item.live,
-app-main :not(app-main) > .recipe > li > .item.live {
-  animation: var(--animation-unit) grow-fade-in backwards;
-}
-
-.menu > menu > li > .menu > .item.question.live,
-.menu > menu > li > .menu > menu > li > .item.live,
-.menu > menu > li > .recipe > li > .item.live {
-  animation-delay: var(--animation-unit);
-}
-
-app-main :not(app-main) > .recipe > li:not(:first-child) > .item.live {
-  animation: calc(var(--animation-unit) / 2) fade-in backwards;
-}
-
-app-main menu > li > .item:not(.live) {
+.dismissed {
   animation: var(--animation-unit) fade-out-shrink forwards;
+}
+
+.tree.menu > menu > li > .tree > .question,
+.tree.menu > menu > li > .tree > * > li > .item {
+  animation-delay: calc(2 * var(--animation-unit));
 }
 
 @keyframes fade-out-shrink {
@@ -118,7 +111,7 @@ app-main menu > li > .item:not(.live) {
     height: 220px;
   }
 
-  25% {
+  50% {
     opacity: 0;
     width: 220px;
     height: 220px;
