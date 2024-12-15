@@ -35,15 +35,15 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     live: boolean
   ): HTMLTemplateResult =>
     html`
-      <div
-        class=${classMap({
-          tree: true,
-          menu: true,
-          tip: live && menuState.length === 0
-        })}
-      >
-        <div class=${classMap({ item: true, question: true })}>
-          <h2>${title}</h2>
+      <div class="menu">
+        <div
+          class=${classMap({
+            item: true,
+            question: true,
+            live: live && menuState.length === 0
+          })}
+        >
+          <div>${title}</div>
         </div>
         <menu>
           ${mnu.items.map((itm, n) =>
@@ -66,13 +66,7 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     recipeState.length === 0
       ? recipe(rcpe, [[]], live)
       : html`
-          <ol
-            class=${classMap({
-              tree: true,
-              recipe: true,
-              tip: live && recipeState[recipeState.length - 1].length === 0
-            })}
-          >
+          <ol class="recipe">
             ${rcpe.items
               .slice(0, recipeState.length)
               .map((itm, idx) =>
@@ -92,7 +86,7 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   ): HTMLTemplateResult =>
     html`
       <li>
-        <div class="item">
+        <div class="item step live">
           <p>
             ${itemText(itm)}
             ${!state.exhausted && live && itemState.length === 0
@@ -121,7 +115,7 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   ): HTMLTemplateResult =>
     html`
       <li>
-        <div class=${classMap({ item: true, dismissed: !live })}>
+        <div class=${classMap({ item: true, option: true, live: live })}>
           <p>
             ${itemText(itm)}
             ${!state.exhausted && live && itemState.length === 0

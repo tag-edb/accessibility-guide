@@ -1,7 +1,11 @@
-.tip {
-  background: lightgreen;
+.item {
+  background: white;
 }
 
-.dismissed {
+.item.live {
+  background: yellow;
+}
+
+.item:not(.live) {
   background: red;
 }
