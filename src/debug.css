@@ -1,3 +1,7 @@
+.tip {
+  border: 2px solid green;
+}
+
 .item {
   background: white;
 }

@@ -35,7 +35,12 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     live: boolean
   ): HTMLTemplateResult =>
     html`
-      <div class="menu">
+      <div
+        class=${classMap({
+          menu: true,
+          tip: live && menuState.length === 0
+        })}
+      >
         <div
           class=${classMap({
             item: true,
@@ -66,7 +71,12 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     recipeState.length === 0
       ? recipe(rcpe, [[]], live)
       : html`
-          <ol class="recipe">
+          <ol
+            class=${classMap({
+              recipe: true
+              //tip: live && recipeState[recipeState.length - 1].length === 0
+            })}
+          >
             ${rcpe.items
               .slice(0, recipeState.length)
               .map((itm, idx) =>

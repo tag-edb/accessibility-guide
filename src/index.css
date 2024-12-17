@@ -35,6 +35,8 @@ a:hover {
   --item-width: 100%;
   --item-height: 100px;
   --item-margin: 10px;
+  --border-width: 5px;
+  --border-radius: 10px;
   --animation-unit: 0.5s;
 }
 
@@ -83,9 +85,22 @@ app-main .item > * {
   padding: 0px;
   width: calc(var(--item-width) - 2 * var(--item-margin));
   height: calc(var(--item-height) - 2 * var(--item-margin));
-  border: 5px solid black;
-  border-radius: 10px;
+  border: var(--border-width) solid black;
+  border-radius: var(--border-radius);
   background-color: white;
+}
+
+app-main .tip .item > * {
+  background: yellow;
+}
+
+app-main .menu.tip > menu {
+  padding-left: 100px;
+}
+
+app-main .menu:not(.tip) > menu {
+  transition: padding-left var(--animation-unit) var(--animation-unit);
+  padding-left: 0px;
 }
 
 .item.live {
