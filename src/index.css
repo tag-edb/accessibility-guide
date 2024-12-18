@@ -66,6 +66,12 @@ app-main li {
   border: none;
 }
 
+app-main button {
+  appearance: none;
+  font: inherit;
+  color: inherit;
+}
+
 app-main .item {
   width: var(--item-width);
   height: var(--item-height);
@@ -79,7 +85,7 @@ app-main .item > * {
   position: relative;
   left: var(--item-margin);
   top: var(--item-margin);
-  display: block;
+  display: flex;
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
@@ -90,15 +96,15 @@ app-main .item > * {
   background-color: white;
 }
 
-app-main .tip .item > * {
+app-main .current .item > * {
   background: yellow;
 }
 
-app-main .menu.tip > menu {
+app-main .menu.current > menu {
   padding-left: 100px;
 }
 
-app-main .menu:not(.tip) > menu {
+app-main .menu:not(.current) > menu {
   transition: padding-left var(--animation-unit) var(--animation-unit);
   padding-left: 0px;
 }
@@ -113,11 +119,10 @@ app-main .menu:not(.tip) > menu {
   animation-delay: calc(1.5 * var(--animation-unit));
 }
 
-.question:not(.live) {
-  animation: var(--animation-unit) fade-out-shrink forwards;
-}
-
-.option:not(.live) {
+app-main > .menu:not(.current) > .question,
+.menu > menu > li > .menu:not(.current) > .question,
+.recipe > li > .menu:not(.current) > menu > li > .item,
+.item:not(.live) {
   animation: var(--animation-unit) fade-out-shrink forwards;
 }
 

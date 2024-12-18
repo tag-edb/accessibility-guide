@@ -49,7 +49,7 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
             question: true,
             live: live
           },
-          html`${title}`
+          html`<p>${title}</p>`
         )}
         <menu>
           ${mnu.items.map((itm, n) =>
@@ -131,16 +131,12 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
       <li>
         ${item(
           { option: true, live: live },
-          html`
-            ${itemText(itm)}
-            ${current && itemState.length === 0
-              ? choiceButton(
-                  "CHOOSE THIS",
-                  itm.ref !== null ? "guide-expand" : "guide-next",
-                  eventDetail
-                )
-              : nothing}
-          `
+          choiceButton(
+            itemText(itm),
+            !(current && itemState.length === 0),
+            itm.ref !== null ? "guide-expand" : "guide-next",
+            eventDetail
+          )
         )}
         ${itemState.length === 0
           ? nothing
@@ -154,19 +150,17 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     classes: ClassInfo,
     content: HTMLTemplateResult
   ): HTMLTemplateResult =>
-    html`
-      <div class=${classMap({ ...classes, item: true })}>
-        <p>${content}</p>
-      </div>
-    `;
+    html` <div class=${classMap({ ...classes, item: true })}>${content}</div> `;
 
   const choiceButton = (
     text: string,
+    disabled: boolean,
     eventType: string,
     eventDetail?: any
   ): HTMLTemplateResult =>
     html`
       <button
+        ?disabled=${disabled}
         @click=${(e: MouseEvent) =>
           e.target?.dispatchEvent(
             new CustomEvent(eventType, {

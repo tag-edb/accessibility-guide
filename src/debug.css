@@ -14,5 +14,5 @@ app-main > .menu:not(.current) > .question,
 .menu > menu > li > .menu:not(.current) > .question,
 .recipe > li > .menu:not(.current) > menu > li > .item,
 .item:not(.live) {
-  text-decoration: line-through;
+  background: red;
 }
