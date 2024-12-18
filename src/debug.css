@@ -10,6 +10,9 @@
   background: yellow;
 }
 
+app-main > .menu:not(.current) > .question,
+.menu > menu > li > .menu:not(.current) > .question,
+.recipe > li > .menu:not(.current) > menu > li > .item,
 .item:not(.live) {
-  background: red;
+  text-decoration: line-through;
 }

@@ -10,58 +10,55 @@ import {
   RecipeState,
   ItemState
 } from "./nav-guide";
-import {
-  ClassInfo,
-  classMap,
-  ClassMapDirective
-} from "lit/directives/class-map.js";
-import { DirectiveResult } from "lit/async-directive.js";
+import { ClassInfo, classMap } from "lit/directives/class-map.js";
 
 export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   const root = (rt: Chunk): HTMLTemplateResult =>
     html`
-      ${chunk(rt, state.state, true)}
+      ${chunk(rt, state.state, true, !state.exhausted)}
       ${state.exhausted ? html`<h1>YOU'VE FINISHED!</h1>` : nothing}
     `;
 
   const chunk = (
     chnk: Chunk,
     chunkState: ChunkState,
-    live: boolean
+    live: boolean,
+    current: boolean
   ): HTMLTemplateResult =>
     chnk.content.type === "menu"
-      ? menu(chnk.title, chnk.content, chunkState as MenuState, live)
-      : recipe(chnk.content, chunkState as RecipeState, live);
+      ? menu(chnk.title, chnk.content, chunkState as MenuState, live, current)
+      : recipe(chnk.content, chunkState as RecipeState, live, current);
 
   const menu = (
     title: string,
     mnu: Menu,
     menuState: MenuState,
-    live: boolean
+    live: boolean,
+    current: boolean
   ): HTMLTemplateResult =>
     html`
       <div
         class=${classMap({
           menu: true,
-          tip: live && menuState.length === 0
+          live: live,
+          current: current && menuState.length === 0
         })}
       >
-        <div
-          class=${classMap({
-            item: true,
+        ${item(
+          {
             question: true,
-            live: live && menuState.length === 0
-          })}
-        >
-          <div>${title}</div>
-        </div>
+            live: live
+          },
+          html`${title}`
+        )}
         <menu>
           ${mnu.items.map((itm, n) =>
             option(
               itm,
               menuState.length === 0 || menuState[0] !== n ? [] : menuState[1],
               live && (menuState.length === 0 || menuState[0] === n),
-              n
+              current && (menuState.length === 0 || menuState[0] === n),
+              { index: n }
             )
           )}
         </menu>
@@ -71,15 +68,16 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   const recipe = (
     rcpe: Recipe,
     recipeState: RecipeState,
-    live: boolean
+    live: boolean,
+    current: boolean
   ): HTMLTemplateResult =>
     recipeState.length === 0
-      ? recipe(rcpe, [[]], live)
+      ? recipe(rcpe, [[]], live, current)
       : html`
           <ol
             class=${classMap({
-              recipe: true
-              //tip: live && recipeState[recipeState.length - 1].length === 0
+              recipe: true,
+              live: live
             })}
           >
             ${rcpe.items
@@ -88,7 +86,8 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
                 step(
                   itm,
                   recipeState[idx],
-                  live && idx === recipeState.length - 1
+                  live,
+                  current && idx === recipeState.length - 1
                 )
               )}
           </ol>
@@ -97,29 +96,27 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   const step = (
     itm: Item,
     itemState: ItemState,
-    live: boolean
+    live: boolean,
+    current: boolean
   ): HTMLTemplateResult =>
     html`
       <li>
-        ${item(
-          { step: true, live: true },
-          html`
-            ${itemText(itm)}
-            ${!state.exhausted && live && itemState.length === 0
-              ? [
-                  itm.ref !== null
-                    ? choiceButton("HOW DO I DO THAT?", "guide-expand")
-                    : nothing,
-                  choiceButton("OKAY, WHAT'S NEXT", "guide-next")
-                ]
-              : nothing}
-          `
+        ${menu(
+          itemText(itm),
+          {
+            type: "menu",
+            items: ([] as Item[])
+              .concat(
+                itm.ref !== null
+                  ? [{ ref: itm.ref, text: "HOW DO I DO THAT?" }]
+                  : []
+              )
+              .concat([{ ref: null, text: "OKAY, WHAT'S NEXT?" }])
+          },
+          itemState.length === 0 ? [] : [0, itemState],
+          live,
+          current
         )}
-        ${itemState.length === 0
-          ? nothing
-          : itemLink(itm)
-              .map((chnk) => chunk(chnk, itemState[0], live))
-              .withDefault("MISSING REFERENCE")}
       </li>
     `;
 
@@ -127,7 +124,8 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     itm: Item,
     itemState: ItemState,
     live: boolean,
-    index: number
+    current: boolean,
+    eventDetail?: any
   ): HTMLTemplateResult =>
     html`
       <li>
@@ -135,15 +133,19 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
           { option: true, live: live },
           html`
             ${itemText(itm)}
-            ${!state.exhausted && live && itemState.length === 0
-              ? choiceButton("CHOOSE THIS", "guide-expand", { index: index })
+            ${current && itemState.length === 0
+              ? choiceButton(
+                  "CHOOSE THIS",
+                  itm.ref !== null ? "guide-expand" : "guide-next",
+                  eventDetail
+                )
               : nothing}
           `
         )}
         ${itemState.length === 0
           ? nothing
           : itemLink(itm)
-              .map((chnk) => chunk(chnk, itemState[0], live))
+              .map((chnk) => chunk(chnk, itemState[0], live, current))
               .withDefault("MISSING REFERENCE")}
       </li>
     `;
