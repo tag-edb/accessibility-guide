@@ -10,7 +10,12 @@ import {
   RecipeState,
   ItemState
 } from "./nav-guide";
-import { classMap } from "lit/directives/class-map.js";
+import {
+  ClassInfo,
+  classMap,
+  ClassMapDirective
+} from "lit/directives/class-map.js";
+import { DirectiveResult } from "lit/async-directive.js";
 
 export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   const root = (rt: Chunk): HTMLTemplateResult =>
@@ -96,8 +101,9 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   ): HTMLTemplateResult =>
     html`
       <li>
-        <div class="item step live">
-          <p>
+        ${item(
+          { step: true, live: true },
+          html`
             ${itemText(itm)}
             ${!state.exhausted && live && itemState.length === 0
               ? [
@@ -107,8 +113,8 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
                   choiceButton("OKAY, WHAT'S NEXT", "guide-next")
                 ]
               : nothing}
-          </p>
-        </div>
+          `
+        )}
         ${itemState.length === 0
           ? nothing
           : itemLink(itm)
@@ -125,20 +131,31 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
   ): HTMLTemplateResult =>
     html`
       <li>
-        <div class=${classMap({ item: true, option: true, live: live })}>
-          <p>
+        ${item(
+          { option: true, live: live },
+          html`
             ${itemText(itm)}
             ${!state.exhausted && live && itemState.length === 0
               ? choiceButton("CHOOSE THIS", "guide-expand", { index: index })
               : nothing}
-          </p>
-        </div>
+          `
+        )}
         ${itemState.length === 0
           ? nothing
           : itemLink(itm)
               .map((chnk) => chunk(chnk, itemState[0], live))
               .withDefault("MISSING REFERENCE")}
       </li>
+    `;
+
+  const item = (
+    classes: ClassInfo,
+    content: HTMLTemplateResult
+  ): HTMLTemplateResult =>
+    html`
+      <div class=${classMap({ ...classes, item: true })}>
+        <p>${content}</p>
+      </div>
     `;
 
   const choiceButton = (
