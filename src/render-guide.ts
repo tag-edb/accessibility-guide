@@ -36,34 +36,41 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     live: boolean,
     current: boolean
   ): HTMLTemplateResult =>
-    html`
-      <div
-        class=${classMap({
-          menu: true,
-          live: live,
-          current: current && menuState.length === 0
-        })}
-      >
-        ${item(
-          {
-            question: true,
-            live: live
-          },
-          html`<p>${title}</p>`
-        )}
-        <menu>
-          ${mnu.items.map((itm, n) =>
-            option(
-              itm,
-              menuState.length === 0 || menuState[0] !== n ? [] : menuState[1],
-              live && (menuState.length === 0 || menuState[0] === n),
-              current && (menuState.length === 0 || menuState[0] === n),
-              { index: n }
-            )
-          )}
-        </menu>
-      </div>
-    `;
+    choiceList(
+      {
+        menu: true,
+        live: live,
+        current: current && menuState.length === 0
+      },
+      title,
+      mnu.items.map((itm, idx) =>
+        menuItem(
+          itm,
+          menuState.length === 0 || menuState[0] !== idx ? [] : menuState[1],
+          live && (menuState.length === 0 || menuState[0] === idx),
+          current && (menuState.length === 0 || menuState[0] === idx),
+          idx
+        )
+      )
+    );
+
+  const menuItem = (
+    itm: Item,
+    itemState: ItemState,
+    live: boolean,
+    current: boolean,
+    idx: number
+  ): ChoiceItem => ({
+    classes: { dismissed: !current },
+    text: itemText(itm),
+    disabled: !(current && itemState.length === 0),
+    event: { type: "guide-expand", detail: { index: idx } },
+    children: html`${itemState.length === 0
+      ? nothing
+      : itemLink(itm)
+          .map((chnk) => chunk(chnk, itemState[0], live, current))
+          .withDefault("MISSING REFERENCE")}`
+  });
 
   const recipe = (
     rcpe: Recipe,
@@ -74,12 +81,7 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     recipeState.length === 0
       ? recipe(rcpe, [[]], live, current)
       : html`
-          <ol
-            class=${classMap({
-              recipe: true,
-              live: live
-            })}
-          >
+          <ol class="recipe">
             ${rcpe.items
               .slice(0, recipeState.length)
               .map((itm, idx) =>
@@ -100,77 +102,41 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     current: boolean
   ): HTMLTemplateResult =>
     html`
-      <li>
-        ${menu(
+      <li class="step">
+        ${choiceList(
+          { current: current },
           itemText(itm),
-          {
-            type: "menu",
-            items: ([] as Item[])
-              .concat(
-                itm.ref !== null
-                  ? [{ ref: itm.ref, text: "HOW DO I DO THAT?" }]
-                  : []
-              )
-              .concat([{ ref: null, text: "OKAY, WHAT'S NEXT?" }])
-          },
-          itemState.length === 0 ? [] : [0, itemState],
-          live,
-          current
+          ([] as ChoiceItem[])
+            .concat(
+              itm.ref !== null
+                ? [
+                    {
+                      classes: {},
+                      text: "HOW DO I DO THAT?",
+                      disabled: !(current && itemState.length === 0),
+                      event: { type: "guide-expand", detail: { index: 0 } },
+                      children: html`${itemState.length === 0
+                        ? nothing
+                        : itemLink(itm)
+                            .map((chnk) =>
+                              chunk(chnk, itemState[0], live, current)
+                            )
+                            .withDefault("MISSING REFERENCE")}`
+                    }
+                  ]
+                : []
+            )
+            .concat([
+              {
+                classes: {},
+                text: "OKAY, WHAT'S NEXT?",
+                disabled: !(current && itemState.length === 0),
+                event: { type: "guide-next", detail: {} },
+                children: html``
+              }
+            ])
         )}
       </li>
-    `;
-
-  const option = (
-    itm: Item,
-    itemState: ItemState,
-    live: boolean,
-    current: boolean,
-    eventDetail?: any
-  ): HTMLTemplateResult =>
-    html`
-      <li>
-        ${item(
-          { option: true, live: live },
-          choiceButton(
-            itemText(itm),
-            !(current && itemState.length === 0),
-            itm.ref !== null ? "guide-expand" : "guide-next",
-            eventDetail
-          )
-        )}
-        ${itemState.length === 0
-          ? nothing
-          : itemLink(itm)
-              .map((chnk) => chunk(chnk, itemState[0], live, current))
-              .withDefault("MISSING REFERENCE")}
-      </li>
-    `;
-
-  const item = (
-    classes: ClassInfo,
-    content: HTMLTemplateResult
-  ): HTMLTemplateResult =>
-    html` <div class=${classMap({ ...classes, item: true })}>${content}</div> `;
-
-  const choiceButton = (
-    text: string,
-    disabled: boolean,
-    eventType: string,
-    eventDetail?: any
-  ): HTMLTemplateResult =>
-    html`
-      <button
-        ?disabled=${disabled}
-        @click=${(e: MouseEvent) =>
-          e.target?.dispatchEvent(
-            new CustomEvent(eventType, {
-              bubbles: true,
-              detail: eventDetail
-            })
-          )}
-      >
-        ${text}
-      </button>
     `;
 
   const itemText = (itm: Item): string =>
@@ -187,3 +153,66 @@ export function renderGuide(gde: Guide, state: State): HTMLTemplateResult {
     .map((rt) => root(rt))
     .withDefault(html`MISSING ROOT`);
 }
+
+type ChoiceItem = {
+  classes: ClassInfo;
+  text: string;
+  disabled: boolean;
+  event: { type: string; detail: any };
+  children: HTMLTemplateResult;
+};
+
+const choiceList = (
+  classes: ClassInfo,
+  title: string,
+  items: ChoiceItem[]
+): HTMLTemplateResult =>
+  html`
+    <div class=${classMap({ ...classes, choicelist: true })}>
+      ${item({ title: true }, html`<p>${title}</p>`)}
+      <menu>
+        ${items.map(
+          (itm) =>
+            html`<li>
+              ${item(
+                itm.classes,
+                choiceButton(
+                  itm.text,
+                  itm.disabled,
+                  itm.event.type,
+                  itm.event.detail
+                )
+              )}
+              ${itm.children}
+            </li>`
+        )}
+      </menu>
+    </div>
+  `;
+
+const item = (
+  classes: ClassInfo,
+  content: HTMLTemplateResult
+): HTMLTemplateResult =>
+  html` <div class=${classMap({ ...classes, item: true })}>${content}</div> `;
+
+const choiceButton = (
+  text: string,
+  disabled: boolean,
+  eventType: string,
+  eventDetail?: any
+): HTMLTemplateResult =>
+  html`
+    <button
+      ?disabled=${disabled}
+      @click=${(e: MouseEvent) =>
+        e.target?.dispatchEvent(
+          new CustomEvent(eventType, {
+            bubbles: true,
+            detail: eventDetail
+          })
+        )}
+    >
+      ${text}
+    </button>
+  `;

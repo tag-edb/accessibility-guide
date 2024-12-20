@@ -37,7 +37,7 @@ a:hover {
   --item-margin: 10px;
   --border-width: 5px;
   --border-radius: 10px;
-  --animation-unit: 0.5s;
+  --animation-unit: 2s;
 }
 
 .wrap {
@@ -105,25 +105,27 @@ app-main .menu.current > menu {
 }
 
 app-main .menu:not(.current) > menu {
-  transition: padding-left var(--animation-unit) var(--animation-unit);
+  transition: padding-left var(--animation-unit) calc(2 * var(--animation-unit));
   padding-left: 0px;
 }
 
 .item.live {
-  animation: var(--animation-unit) grow-fade-in backwards;
+  /*animation: var(--animation-unit) grow-fade-in backwards;*/
+  animation: var(--animation-unit) backwards fade-in;
 }
 
-.menu > menu > li > .menu > .question.live,
-.menu > menu > li > .menu > menu > li > .option.live,
-.menu > menu > li > .recipe > li:first-child > .step.live {
-  animation-delay: calc(1.5 * var(--animation-unit));
+li > .menu.current > .question.live,
+li > .menu > menu > li > .option.live,
+li > .recipe > li:first-child > .step.live {
+  animation-delay: calc(1 * var(--animation-unit));
 }
 
-app-main > .menu:not(.current) > .question,
-.menu > menu > li > .menu:not(.current) > .question,
+.menu:not(.current) > .question,
 .recipe > li > .menu:not(.current) > menu > li > .item,
 .item:not(.live) {
-  animation: var(--animation-unit) fade-out-shrink forwards;
+  /*animation: var(--animation-unit) forwards fade-out-shrink;*/
+  animation: var(--animation-unit) forwards fade-out,
+    var(--animation-unit) var(--animation-unit) forwards shrink;
 }
 
 @keyframes fade-out-shrink {
@@ -146,6 +148,20 @@ app-main > .menu:not(.current) > .question,
   }
 }
 
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes shrink {
+  to {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
+}
+
 @keyframes grow-fade-in {
   0% {
     opacity: 0;
@@ -163,5 +179,23 @@ app-main > .menu:not(.current) > .question,
     opacity: 1;
     width: var(--item-width);
     height: var(--item-height);
+  }
+}
+
+@keyframes grow {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  100% {
+    width: var(--item-width);
+    height: var(--item-height);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    display: none;
+    opacity: 0;
   }
 }
