@@ -2,9 +2,10 @@ import { LitElement, html } from "lit";
 import { Guide } from "./guide";
 import { fetchGuide } from "./fetch-guide";
 import { State, expandItem, nextItem } from "./nav-guide";
-import { renderGuide } from "./render-guide";
+import { renderUI } from "./render-ui";
 import { Maybe } from "./maybe";
 import * as maybe from "./maybe";
+import { createUI } from "./create-ui";
 
 customElements.define(
   "app-main",
@@ -44,8 +45,10 @@ customElements.define(
     }
 
     render() {
+      this._guide.map((guide) => console.log(createUI(guide, this._state)));
       return this._guide
-        .map((guide) => renderGuide(guide, this._state))
+        .andThen((guide) => createUI(guide, this._state))
+        .map((guideUI) => renderUI(guideUI))
         .withDefault(html`<h1>GUIDE NOT LOADED</h1>`);
     }
   }

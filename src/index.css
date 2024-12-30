@@ -37,7 +37,7 @@ a:hover {
   --item-margin: 10px;
   --border-width: 5px;
   --border-radius: 10px;
-  --animation-unit: 2s;
+  --animation-unit: 0.5s;
 }
 
 .wrap {
@@ -52,7 +52,7 @@ a:hover {
 }
 
 app-main,
-app-main .menu,
+app-main .choicelist,
 app-main menu,
 app-main ol,
 app-main li {
@@ -96,56 +96,21 @@ app-main .item > * {
   background-color: white;
 }
 
-app-main .current .item > * {
-  background: yellow;
+app-main .item {
+  animation: var(--animation-unit) var(--animation-unit) backwards grow,
+    var(--animation-unit) calc(2 * var(--animation-unit)) backwards fade-in;
 }
 
-app-main .menu.current > menu {
-  padding-left: 100px;
+app-main > .menu > .title,
+app-main > .menu > menu > li > .item {
+  animation: none;
 }
 
-app-main .menu:not(.current) > menu {
-  transition: padding-left var(--animation-unit) calc(2 * var(--animation-unit));
-  padding-left: 0px;
-}
-
-.item.live {
-  /*animation: var(--animation-unit) grow-fade-in backwards;*/
-  animation: var(--animation-unit) backwards fade-in;
-}
-
-li > .menu.current > .question.live,
-li > .menu > menu > li > .option.live,
-li > .recipe > li:first-child > .step.live {
-  animation-delay: calc(1 * var(--animation-unit));
-}
-
-.menu:not(.current) > .question,
-.recipe > li > .menu:not(.current) > menu > li > .item,
-.item:not(.live) {
-  /*animation: var(--animation-unit) forwards fade-out-shrink;*/
+.menu:not(.current) > .title,
+.menu:not(.current) > menu > li:not(.selected) > .item,
+.recipe > li > .choicelist:not(.current) > menu > li > .item {
   animation: var(--animation-unit) forwards fade-out,
     var(--animation-unit) var(--animation-unit) forwards shrink;
-}
-
-@keyframes fade-out-shrink {
-  0% {
-    opacity: 1;
-    width: var(--item-width);
-    height: var(--item-height);
-  }
-
-  50% {
-    opacity: 0;
-    width: var(--item-width);
-    height: var(--item-height);
-  }
-
-  100% {
-    opacity: 0;
-    width: 0px;
-    height: 0px;
-  }
 }
 
 @keyframes fade-out {
@@ -162,40 +127,16 @@ li > .recipe > li:first-child > .step.live {
   }
 }
 
-@keyframes grow-fade-in {
-  0% {
-    opacity: 0;
-    width: 0px;
-    height: 0px;
-  }
-
-  50% {
-    opacity: 0;
-    width: var(--item-width);
-    height: var(--item-height);
-  }
-
-  100% {
-    opacity: 1;
-    width: var(--item-width);
-    height: var(--item-height);
-  }
-}
-
 @keyframes grow {
-  0% {
+  from {
+    display: none;
     width: 0px;
     height: 0px;
-  }
-  100% {
-    width: var(--item-width);
-    height: var(--item-height);
   }
 }
 
 @keyframes fade-in {
   from {
-    display: none;
     opacity: 0;
   }
 }

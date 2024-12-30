@@ -1,11 +1,13 @@
+.selected {
+  border: 2px solid blue;
+}
+
 .current {
   border: 2px solid green;
 }
 
-.item:not(.live) {
+.menu:not(.current) > .title,
+.menu:not(.current) > menu > li:not(.selected) > .item,
+.recipe > li > .choicelist:not(.current) > menu > li > .item {
   background: grey;
-}
-
-.item.live {
-  background: yellow;
 }
