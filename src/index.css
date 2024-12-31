@@ -108,10 +108,18 @@ app-main .item > * {
   padding: 10px;
   width: calc(var(--item-width) - 3 * var(--item-margin) - var(--icon-width));
   height: calc(var(--item-height) - 2 * var(--item-margin));
-  border: var(--border-width) solid black;
+  border: var(--border-width) solid gray;
   border-radius: var(--border-radius);
   background-color: white;
+  color: gray;
   font-size: larger;
+  font-weight: normal;
+}
+
+app-main .current .item > * {
+  color: black;
+  font-weight: bold;
+  border-color: black;
 }
 
 app-main .item {
