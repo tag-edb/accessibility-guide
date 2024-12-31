@@ -87,19 +87,21 @@ app-main button {
 }
 
 app-main .item {
+  position: relative;
   width: var(--item-width);
   height: var(--item-height);
   opacity: 1;
   overflow: hidden;
   margin: 0px;
   padding: 0px;
-  display: flex;
+  /*display: flex;*/
+  display: block;
 }
 
 app-main .item > * {
-  position: relative;
-  left: var(--item-margin);
+  position: absolute;
   top: var(--item-margin);
+  left: calc(var(--icon-width) + 2 * var(--item-margin));
   display: flex;
   box-sizing: border-box;
   margin: 0px;
@@ -130,6 +132,10 @@ app-main .recipe > li > .choicelist:not(.current) > menu > li > .item {
 }
 
 app-main .item::before {
+  position: absolute;
+  top: var(--item-margin);
+  left: var(--item-margin);
+  height: calc(var(--item-height) - 2 * var(--item-margin));
   display: flex;
   flex-direction: column;
   justify-content: center;
