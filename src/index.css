@@ -54,6 +54,7 @@ body {
   bottom: 0px;
   right: 0px;
   overflow: hidden;
+  background: lightgray;
 }
 
 .wrap {
@@ -77,6 +78,11 @@ app-main h1 {
   margin: 0px;
   padding: 0px;
   border: none;
+}
+
+app-main .choicelist.current {
+  background: white;
+  box-shadow: inset 0px 0px 10px 10px #61bf6a;
 }
 
 app-main button {
@@ -108,7 +114,7 @@ app-main .item > * {
   padding: 10px;
   width: calc(var(--item-width) - 3 * var(--item-margin) - var(--icon-width));
   height: calc(var(--item-height) - 2 * var(--item-margin));
-  border: var(--border-width) solid gray;
+  border: var(--border-width) solid darkgray;
   border-radius: var(--border-radius);
   background-color: white;
   color: gray;
