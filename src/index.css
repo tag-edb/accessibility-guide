@@ -35,6 +35,8 @@ a:hover {
   --item-width: 100%;
   --item-height: 100px;
   --item-margin: 10px;
+  --icon-width: 50px;
+  --icon-size: 40px;
   --border-width: 5px;
   --border-radius: 10px;
   --animation-unit: 0.5s;
@@ -91,6 +93,7 @@ app-main .item {
   overflow: hidden;
   margin: 0px;
   padding: 0px;
+  display: flex;
 }
 
 app-main .item > * {
@@ -101,7 +104,7 @@ app-main .item > * {
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
-  width: calc(var(--item-width) - 2 * var(--item-margin));
+  width: calc(var(--item-width) - 2 * var(--item-margin) - var(--icon-width));
   height: calc(var(--item-height) - 2 * var(--item-margin));
   border: var(--border-width) solid black;
   border-radius: var(--border-radius);
@@ -118,11 +121,30 @@ app-main > .menu > menu > li > .item {
   animation: none;
 }
 
-.menu:not(.current) > .title,
-.menu:not(.current) > menu > li:not(.selected) > .item,
-.recipe > li > .choicelist:not(.current) > menu > li > .item {
+app-main .menu:not(.current) > .title,
+app-main .menu:not(.current) > menu > li:not(.selected) > .item,
+app-main .recipe > li > .choicelist:not(.current) > menu > li > .item {
   animation: var(--animation-unit) forwards fade-out,
     var(--animation-unit) var(--animation-unit) forwards shrink;
+}
+
+app-main .item::before {
+  font-size: var(--icon-size);
+  width: var(--icon-width);
+  content: "✔️";
+}
+
+app-main .menu > .title::before {
+  content: "🤔";
+}
+
+app-main .step.current > .title::before {
+  content: "😀";
+}
+
+app-main menu > li:not(.selected) > .item::before,
+.step > menu > li > .item::before {
+  content: "💭";
 }
 
 @keyframes fade-out {
