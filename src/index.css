@@ -129,6 +129,9 @@ app-main .recipe > li > .choicelist:not(.current) > menu > li > .item {
 }
 
 app-main .item::before {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-size: var(--icon-size);
   width: var(--icon-width);
   content: "✔️";
