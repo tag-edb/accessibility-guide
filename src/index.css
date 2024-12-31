@@ -40,22 +40,33 @@ a:hover {
   --animation-unit: 0.5s;
 }
 
-.wrap {
+body {
   display: flex;
-  flex-direction: column; /*column-reverse*/
+  flex-direction: column;
+  flex: auto 1 1;
+  margin: 0px;
+  padding: 0px;
   position: absolute;
   top: 0px;
   left: 0px;
   bottom: 0px;
   right: 0px;
-  overflow: scroll;
+  overflow: hidden;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 app-main,
 app-main .choicelist,
 app-main menu,
 app-main ol,
-app-main li {
+app-main li,
+app-main h1 {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -70,6 +81,7 @@ app-main button {
   appearance: none;
   font: inherit;
   color: inherit;
+  text-align: inherit;
 }
 
 app-main .item {
