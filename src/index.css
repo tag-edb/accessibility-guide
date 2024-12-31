@@ -106,12 +106,12 @@ app-main .item > * {
   box-sizing: border-box;
   margin: 0px;
   padding: 10px;
-  width: calc(var(--item-width) - 2 * var(--item-margin) - var(--icon-width));
+  width: calc(var(--item-width) - 3 * var(--item-margin) - var(--icon-width));
   height: calc(var(--item-height) - 2 * var(--item-margin));
   border: var(--border-width) solid black;
   border-radius: var(--border-radius);
   background-color: white;
-  font-size: large;
+  font-size: larger;
 }
 
 app-main .item {
