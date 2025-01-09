@@ -185,9 +185,16 @@ app-main .step.current > .title::before {
   content: "😀👉";
 }
 
-app-main menu > li:not(.selected) > .item::before,
-.step > menu > li > .item::before {
+app-main menu > li:not(.selected) > .item.option::before {
   content: "💭";
+}
+
+app-main .step > menu > li > .item.expand::before {
+  content: "❓";
+}
+
+app-main .step > menu > li > .item.next::before {
+  content: "✔️";
 }
 
 @keyframes fade-out {

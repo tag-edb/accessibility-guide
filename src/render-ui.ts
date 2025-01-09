@@ -20,7 +20,12 @@ const chunk = (chnk: ChunkUI): HTMLTemplateResult =>
   chnk.type === "menu" ? menu(chnk) : recipe(chnk);
 
 const menu = (mnu: MenuUI): HTMLTemplateResult =>
-  choiceList({ menu: true }, mnu.current, mnu.title, mnu.choices);
+  choiceList(
+    { menu: true },
+    mnu.current,
+    mnu.title,
+    mnu.choices.map((chc) => ({ classes: { option: true }, ui: chc }))
+  );
 
 const recipe = (rcpe: RecipeUI): HTMLTemplateResult =>
   html`
@@ -33,8 +38,10 @@ const step = (stp: StepUI): HTMLTemplateResult =>
   html`
     <li class="step">
       ${choiceList({ step: true }, stp.current, stp.text, [
-        ...stp.expand.map((chc) => [chc]).withDefault([]),
-        stp.next
+        ...stp.expand
+          .map((chc) => [{ classes: { expand: true }, ui: chc }])
+          .withDefault([]),
+        { classes: { next: true }, ui: stp.next }
       ])}
     </li>
   `;
@@ -43,7 +50,7 @@ const choiceList = (
   classes: ClassInfo,
   current: boolean,
   title: string,
-  choices: ChoiceUI[]
+  choices: { classes: ClassInfo; ui: ChoiceUI }[]
 ): HTMLTemplateResult =>
   html`
     <div class=${classMap({ ...classes, current: current, choicelist: true })}>
@@ -52,17 +59,17 @@ const choiceList = (
         ${choices.map(
           (chc) =>
             html`
-              <li class=${classMap({ selected: chc.children.length > 0 })}>
+              <li class=${classMap({ selected: chc.ui.children.length > 0 })}>
                 ${item(
-                  {},
+                  chc.classes,
                   choiceButton(
-                    chc.text,
+                    chc.ui.text,
                     !current,
-                    chc.event.type,
-                    chc.event.detail
+                    chc.ui.event.type,
+                    chc.ui.event.detail
                   )
                 )}
-                ${chc.children.map((chnk) => chunk(chnk))}
+                ${chc.ui.children.map((chnk) => chunk(chnk))}
               </li>
             `
         )}
