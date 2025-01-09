@@ -36,7 +36,14 @@ const recipe = (rcpe: RecipeUI): HTMLTemplateResult =>
 
 const step = (stp: StepUI): HTMLTemplateResult =>
   html`
-    <li class="step">
+    <li
+      class=${classMap({
+        step: true,
+        expanded: stp.expand
+          .map((chc) => chc.children.length > 0)
+          .withDefault(false)
+      })}
+    >
       ${choiceList({ step: true }, stp.current, stp.text, [
         ...stp.expand
           .map((chc) => [{ classes: { expand: true }, ui: chc }])

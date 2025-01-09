@@ -181,7 +181,8 @@ app-main .menu > .title::before {
   content: "🤔";
 }
 
-app-main .step.current > .title::before {
+app-main .step.current > .title::before,
+app-main .step:not(.expanded) > .choicelist > .title::before {
   content: "😀👉";
 }
 
