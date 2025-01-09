@@ -1,9 +1,10 @@
-start = chunks
-chunks = element chunks {chunk+}
-chunk = element chunk {id, title, (menu|recipe)+}
+start = guide
+guide = element guide {(menu|recipe)+}
 id = attribute id {xsd:ID}
-title = element title {text}
-menu = element menu {item+}
-recipe = element recipe {item+}
-item = element item {ref?, text}
 ref = attribute ref {xsd:IDREF}
+menu = element menu {id, prompt, choice+}
+prompt = element prompt {text}
+choice = element choice {ref?, text}
+recipe = element recipe {id, summary, step+}
+summary = element summary {text}
+step = element step {ref?, text}

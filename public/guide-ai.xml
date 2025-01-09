@@ -1,239 +1,183 @@
 <?xml-model href="guide.rnc"?>
-<chunks>
-  <chunk id="root">
-    <title>What would make your phone easier to use?</title>
-    <menu>
-      <item ref="improve-text-readability">Make the text easier to read</item>
-      <item ref="improve-touch-sensitivity">Make the screen easier to tap</item>
-      <item ref="improve-hearing-accessibility">Make the phone easier to hear</item>
-      <item ref="improve-motor-accessibility">Make the phone easier to use if you can't move much</item>
-      <item ref="improve-visual-accessibility">Make the phone easier to see</item>
-    </menu>
-  </chunk>
-  <chunk id="improve-text-readability">
-    <title>What would make the text easier to read?</title>
-    <menu>
-      <item ref="increase-font-size">Make the letters and words bigger</item>
-      <item ref="adjust-display-brightness">Adjust the screen brightness</item>
-      <item ref="enable-dark-theme">Use a darker screen background</item>
-      <item ref="adjust-text-contrast">Make the writing easier to see</item>
-      <item ref="use-screen-magnifier">Zoom in on the screen</item>
-      <item ref="use-screen-reader">Have the phone read the screen aloud</item>
-    </menu>
-  </chunk>
-  <chunk id="open-app-drawer">
-    <title>Open the app drawer</title>
-    <recipe>
-      <item>Swipe up on the home screen.</item>
-    </recipe>
-  </chunk>
-  <chunk id="open-settings">
-    <title>Open Settings</title>
-    <recipe>
-      <item ref="open-app-drawer"/>
-      <item>Tap the Settings app icon.</item>
-    </recipe>
-  </chunk>
-  <chunk id="increase-font-size">
-    <title>Make the text bigger</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Display &amp; Text Size"</item>
-      <item>Tap "Font size"</item>
-      <item>Drag the slider to the right.</item>
-    </recipe>
-  </chunk>
-  <chunk id="adjust-display-brightness">
-    <title>Adjust the screen brightness</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Display &amp; Text Size"</item>
-      <item>Tap "Brightness"</item>
-      <item>Drag the slider up or down.</item>
-    </recipe>
-  </chunk>
-  <chunk id="enable-dark-theme">
-    <title>Enable dark theme</title>
-    <menu>
-      <item ref="enable-dark-theme-always-on">Turn the dark theme on all the time</item>
-      <item ref="enable-dark-theme-scheduled">Turn the dark theme on at certain times</item>
-    </menu>
-  </chunk>
-  <chunk id="enable-dark-theme-always-on">
-    <title>Turn dark theme on all the time</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Display &amp; Text Size"</item>
-      <item>Tap "Dark theme"</item>
-      <item>Tap "Always on"</item>
-    </recipe>
-  </chunk>
-  <chunk id="enable-dark-theme-scheduled">
-    <title>Turn dark theme on at certain times</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Display &amp; Text Size"</item>
-      <item>Tap "Dark theme"</item>
-      <item>Toggle the switch on.</item>
-    </recipe>
-  </chunk>
-  <chunk id="adjust-text-contrast">
-    <title>Make the writing easier to see</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Accessibility"</item>
-      <item>Tap "Display size &amp; text"</item>
-      <item>Tap "Font style"</item>
-      <item>Choose a style that is easier to see.</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-screen-magnifier">
-    <title>Zoom in on the screen</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Accessibility"</item>
-      <item>Tap "Magnifier"</item>
-      <item>Turn on the switch.</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-screen-reader">
-    <title>Have the phone read the screen aloud</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Accessibility"</item>
-      <item>Tap "Accessibility features"</item>
-      <item>Tap "TalkBack"</item>
-      <item>Turn on the switch.</item>
-    </recipe>
-  </chunk>
-  <chunk id="improve-touch-sensitivity">
-    <title>What would make the screen easier to tap?</title>
-    <menu>
-      <item ref="adjust-touch-sensitivity">Make the screen more sensitive to taps</item>
-      <item ref="use-screen-magnifier">Zoom in on the screen for more precise taps</item>
-    </menu>
-  </chunk>
-  <chunk id="adjust-touch-sensitivity">
-    <title>Make the screen more sensitive to taps</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "System"</item>
-      <item>Tap "Display"</item>
-      <item>Tap "Touch sensitivity"</item>
-      <item>Move the slider to change the sensitivity.</item>
-    </recipe>
-  </chunk>
-  <chunk id="improve-hearing-accessibility">
-    <title>What would make the phone easier to hear?</title>
-    <menu>
-      <item ref="adjust-ringtone-volume">Make ringtones louder or quieter</item>
-      <item ref="adjust-media-volume">Make sounds from apps louder or quieter</item>
-      <item ref="use-vibration-alerts">Make the phone vibrate for notifications</item>
-      <item ref="use-closed-captioning">Turn on captions for videos and TV shows</item>
-      <item ref="use-hearing-aids">Use hearing aids</item>
-    </menu>
-  </chunk>
-  <chunk id="adjust-ringtone-volume">
-    <title>Adjust ringtone volume</title>
-    <recipe>
-      <item>Press the volume buttons on the side of the phone.</item>
-    </recipe>
-  </chunk>
-  <chunk id="adjust-media-volume">
-    <title>Adjust media volume</title>
-    <recipe>
-      <item>Press the volume buttons on the side of the phone while playing media.</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-vibration-alerts">
-    <title>Use vibration alerts</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Sound &amp; vibration"</item>
-      <item>Turn on "Vibration"</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-closed-captioning">
-    <title>Use closed captioning</title>
-    <recipe>
-      <item>Open the app you want to use closed captioning with.</item>
-      <item>Look for a closed captioning button or setting within the app.</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-hearing-aids">
-    <title>Use hearing aids</title>
-    <recipe>
-      <item>Make sure your hearing aids work with your phone.</item>
-      <item>Pair your hearing aids with your phone following the manufacturer's instructions.</item>
-    </recipe>
-  </chunk>
-  <chunk id="improve-motor-accessibility">
-    <title>What would make the phone easier to use if you can't move much?</title>
-    <menu>
-      <item ref="use-voice-commands">Use voice commands</item>
-      <item ref="use-one-handed-mode">Use one-handed mode</item>
-      <item ref="adjust-touch-sensitivity">Make the screen more sensitive to taps</item>
-      <item ref="use-assistive-touch">Use assistive touch</item>
-    </menu>
-  </chunk>
-  <chunk id="use-voice-commands">
-    <title>Use voice commands</title>
-    <recipe>
-      <item>Say "Hey Google" or press the voice command button.</item>
-      <item>Tell the phone what you want to do.</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-one-handed-mode">
-    <title>Use one-handed mode</title>
-    <recipe>
-      <item>Swipe down from the top right corner of the screen.</item>
-      <item>Tap the One-handed mode button.</item>
-    </recipe>
-  </chunk>
-  <chunk id="use-assistive-touch">
-    <title>Use assistive touch</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Accessibility"</item>
-      <item>Tap "Accessibility features"</item>
-      <item>Tap "Assistive Touch"</item>
-      <item>Turn on the switch.</item>
-    </recipe>
-  </chunk>
-  <chunk id="improve-visual-accessibility">
-    <title>What would make the phone easier to see?</title>
-    <menu>
-      <item ref="adjust-color-correction">Adjust color correction</item>
-      <item ref="adjust-display-size">Adjust display size</item>
-      <item ref="invert-colors">Invert colors</item>
-    </menu>
-  </chunk>
-  <chunk id="adjust-color-correction">
-    <title>Adjust color correction</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Accessibility"</item>
-      <item>Tap "Display size &amp; text"</item>
-      <item>Tap "Color correction"</item>
-      <item>Adjust the color correction settings to your preference.</item>
-    </recipe>
-  </chunk>
-  <chunk id="adjust-display-size">
-    <title>Adjust display size</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Display"</item>
-      <item>Tap "Display size"</item>
-      <item>Adjust the display size to your preference.</item>
-    </recipe>
-  </chunk>
-  <chunk id="invert-colors">
-    <title>Invert colors</title>
-    <recipe>
-      <item ref="open-settings"/>
-      <item>Tap "Accessibility"</item>
-      <item>Tap "Display size &amp; text"</item>
-      <item>Turn on "Invert colors"</item>
-    </recipe>
-  </chunk>
-</chunks>
+<guide>
+  <menu id="root">
+    <prompt>What would make your phone easier to use?</prompt>
+    <choice ref="improve-text-readability">Make the text easier to read</choice>
+    <choice ref="improve-touch-sensitivity">Make the screen easier to tap</choice>
+    <choice ref="improve-hearing-accessibility">Make the phone easier to hear</choice>
+    <choice ref="improve-motor-accessibility">Make the phone easier to use if you can't move much</choice>
+    <choice ref="improve-visual-accessibility">Make the phone easier to see</choice>
+  </menu>
+  <menu id="improve-text-readability">
+    <prompt>What would make the text easier to read?</prompt>
+    <choice ref="increase-font-size">Make the letters and words bigger</choice>
+    <choice ref="adjust-display-brightness">Adjust the screen brightness</choice>
+    <choice ref="enable-dark-theme">Use a darker screen background</choice>
+    <choice ref="adjust-text-contrast">Make the writing easier to see</choice>
+    <choice ref="use-screen-magnifier">Zoom in on the screen</choice>
+    <choice ref="use-screen-reader">Have the phone read the screen aloud</choice>
+  </menu>
+  <recipe id="open-app-drawer">
+    <summary>Open the app drawer</summary>
+    <step>Swipe up on the home screen.</step>
+  </recipe>
+  <recipe id="open-settings">
+    <summary>Open Settings</summary>
+    <step ref="open-app-drawer"/>
+    <step>Tap the Settings app icon.</step>
+  </recipe>
+  <recipe id="increase-font-size">
+    <summary>Make the text bigger</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Display &amp; Text Size"</step>
+    <step>Tap "Font size"</step>
+    <step>Drag the slider to the right.</step>
+  </recipe>
+  <recipe id="adjust-display-brightness">
+    <summary>Adjust the screen brightness</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Display &amp; Text Size"</step>
+    <step>Tap "Brightness"</step>
+    <step>Drag the slider up or down.</step>
+  </recipe>
+  <menu id="enable-dark-theme">
+    <prompt>Enable dark theme</prompt>
+    <choice ref="enable-dark-theme-always-on">Turn the dark theme on all the time</choice>
+    <choice ref="enable-dark-theme-scheduled">Turn the dark theme on at certain times</choice>
+  </menu>
+  <recipe id="enable-dark-theme-always-on">
+    <summary>Turn dark theme on all the time</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Display &amp; Text Size"</step>
+    <step>Tap "Dark theme"</step>
+    <step>Tap "Always on"</step>
+  </recipe>
+  <recipe id="enable-dark-theme-scheduled">
+    <summary>Turn dark theme on at certain times</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Display &amp; Text Size"</step>
+    <step>Tap "Dark theme"</step>
+    <step>Toggle the switch on.</step>
+  </recipe>
+  <recipe id="adjust-text-contrast">
+    <summary>Make the writing easier to see</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Accessibility"</step>
+    <step>Tap "Display size &amp; text"</step>
+    <step>Tap "Font style"</step>
+    <step>Choose a style that is easier to see.</step>
+  </recipe>
+  <recipe id="use-screen-magnifier">
+    <summary>Zoom in on the screen</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Accessibility"</step>
+    <step>Tap "Magnifier"</step>
+    <step>Turn on the switch.</step>
+  </recipe>
+  <recipe id="use-screen-reader">
+    <summary>Have the phone read the screen aloud</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Accessibility"</step>
+    <step>Tap "Accessibility features"</step>
+    <step>Tap "TalkBack"</step>
+    <step>Turn on the switch.</step>
+  </recipe>
+  <menu id="improve-touch-sensitivity">
+    <prompt>What would make the screen easier to tap?</prompt>
+    <choice ref="adjust-touch-sensitivity">Make the screen more sensitive to taps</choice>
+    <choice ref="use-screen-magnifier">Zoom in on the screen for more precise taps</choice>
+  </menu>
+  <recipe id="adjust-touch-sensitivity">
+    <summary>Make the screen more sensitive to taps</summary>
+    <step ref="open-settings"/>
+    <step>Tap "System"</step>
+    <step>Tap "Display"</step>
+    <step>Tap "Touch sensitivity"</step>
+    <step>Move the slider to change the sensitivity.</step>
+  </recipe>
+  <menu id="improve-hearing-accessibility">
+    <prompt>What would make the phone easier to hear?</prompt>
+    <choice ref="adjust-ringtone-volume">Make ringtones louder or quieter</choice>
+    <choice ref="adjust-media-volume">Make sounds from apps louder or quieter</choice>
+    <choice ref="use-vibration-alerts">Make the phone vibrate for notifications</choice>
+    <choice ref="use-closed-captioning">Turn on captions for videos and TV shows</choice>
+    <choice ref="use-hearing-aids">Use hearing aids</choice>
+  </menu>
+  <recipe id="adjust-ringtone-volume">
+    <summary>Adjust ringtone volume</summary>
+    <step>Press the volume buttons on the side of the phone.</step>
+  </recipe>
+  <recipe id="adjust-media-volume">
+    <summary>Adjust media volume</summary>
+    <step>Press the volume buttons on the side of the phone while playing media.</step>
+  </recipe>
+  <recipe id="use-vibration-alerts">
+    <summary>Use vibration alerts</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Sound &amp; vibration"</step>
+    <step>Turn on "Vibration"</step>
+  </recipe>
+  <recipe id="use-closed-captioning">
+    <summary>Use closed captioning</summary>
+    <step>Open the app you want to use closed captioning with.</step>
+    <step>Look for a closed captioning button or setting within the app.</step>
+  </recipe>
+  <recipe id="use-hearing-aids">
+    <summary>Use hearing aids</summary>
+    <step>Make sure your hearing aids work with your phone.</step>
+    <step>Pair your hearing aids with your phone following the manufacturer's instructions.</step>
+  </recipe>
+  <menu id="improve-motor-accessibility">
+    <prompt>What would make the phone easier to use if you can't move much?</prompt>
+    <choice ref="use-voice-commands">Use voice commands</choice>
+    <choice ref="use-one-handed-mode">Use one-handed mode</choice>
+    <choice ref="adjust-touch-sensitivity">Make the screen more sensitive to taps</choice>
+    <choice ref="use-assistive-touch">Use assistive touch</choice>
+  </menu>
+  <recipe id="use-voice-commands">
+    <summary>Use voice commands</summary>
+    <step>Say "Hey Google" or press the voice command button.</step>
+    <step>Tell the phone what you want to do.</step>
+  </recipe>
+  <recipe id="use-one-handed-mode">
+    <summary>Use one-handed mode</summary>
+    <step>Swipe down from the top right corner of the screen.</step>
+    <step>Tap the One-handed mode button.</step>
+  </recipe>
+  <recipe id="use-assistive-touch">
+    <summary>Use assistive touch</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Accessibility"</step>
+    <step>Tap "Accessibility features"</step>
+    <step>Tap "Assistive Touch"</step>
+    <step>Turn on the switch.</step>
+  </recipe>
+<menu id="improve-visual-accessibility">
+    <prompt>What would make the phone easier to see?</prompt>
+    <choice ref="adjust-color-correction">Adjust color correction</choice>
+    <choice ref="adjust-display-size">Adjust display size</choice>
+    <choice ref="invert-colors">Invert colors</choice>
+  </menu>
+  <recipe id="adjust-color-correction">
+    <summary>Adjust color correction</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Accessibility"</step>
+    <step>Tap "Display size &amp; text"</step>
+    <step>Tap "Color correction"</step>
+    <step>Adjust the color correction settings to your preference.</step>
+  </recipe>
+  <recipe id="adjust-display-size">
+    <summary>Adjust display size</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Display"</step>
+    <step>Tap "Display size"</step>
+    <step>Adjust the display size to your preference.</step>
+  </recipe>
+  <recipe id="invert-colors">
+    <summary>Invert colors</summary>
+    <step ref="open-settings"/>
+    <step>Tap "Accessibility"</step>
+    <step>Tap "Display size &amp; text"</step>
+    <step>Turn on "Invert colors"</step>
+  </recipe>
+</guide>

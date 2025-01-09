@@ -1,118 +1,96 @@
 <?xml-model href="guide.rnc"?>
-<chunks>
+<guide>
 
-<chunk id="root">
-  <title>Why is it hard to use your smartphone?</title>
-  <menu>
-    <item>Things on the screen are too small</item>
-    <item ref="writing-hard-to-read">
+<menu id="root">
+  <prompt>Why is it hard to use your smartphone?</prompt>
+    <choice>Things on the screen are too small</choice>
+    <choice ref="writing-hard-to-read">
       Reading the words on the screen is hard
-    </item>
+    </choice>
   </menu>
-</chunk>
 
-<chunk id="writing-hard-to-read">
-  <title>What would make the words easier to read?</title>
-  <menu>
-    <item ref="make-the-letters-bigger">
+<menu id="writing-hard-to-read">
+  <prompt>What would make the words easier to read?</prompt>
+    <choice ref="make-the-letters-bigger">
       Make the letters bigger
-    </item>
-    <item ref="change-the-colour-of-the-words">
+    </choice>
+    <choice ref="change-the-colour-of-the-words">
       Change the colour of the words so they are easier to see
-    </item>
-    <item ref="make-the-phone-read-the-words-aloud">
+    </choice>
+    <choice ref="make-the-phone-read-the-words-aloud">
       Make the phone read the words aloud
-    </item>
-  </menu>
-</chunk>
+    </choice>
+</menu>
 
-<chunk id="make-the-letters-bigger">
-  <title>Make the letters bigger</title>
-  <recipe>
-    <item ref="open-the-settings-app">
+<recipe id="make-the-letters-bigger">
+  <summary>Make the letters bigger</summary>
+    <step ref="open-the-settings-app">
       Open the Settings app
-    </item>
-    <item ref="search-for-the-word-font"></item>
-    <item>
+    </step>
+    <step ref="search-for-the-word-font"></step>
+    <step>
       Choose an option that mentions "font size"
-    </item>
-    <item> Increase the font size </item>
-  </recipe>
-</chunk>
+    </step>
+    <step> Increase the font size </step>
+</recipe>
 
-<chunk id="search-for-the-word-font">
-  <title>Search for the word "font"</title>
-  <recipe>
-    <item>Hello</item>
-  </recipe>
-</chunk>
+<recipe id="search-for-the-word-font">
+  <summary>Search for the word "font"</summary>
+    <step>Hello</step>
+</recipe>
 
-<chunk id="make-the-phone-read-the-words-aloud">
-  <title>Make the phone read the words aloud</title>
-  <recipe>
-    <item ref="open-the-settings-app">
+<recipe id="make-the-phone-read-the-words-aloud">
+  <summary>Make the phone read the words aloud</summary>
+    <step ref="open-the-settings-app">
       Open the Settings app
-    </item>
-  </recipe>
-</chunk>
+    </step>
+</recipe>
 
-<chunk id="open-the-settings-app">
-  <title>Open the Settings app</title>
-  <menu>
-    <item>
+<menu id="open-the-settings-app">
+  <prompt>Open the Settings app</prompt>
+    <choice>
       Talk to your smartphone to tell it to open the Settings
-    </item>
-    <item ref="find-the-settings-in-your-apps"></item>
-  </menu>
-</chunk>
+    </choice>
+    <choice ref="find-the-settings-in-your-apps"></choice>
+</menu>
 
-<chunk id="find-the-settings-in-your-apps">
-  <title>Find the Settings in your apps</title>
-  <recipe>
-    <item ref="look-at-all-your-apps"></item>
-    <item ref="find-an-app-called-settings"></item>
-    <item>Choose the Settings app</item>
-  </recipe>
-</chunk>
+<recipe id="find-the-settings-in-your-apps">
+  <summary>Find the Settings in your apps</summary>
+    <step ref="look-at-all-your-apps"></step>
+    <step ref="find-an-app-called-settings"></step>
+    <step>Choose the Settings app</step>
+</recipe>
 
-<chunk id="look-at-all-your-apps">
-  <title>Look at all your apps</title>
-  <recipe>
-    <item ref="swipe-from-bottom"></item>
-  </recipe>
-</chunk>
+<recipe id="look-at-all-your-apps">
+  <summary>Look at all your apps</summary>
+    <step ref="swipe-from-bottom"></step>
+</recipe>
 
-<chunk id="find-an-app-called-settings">
-  <title>Find an app called Settings</title>
-  <recipe>
-    <item ref="search-for-settings"></item>
-    <item ref="scroll-to-find-settings"></item>
-  </recipe>
-</chunk>
+<recipe id="find-an-app-called-settings">
+  <summary>Find an app called Settings</summary>
+    <step ref="search-for-settings"></step>
+    <step ref="scroll-to-find-settings"></step>
+</recipe>
 
-<chunk id="search-for-settings">
-  <title>Search for "settings"</title>
-  <recipe>
-    <item>Choose "search apps" near the top of the screen</item>
-    <item>Start typing "settings"</item>
-    <item>When you see the Settings app, choose it</item>
-  </recipe>
-</chunk>
+<recipe id="search-for-settings">
+  <summary>Search for "settings"</summary>
+    <step>Choose "search apps" near the top of the screen</step>
+    <step>Start typing "settings"</step>
+    <step>When you see the Settings app, choose it</step>
+</recipe>
 
-<chunk id="swipe-from-bottom">
-  <title>Swipe up from the bottom of the screen</title>
-  <recipe>
-    <item>
+<recipe id="swipe-from-bottom">
+  <summary>Swipe up from the bottom of the screen</summary>
+    <step>
       Hold your finger above the middle of the screen, at the bottom,
       without touching it
-    </item>
-    <item>
+    </step>
+    <step>
       Start moving your finger towards the top of the screen
-    </item>
-    <item>
+    </step>
+    <step>
       Keeping your finger moving, put it down on the screen
-    </item>
-    <item> Lift your finger off the screen </item>
-  </recipe>
-</chunk>
-</chunks>
+    </step>
+    <step> Lift your finger off the screen </step>
+</recipe>
+</guide>
