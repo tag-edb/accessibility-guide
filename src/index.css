@@ -35,8 +35,9 @@ a:hover {
   --item-width: 100%;
   --item-height: 100px;
   --item-margin: 10px;
-  --icon-width: 50px;
-  --icon-size: 40px;
+  --icon-width: 75px;
+  --icon-size: 30px;
+  --icon-spacing: -5px;
   --border-width: 5px;
   --border-radius: 10px;
   --animation-unit: 0.5s;
@@ -171,7 +172,9 @@ app-main .item::before {
   justify-content: center;
   font-size: var(--icon-size);
   width: var(--icon-width);
-  content: "✔️";
+  letter-spacing: var(--icon-spacing);
+  text-align: center;
+  content: "🙂👇";
 }
 
 app-main .menu > .title::before {
@@ -179,7 +182,7 @@ app-main .menu > .title::before {
 }
 
 app-main .step.current > .title::before {
-  content: "😀";
+  content: "😀👉";
 }
 
 app-main menu > li:not(.selected) > .item::before,
