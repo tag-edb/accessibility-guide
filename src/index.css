@@ -145,6 +145,10 @@ app-main .current .item > * {
   border-color: black;
 }
 
+app-main button:enabled {
+  background-color: #c1f1c1;
+}
+
 app-main .item {
   animation: var(--animation-unit) var(--animation-unit) backwards grow,
     var(--animation-unit) calc(2 * var(--animation-unit)) backwards fade-in;
