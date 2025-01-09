@@ -35,9 +35,9 @@ a:hover {
   --item-width: 100%;
   --item-height: 100px;
   --item-margin: 10px;
-  --icon-width: 75px;
+  --icon-width: 85px;
   --icon-size: 30px;
-  --icon-spacing: -5px;
+  --icon-spacing: 0px;
   --border-width: 5px;
   --border-radius: 10px;
   --animation-unit: 0.5s;
