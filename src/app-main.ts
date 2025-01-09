@@ -23,7 +23,8 @@ customElements.define(
       super();
       this._guide = maybe.nothing();
       this._state = { state: [], exhausted: false };
-      fetchGuide("guide-ai.xml").then((guide) => {
+      fetchGuide("guide-claude.xml").then((guide) => {
+        console.log(guide);
         this._guide = maybe.just(guide);
         history.replaceState(this._state, "");
         addEventListener("popstate", (e) => {
@@ -45,7 +46,6 @@ customElements.define(
     }
 
     render() {
-      this._guide.map((guide) => console.log(createUI(guide, this._state)));
       return this._guide
         .andThen((guide) => createUI(guide, this._state))
         .map((guideUI) => renderUI(guideUI))
