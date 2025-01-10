@@ -1,21 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xml-model href="guide.rnc"?>
 <guide>
+  <!-- First, add a central recipe for accessing the Accessibility screen -->
+  <recipe id="find_accessibility">
+    <summary>Find the Accessibility section in Settings</summary>
+    <step ref="find_settings">Open the "Settings" app (select this step if you need help finding Settings)</step>
+    <step>Look for "Accessibility" in the list of settings (it might have an icon that looks like a person)</step>
+    <step>If you don't see it right away, try these steps in order:</step>
+    <step>Look near the bottom of the list</step>
+    <step>Look under "Additional Settings" if you see that option</step>
+    <step>Use the search option at the top of Settings (type in "Accessibility")</step>
+    <step>Once you find it, tap "Accessibility" once</step>
+  </recipe>
+
+  <!-- Modify main menu to reflect common pathways -->
   <menu id="root">
     <prompt>What kind of help do you need with making your Android phone easier to use?</prompt>
+    <choice ref="find_accessibility">Show me how to find all accessibility features</choice>
     <choice ref="vision_features">Help with seeing what's on the screen</choice>
     <choice ref="hearing_features">Help with hearing sounds and speech</choice>
     <choice ref="mobility_features">Help with touching and moving around the screen</choice>
     <choice ref="cognitive_features">Help with understanding and focusing</choice>
   </menu>
 
+  <!-- Update vision features to go through Accessibility -->
   <recipe id="vision_features">
     <summary>Set up your phone to help you see what's on the screen better</summary>
-    <step ref="find_settings">Open the "Settings" app on your phone (it looks like a gear or cog wheel)</step>
-    <step>Look for "Display" or "Screen" in the list</step>
-    <step>Look for options that help with seeing the screen better</step>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Vision" or "Screen and Text" in the Accessibility settings</step>
+    <step>If you don't see these options, look for "Display" or "Screen readers"</step>
     <step ref="vision_options">Choose what kind of help you need with seeing the screen</step>
   </recipe>
+
+  <recipe id="hearing_features">
+    <summary>Set up your phone to help you hear better</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Hearing" or "Audio" in the Accessibility settings</step>
+    <step>If you don't see these options, look for "Captions" or "Sound notifications"</step>
+    <step ref="hearing_options">Pick the kind of hearing help you need</step>
+  </recipe>
+
+  <recipe id="mobility_features">
+    <summary>Make your phone easier to touch and control</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Mobility" or "Interaction controls"</step>
+    <step>If you don't see these options, look for "Dexterity" or "Physical and motor"</step>
+    <step ref="mobility_options">Choose how you want to control your phone</step>
+  </recipe>
+
+  <recipe id="cognitive_features">
+    <summary>Make your phone simpler and easier to understand</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Cognitive" or "Simplified view"</step>
+    <step>If you don't see these options, look for "Display" or "Interaction and dexterity"</step>
+    <step ref="cognitive_options">Choose how you want to make things simpler</step>
+  </recipe>
+
+  <!-- Add alternative paths information -->
+  <recipe id="accessibility_alternative">
+    <summary>Other ways to find accessibility features</summary>
+    <step>If you can't find a feature in Accessibility settings, try:</step>
+    <step>Using the search option at the top of Settings</step>
+    <step>Looking under "Display" for vision-related features</step>
+    <step>Checking "Sound" settings for hearing-related features</step>
+    <step>Looking in "Advanced features" on some phones</step>
+  </recipe>
+
+  <!-- Update specific feature setup recipes -->
+  <recipe id="talkback_setup">
+    <summary>Set up your phone to speak what's on the screen</summary>
+    <step ref="settings_no_visual">If you can't see the screen well, start here to get help</step>
+    <step ref="find_accessibility">Open the Accessibility settings (select this step for help)</step>
+    <step>Look for "TalkBack" or "Screen Reader" in the list</step>
+    <step>Switch it on by tapping the button that says "Use TalkBack"</step>
+    <step ref="talkback_tutorial">Learn how to use it with the teaching guide that appears</step>
+    <!--step ref="talkback_gestures">Learn the basic ways to touch the screen</step-->
+    <step>Choose how fast and loud you want the voice to be</step>
+  </recipe>
+
+  <recipe id="display_setup">
+    <summary>Make the screen easier to see</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Vision" or "Display"</step>
+    <step ref="text_size_adjustment">Change how big the writing is</step>
+    <step>Make everything on the screen bigger if needed</step>
+    <step>Make the writing stand out more if it's hard to read</step>
+    <step ref="color_correction">Change colors if they're hard to tell apart</step>
+    <step>Make the screen darker or use dark mode if bright screens bother you</step>
+  </recipe>
+
+  <!-- Continue with similar updates to all other feature-specific recipes -->
 
   <menu id="vision_options">
     <prompt>What kind of help do you need with seeing the screen?</prompt>
@@ -24,27 +98,11 @@
     <choice ref="display_setup">Make the screen easier to see (brighter, darker, or different colors)</choice>
   </menu>
 
-  <recipe id="hearing_features">
-    <summary>Set up your phone to help you hear better</summary>
-    <step ref="find_settings">Open the "Settings" app on your phone</step>
-    <step>Look for "Sound" or "Audio" in the list</step>
-    <step>Find options that help with hearing</step>
-    <step ref="hearing_options">Pick the kind of hearing help you need</step>
-  </recipe>
-
   <menu id="hearing_options">
     <prompt>What kind of help do you need with hearing?</prompt>
     <choice ref="captions_setup">See words for what people are saying</choice>
     <choice ref="audio_setup">Make sounds easier to hear</choice>
   </menu>
-
-  <recipe id="mobility_features">
-    <summary>Make your phone easier to touch and control</summary>
-    <step>Open "Settings" on your phone</step>
-    <step>Look for "Accessibility"</step>
-    <step>Find options for making the phone easier to control</step>
-    <step ref="mobility_options">Choose how you want to control your phone</step>
-  </recipe>
 
   <menu id="mobility_options">
     <prompt>How would you like to make your phone easier to control?</prompt>
@@ -52,29 +110,11 @@
     <choice ref="touch_settings">Make touching the screen easier</choice>
   </menu>
 
-  <recipe id="cognitive_features">
-    <summary>Make your phone simpler and easier to understand</summary>
-    <step ref="find_settings">Open "Settings" on your phone</step>
-    <step>Look for "Accessibility"</step>
-    <step>Find options for making the phone simpler to use</step>
-    <step ref="cognitive_options">Choose how you want to make things simpler</step>
-  </recipe>
-
   <menu id="cognitive_options">
     <prompt>How would you like to make your phone simpler to use?</prompt>
     <choice ref="simplified_view">Make the screen less busy</choice>
     <choice ref="reading_assist">Get help with reading text</choice>
   </menu>
-
-  <recipe id="talkback_setup">
-    <summary>Set up your phone to speak what's on the screen</summary>
-    <step>Find "Accessibility" in your settings</step>
-    <step>Look for "TalkBack" or "Screen Reader"</step>
-    <step>Switch it on by tapping the button that says "Use TalkBack"</step>
-    <!--step ref="talkback_tutorial">Learn how to use it with the teaching guide that appears</step-->
-    <!--step ref="talkback_gestures">Learn the basic ways to touch the screen</step-->
-    <step>Choose how fast and loud you want the voice to be</step>
-  </recipe>
 
   <recipe id="magnification_setup">
     <summary>Make things on your screen look bigger</summary>
@@ -86,63 +126,129 @@
     <step>Learn how to change how big things get</step>
   </recipe>
 
-  <recipe id="display_setup">
-    <summary>Make the screen easier to see</summary>
-    <step>Look for "Display" settings</step>
-    <step ref="text_size_adjustment">Change how big the writing is</step>
-    <step>Make everything on the screen bigger if needed</step>
-    <step>Make the writing stand out more if it's hard to read</step>
-    <step ref="color_correction">Change colors if they're hard to tell apart</step>
-    <step>Make the screen darker or use dark mode if bright screens bother you</step>
-  </recipe>
-
+  <!-- Updated hearing assistance recipes -->
   <recipe id="captions_setup">
     <summary>Set up your phone to show words for sounds and speech</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Hearing enhancements" or "Captions"</step>
     <step>Turn on "Live Caption" to see words for what people are saying</step>
     <step ref="caption_customization">Change how the words look on screen</step>
-    <step>Make the words bigger or smaller</step>
-    <step ref="live_transcribe_setup">Turn on "Live Transcribe" to see words for nearby speech</step>
+    <step ref="live_transcribe_setup">Set up "Live Transcribe" for speech nearby</step>
   </recipe>
 
   <recipe id="audio_setup">
     <summary>Make sounds easier to hear</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Hearing enhancements" or "Audio"</step>
     <step ref="mono_audio_setup">Make sounds the same in both ears</step>
     <step ref="volume_balance">Change how loud each ear's sound is</step>
     <step ref="sound_amplification">Make certain sounds easier to hear</step>
-    <step>Choose how you want your phone to tell you about notifications</step>
   </recipe>
 
+  <!-- Updated mobility assistance recipes -->
   <recipe id="switch_access">
     <summary>Use special buttons to control your phone</summary>
-    <step>Find "Switch Access" in settings</step>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Mobility" or "Interaction controls"</step>
+    <step>Find and tap on "Switch Access"</step>
     <step ref="switch_selection">Connect your special button</step>
     <step ref="switch_configuration">Choose what your button does</step>
     <step ref="scanning_setup">Choose how to move around the screen</step>
-    <step>Try the practice guide</step>
   </recipe>
 
   <recipe id="touch_settings">
     <summary>Make touching the screen easier</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Mobility" or "Interaction controls"</step>
     <step ref="touch_delay_setup">Change how long you need to touch for things to work</step>
-    <step>Make the screen more or less sensitive to touch</step>
+    <step>Look for "Touch settings" or "Interaction preferences"</step>
     <step ref="gesture_setup">Create special touches that do what you want</step>
-    <step>Set up easier ways to move around</step>
   </recipe>
 
+  <!-- Updated cognitive assistance recipes -->
   <recipe id="simplified_view">
     <summary>Make your screen less busy and easier to understand</summary>
-    <step>Turn on "Simplified view" to make things clearer</step>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Cognitive" or "Simplified view"</step>
+    <step>Turn on "Simplified view" if you see it</step>
     <step ref="animation_settings">Make things move less on screen</step>
     <step ref="focus_mode_setup">Hide apps you don't need right now</step>
-    <step>Choose which notifications you want to see</step>
   </recipe>
 
   <recipe id="reading_assist">
     <summary>Get help with reading text on your phone</summary>
-    <step ref="select_to_speak_setup">Choose text you want your phone to read out loud</step>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Vision" or "Screen Reader"</step>
+    <step ref="select_to_speak_setup">Set up choosing text to be read out loud</step>
     <step ref="tts_configuration">Pick a voice you like to read to you</step>
-    <step>Change how fast the voice reads</step>
-    <!--step ref="highlight_setup">Make important text stand out</step-->
+    <step ref="highlight_setup">Make important text stand out</step>
+  </recipe>
+
+  <!-- Update supporting recipes -->
+  <recipe id="live_transcribe_setup">
+    <summary>Set up your phone to show words for speech around you</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Live Transcribe" under "Hearing enhancements"</step>
+    <step>Turn on "Live Transcribe"</step>
+    <step>Pick which languages you want to see</step>
+    <step>Choose if you want to save what was said</step>
+  </recipe>
+
+  <recipe id="sound_amplification">
+    <summary>Make certain sounds easier to hear</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Sound Amplification" under "Hearing enhancements"</step>
+    <step>Turn on sound amplification</step>
+    <step>Change how loud different kinds of sounds are</step>
+    <step>Choose how much to reduce background noise</step>
+  </recipe>
+
+  <recipe id="select_to_speak_setup">
+    <summary>Choose text you want your phone to read out loud</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Select to Speak" under "Vision" or "Screen Reader"</step>
+    <step>Turn the feature on</step>
+    <step>Choose how you want to pick text to read</step>
+    <step>Pick how fast you want it to read</step>
+  </recipe>
+
+  <recipe id="focus_mode_setup">
+    <summary>Hide apps you don't need right now</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Focus mode" or "Digital wellbeing"</step>
+    <step>If you don't see it, you might need to look in "Settings" under "Digital Wellbeing"</step>
+    <step>Pick which apps you want to keep using</step>
+    <step>Choose when you want apps hidden</step>
+  </recipe>
+
+  <recipe id="tts_configuration">
+    <summary>Set up the voice that reads to you</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Text-to-speech" or "Screen reader settings"</step>
+    <step>Choose which voice you want to use</step>
+    <step>Change how fast it talks</step>
+    <step>Try it out to make sure you like how it sounds</step>
+  </recipe>
+
+  <recipe id="highlight_setup">
+    <summary>Make text stand out when it's being read</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
+    <step>Look for "Visual feedback" or "Highlighting options"</step>
+    <step>Choose what color you want for highlighting</step>
+    <step>Pick how thick you want the highlight to be</step>
+    <step>Choose if you want the whole word or letter highlighted</step>
+  </recipe>
+
+  <!-- Add troubleshooting recipe -->
+  <recipe id="accessibility_not_found">
+    <summary>What to do if you can't find a feature in Accessibility</summary>
+    <step>First, try using the search at the top of Settings</step>
+    <step>Type in what you're looking for (like "caption" or "voice")</step>
+    <step>If you can't find it, some features might be in different places:</step>
+    <step>Look in "Display" for text size and screen brightness</step>
+    <step>Check "Sound" for volume and sound balance</step>
+    <step>Try "Digital wellbeing" for focus mode</step>
+    <step>If you still can't find it, ask someone to help you look</step>
   </recipe>
 
   <recipe id="talkback_tutorial">
@@ -191,15 +297,6 @@
     <step>Try watching a video to make sure you can read the words easily</step>
   </recipe>
 
-  <recipe id="live_transcribe_setup">
-    <summary>Set up your phone to show words for speech around you</summary>
-    <step>Pick which languages you want to see</step>
-    <step>Choose how big you want the words to be</step>
-    <step>Choose if you want punctuation marks</step>
-    <step>Pick if you want to know about other sounds</step>
-    <step>Choose if you want to save what was said</step>
-  </recipe>
-
   <recipe id="mono_audio_setup">
     <summary>Make sounds the same in both ears</summary>
     <step>Find the "Mono Audio" switch</step>
@@ -216,15 +313,6 @@
     <step>Move the slider until it sounds right</step>
     <step>Try different kinds of sounds</step>
     <step>Make sure it's comfortable to listen to</step>
-  </recipe>
-
-  <recipe id="sound_amplification">
-    <summary>Make certain sounds easier to hear</summary>
-    <step>Turn on sound amplification</step>
-    <step>Change how loud different kinds of sounds are</step>
-    <step>Choose how much to reduce background noise</step>
-    <step>Try it in different places</step>
-    <step>Save your favorite settings if you can</step>
   </recipe>
 
   <recipe id="switch_selection">
@@ -279,32 +367,6 @@
     <step>Change how things move between screens</step>
     <step>Pick how long movements take</step>
     <step>Try moving between apps</step>
-  </recipe>
-
-  <recipe id="focus_mode_setup">
-    <summary>Hide apps you don't need right now</summary>
-    <step>Pick which apps you want to keep using</step>
-    <step>Choose when you want apps hidden</step>
-    <step>Pick when you want breaks</step>
-    <step>Choose how long you can use each app</step>
-    <step>Pick if you want reminders about focus mode</step>
-  </recipe>
-
-  <recipe id="select_to_speak_setup">
-    <summary>Choose text you want your phone to read out loud</summary>
-    <step>Turn on the reading feature</step>
-    <step>Pick how you want to choose text</step>
-    <step>Choose how fast it reads</step>
-    <step>Pick how you want it to show what it's reading</step>
-    <step>Try it with different kinds of text</step>
-  </recipe>
-
-  <recipe id="tts_configuration">
-    <summary>Pick a voice to read to you</summary>
-    <step>Choose which voice you want to use</step>
-    <step>Pick the language you want to hear</step>
-    <step>Change how fast it talks</step>
-    <step>Make the voice higher or lower</step>
   </recipe>
 
   <menu id="find_settings">
