@@ -43,6 +43,12 @@ a:hover {
   --animation-unit: 0.5s;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -65,6 +71,10 @@ body {
   overflow-y: scroll;
 }
 
+app-main {
+  container-type: inline-size;
+}
+
 app-main,
 app-main .choicelist,
 app-main menu,
@@ -72,7 +82,8 @@ app-main ol,
 app-main li,
 app-main h1 {
   width: 100%;
-  display: flex;
+  display: block;
+  height: auto;
   flex-direction: column;
   align-items: center;
   flex: 0 0;
@@ -102,6 +113,10 @@ app-main .choicelist.current::before {
   background-color: white;
 }
 
+app-main .choicelist > * {
+  position: relative;
+}
+
 app-main button {
   appearance: none;
   font: inherit;
@@ -110,38 +125,32 @@ app-main button {
 }
 
 app-main .item {
-  position: relative;
+  flex: 0 0 auto;
   width: var(--item-width);
-  height: var(--item-height);
   opacity: 1;
   overflow: hidden;
   margin: 0px;
   padding: 0px;
-  /*display: flex;*/
-  display: block;
+  display: flex;
+  flex-direction: row;
 }
 
 app-main .item > * {
-  position: absolute;
-  top: var(--item-margin);
-  left: calc(var(--icon-width) + 2 * var(--item-margin));
   display: flex;
-  box-sizing: border-box;
-  margin: 0px;
+  margin: var(--item-margin);
   padding: 10px;
-  width: calc(var(--item-width) - 3 * var(--item-margin) - var(--icon-width));
-  height: calc(var(--item-height) - 2 * var(--item-margin));
+  flex: 1 0 calc(100cqw - 3 * var(--item-margin) - var(--icon-width));
+  min-height: calc(var(--item-height) - 2 * var(--item-margin));
   border: var(--border-width) solid darkgray;
   border-radius: var(--border-radius);
   background-color: white;
   color: gray;
   font-size: larger;
-  font-weight: normal;
+  font-weight: bold;
 }
 
 app-main .current .item > * {
   color: black;
-  font-weight: bold;
   border-color: black;
 }
 
@@ -173,15 +182,13 @@ app-main .recipe > li > .choicelist:not(.current) > menu > li > .item {
 }
 
 app-main .item::before {
-  position: absolute;
-  top: var(--item-margin);
-  left: var(--item-margin);
+  margin-left: var(--item-margin);
+  flex: 0 0 var(--icon-width);
   height: calc(var(--item-height) - 2 * var(--item-margin));
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-size: var(--icon-size);
-  width: var(--icon-width);
   letter-spacing: var(--icon-spacing);
   text-align: center;
   content: "🙂👇";
