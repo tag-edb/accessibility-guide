@@ -12,8 +12,9 @@
     <recipe id="vision_features">
         <summary>Configure Android features for visual assistance, including TalkBack, magnification, &amp; display adjustments</summary>
         <step>Open your device's Settings app</step>
-        <step>Scroll down and select "Accessibility"</step>
-        <step>Select "Vision" or "Vision settings"</step>
+        <step>Find the "Display" section on the main Settings screen</step>
+        <step>Look for vision assistance settings within the Display section</step>
+        <step ref="vision_options">Choose which visual assistance features to configure</step>
     </recipe>
 
     <menu id="vision_options">
@@ -21,6 +22,48 @@
         <choice ref="talkback_setup">TalkBack screen reader</choice>
         <choice ref="magnification_setup">Screen magnification</choice>
         <choice ref="display_setup">Display adjustments (contrast, color, text size)</choice>
+    </menu>
+
+    <recipe id="hearing_features">
+        <summary>Set up features for hearing assistance</summary>
+        <step>Open your device's Settings app</step>
+        <step>Find the "Audio" section on the main Settings screen</step>
+        <step>Look for hearing assistance settings within the Audio section</step>
+        <step ref="hearing_options">Configure specific hearing assistance features</step>
+    </recipe>
+
+    <menu id="hearing_options">
+        <prompt>Which hearing assistance feature would you like to set up?</prompt>
+        <choice ref="captions_setup">Live Caption &amp; subtitle settings</choice>
+        <choice ref="audio_setup">Audio adjustment settings</choice>
+    </menu>
+
+    <recipe id="mobility_features">
+        <summary>Configure features for mobility &amp; dexterity assistance</summary>
+        <step>Open Accessibility settings</step>
+        <step>Look for "Interaction controls" or "Mobility"</step>
+        <step>Choose the appropriate mobility features</step>
+        <step ref="mobility_options">Select specific mobility features to configure</step>
+    </recipe>
+
+    <menu id="mobility_options">
+        <prompt>Which mobility assistance feature would you like to configure?</prompt>
+        <choice ref="switch_access">Switch Access setup</choice>
+        <choice ref="touch_settings">Touch &amp; gesture settings</choice>
+    </menu>
+
+    <recipe id="cognitive_features">
+        <summary>Set up features for cognitive assistance</summary>
+        <step>Access Accessibility settings</step>
+        <step>Look for "Cognitive features" or "Simplified view"</step>
+        <step>Select cognitive assistance options</step>
+        <step ref="cognitive_options">Choose specific cognitive features to configure</step>
+    </recipe>
+
+    <menu id="cognitive_options">
+        <prompt>Which cognitive assistance feature would you like to set up?</prompt>
+        <choice ref="simplified_view">Simplified view settings</choice>
+        <choice ref="reading_assist">Reading assistance features</choice>
     </menu>
 
     <recipe id="talkback_setup">
@@ -53,19 +96,6 @@
         <step>Enable dark theme or reduce brightness for light sensitivity</step>
     </recipe>
 
-    <recipe id="hearing_features">
-        <summary>Set up features for hearing assistance</summary>
-        <step>Open Settings and select "Accessibility"</step>
-        <step>Choose "Hearing" or "Hearing settings"</step>
-        <step>Select your preferred hearing assistance features</step>
-    </recipe>
-
-    <menu id="hearing_options">
-        <prompt>Which hearing assistance feature would you like to set up?</prompt>
-        <choice ref="captions_setup">Live Caption &amp; subtitle settings</choice>
-        <choice ref="audio_setup">Audio adjustment settings</choice>
-    </menu>
-
     <recipe id="captions_setup">
         <summary>Configure captioning for audio &amp; video content</summary>
         <step>Select "Live Caption" to enable automatic captioning</step>
@@ -81,19 +111,6 @@
         <step ref="sound_amplification">Set up sound amplification if needed</step>
         <step>Configure audio notifications &amp; vibration patterns</step>
     </recipe>
-
-    <recipe id="mobility_features">
-        <summary>Configure features for mobility &amp; dexterity assistance</summary>
-        <step>Open Accessibility settings</step>
-        <step>Look for "Interaction controls" or "Mobility"</step>
-        <step>Choose the appropriate mobility features</step>
-    </recipe>
-
-    <menu id="mobility_options">
-        <prompt>Which mobility assistance feature would you like to configure?</prompt>
-        <choice ref="switch_access">Switch Access setup</choice>
-        <choice ref="touch_settings">Touch &amp; gesture settings</choice>
-    </menu>
 
     <recipe id="switch_access">
         <summary>Set up Switch Access for alternative device control</summary>
@@ -111,19 +128,6 @@
         <step ref="gesture_setup">Configure gesture shortcuts</step>
         <step>Set up Assistant gesture navigation if needed</step>
     </recipe>
-
-    <recipe id="cognitive_features">
-        <summary>Set up features for cognitive assistance</summary>
-        <step>Access Accessibility settings</step>
-        <step>Look for "Cognitive features" or "Simplified view"</step>
-        <step>Select cognitive assistance options</step>
-    </recipe>
-
-    <menu id="cognitive_options">
-        <prompt>Which cognitive assistance feature would you like to set up?</prompt>
-        <choice ref="simplified_view">Simplified view settings</choice>
-        <choice ref="reading_assist">Reading assistance features</choice>
-    </menu>
 
     <recipe id="simplified_view">
         <summary>Configure simplified interface options</summary>
