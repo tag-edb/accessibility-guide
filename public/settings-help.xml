@@ -1,0 +1,89 @@
+<menu id="find_settings">
+    <prompt>How would you like to open the Settings app?</prompt>
+    <choice ref="settings_app_list">Find it in your list of apps</choice>
+    <choice ref="settings_quick_panel">Use the quick settings panel that slides down from the top of your screen</choice>
+    <choice ref="settings_voice">Ask Google to open it for you</choice>
+    <choice ref="settings_search">Search for it on your phone</choice>
+</menu>
+
+<recipe id="settings_app_list">
+    <summary>Find and open Settings in your list of apps</summary>
+    <step ref="open_app_list">Show all your apps</step>
+    <step>Look for an icon that looks like a gear wheel or cog</step>
+    <step>The words under it will say "Settings"</step>
+    <step>Tap once on the Settings icon</step>
+</recipe>
+
+<recipe id="open_app_list">
+    <summary>Show all the apps on your phone</summary>
+    <step>Look at your home screen (the main screen with your background picture)</step>
+    <step>Find a small dot or line at the bottom of the screen, usually in the middle</step>
+    <step>Put your finger on the dot and slide up towards the top of the screen</step>
+    <step>If that doesn't work, look for a button with small squares or circles that means "All Apps"</step>
+</recipe>
+
+<recipe id="settings_quick_panel">
+    <summary>Open Settings from the panel that slides down</summary>
+    <step>Touch the very top of your screen</step>
+    <step>Slide your finger down to show some quick settings</step>
+    <step>Slide down again if you don't see a gear wheel icon</step>
+    <step>Look for the gear wheel icon (it might be near the bottom)</step>
+    <step>Tap the gear wheel once to open Settings</step>
+</recipe>
+
+<recipe id="settings_voice">
+    <summary>Ask Google to open Settings for you</summary>
+    <step>Say "Hey Google" or "OK Google"</step>
+    <step>Wait for a sound or colored lights to show Google is listening</step>
+    <step>Say "Open Settings"</step>
+    <step>If that doesn't work, try holding down the home button (in the middle at the bottom) and then say "Open Settings"</step>
+</recipe>
+
+<recipe id="settings_search">
+    <summary>Search for the Settings app</summary>
+    <step>Look at your home screen</step>
+    <step>Find the search bar (usually at the top, it might say "Search phone")</step>
+    <step>Tap the search bar once</step>
+    <step>Type in the word "Settings"</step>
+    <step>Look for the gear wheel icon in the search results</step>
+    <step>Tap once on Settings when you find it</step>
+</recipe>
+
+<menu id="settings_trouble">
+    <prompt>Are you having trouble finding Settings?</prompt>
+    <choice ref="settings_phone_model">Get help for your specific phone model</choice>
+    <choice ref="settings_no_visual">Get help if you can't see the screen well</choice>
+    <choice ref="settings_assistant">Ask someone to help you turn on accessibility features</choice>
+</menu>
+
+<recipe id="settings_phone_model">
+    <summary>Get help finding Settings on your specific phone</summary>
+    <step>Look on the back of your phone for the maker's name (like Samsung, Google, or Motorola)</step>
+    <step>If you can't find it there, try looking under "About phone" if you can get to Settings another way</step>
+    <step ref="model_specific_help">Get specific help for your phone type</step>
+</recipe>
+
+<recipe id="model_specific_help">
+    <summary>Get help for different types of phones</summary>
+    <step>For Samsung phones: Look for Settings in the folder called "Samsung"</step>
+    <step>For Google phones: Swipe up from the bottom and Settings should be in alphabetical order</step>
+    <step>For Motorola phones: Look for a folder called "Moto" or "Tools"</step>
+    <step>If you still can't find it, look for your phone's manual online or ask your phone company for help</step>
+</recipe>
+
+<recipe id="settings_no_visual">
+    <summary>Find Settings if you can't see the screen well</summary>
+    <step>Try asking Google: Say "Hey Google, open Settings"</step>
+    <step>If that doesn't work, ask someone nearby to help you turn on TalkBack</step>
+    <step>Once TalkBack is on, touch anywhere on the screen and drag your finger until you hear "Settings"</step>
+    <step>Double-tap when you hear "Settings"</step>
+</recipe>
+
+<recipe id="settings_assistant">
+    <summary>Get help turning on accessibility features</summary>
+    <step>Ask someone you trust to help you find Settings</step>
+    <step>Ask them to help you find "Accessibility" in Settings</step>
+    <step>Have them help you turn on the features you need</step>
+    <step>Ask them to show you how to get back to Settings later</step>
+    <step>Practice opening Settings together until you feel comfortable doing it on your own</step>
+</recipe>
