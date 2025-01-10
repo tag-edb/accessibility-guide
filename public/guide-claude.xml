@@ -13,7 +13,7 @@
         <summary>Configure Android features for visual assistance, including TalkBack, magnification, &amp; display adjustments</summary>
         <step>Open your device's Settings app</step>
         <step>Scroll down and select "Accessibility"</step>
-        <step ref="vision_options">Select "Vision" or "Vision settings"</step>
+        <step>Select "Vision" or "Vision settings"</step>
     </recipe>
 
     <menu id="vision_options">
@@ -27,8 +27,8 @@
         <summary>Enable and configure TalkBack, Android's built-in screen reader</summary>
         <step>In Vision settings, select "TalkBack"</step>
         <step>Toggle the switch to turn TalkBack on</step>
-        <step>Follow the tutorial that appears automatically</step>
-        <step>Learn basic gestures: Single-finger tap to select, double-tap to activate</step>
+        <step ref="talkback_tutorial">Follow the tutorial that appears automatically</step>
+        <step ref="talkback_gestures">Learn basic gestures: Single-finger tap to select, double-tap to activate</step>
         <step>Practice three-finger swipe for scrolling</step>
         <step>Configure TalkBack settings like speech rate &amp; volume in TalkBack Settings</step>
     </recipe>
@@ -38,7 +38,7 @@
         <step>In Vision settings, select "Magnification"</step>
         <step>Choose between "Magnify with triple-tap" or "Magnify with button"</step>
         <step>Enable your preferred magnification method</step>
-        <step>Practice zooming: Triple-tap &amp; hold to temporarily zoom</step>
+        <step ref="magnification_gestures">Practice zooming: Triple-tap &amp; hold to temporarily zoom</step>
         <step>Use two fingers to pan while zoomed</step>
         <step>Pinch with two fingers to adjust zoom level</step>
     </recipe>
@@ -46,10 +46,10 @@
     <recipe id="display_setup">
         <summary>Adjust display settings for better visibility</summary>
         <step>In Vision settings, look for "Display size and text"</step>
-        <step>Adjust text size using the slider</step>
+        <step ref="text_size_adjustment">Adjust text size using the slider</step>
         <step>Modify display size to make everything larger</step>
         <step>Enable high contrast text if needed</step>
-        <step>Configure color correction for color blindness</step>
+        <step ref="color_correction">Configure color correction for color blindness</step>
         <step>Enable dark theme or reduce brightness for light sensitivity</step>
     </recipe>
 
@@ -57,7 +57,7 @@
         <summary>Set up features for hearing assistance</summary>
         <step>Open Settings and select "Accessibility"</step>
         <step>Choose "Hearing" or "Hearing settings"</step>
-        <step ref="hearing_options">Select your preferred hearing assistance features</step>
+        <step>Select your preferred hearing assistance features</step>
     </recipe>
 
     <menu id="hearing_options">
@@ -69,16 +69,16 @@
     <recipe id="captions_setup">
         <summary>Configure captioning for audio &amp; video content</summary>
         <step>Select "Live Caption" to enable automatic captioning</step>
-        <step>Choose "Caption preferences" to customize appearance</step>
+        <step ref="caption_customization">Choose "Caption preferences" to customize appearance</step>
         <step>Adjust caption size, style, &amp; colors</step>
-        <step>Enable "Live Transcribe" for real-time speech conversion</step>
+        <step ref="live_transcribe_setup">Enable "Live Transcribe" for real-time speech conversion</step>
     </recipe>
 
     <recipe id="audio_setup">
         <summary>Adjust audio settings for better hearing accessibility</summary>
-        <step>Enable "Mono audio" to combine stereo channels</step>
-        <step>Adjust left/right volume balance</step>
-        <step>Set up sound amplification if needed</step>
+        <step ref="mono_audio_setup">Enable "Mono audio" to combine stereo channels</step>
+        <step ref="volume_balance">Adjust left/right volume balance</step>
+        <step ref="sound_amplification">Set up sound amplification if needed</step>
         <step>Configure audio notifications &amp; vibration patterns</step>
     </recipe>
 
@@ -86,7 +86,7 @@
         <summary>Configure features for mobility &amp; dexterity assistance</summary>
         <step>Open Accessibility settings</step>
         <step>Look for "Interaction controls" or "Mobility"</step>
-        <step ref="mobility_options">Choose the appropriate mobility features</step>
+        <step>Choose the appropriate mobility features</step>
     </recipe>
 
     <menu id="mobility_options">
@@ -98,17 +98,17 @@
     <recipe id="switch_access">
         <summary>Set up Switch Access for alternative device control</summary>
         <step>Select "Switch Access" in settings</step>
-        <step>Choose your switch type (bluetooth, USB, etc.)</step>
-        <step>Configure switch assignments</step>
-        <step>Set scanning methods &amp; timing</step>
+        <step ref="switch_selection">Choose your switch type (bluetooth, USB, etc.)</step>
+        <step ref="switch_configuration">Configure switch assignments</step>
+        <step ref="scanning_setup">Set scanning methods &amp; timing</step>
         <step>Complete the Switch Access tutorial</step>
     </recipe>
 
     <recipe id="touch_settings">
         <summary>Adjust touch settings for easier device interaction</summary>
-        <step>Enable "Touch &amp; hold delay" settings</step>
+        <step ref="touch_delay_setup">Enable "Touch &amp; hold delay" settings</step>
         <step>Adjust touch sensitivity</step>
-        <step>Configure gesture shortcuts</step>
+        <step ref="gesture_setup">Configure gesture shortcuts</step>
         <step>Set up Assistant gesture navigation if needed</step>
     </recipe>
 
@@ -116,7 +116,7 @@
         <summary>Set up features for cognitive assistance</summary>
         <step>Access Accessibility settings</step>
         <step>Look for "Cognitive features" or "Simplified view"</step>
-        <step ref="cognitive_options">Select cognitive assistance options</step>
+        <step>Select cognitive assistance options</step>
     </recipe>
 
     <menu id="cognitive_options">
@@ -128,16 +128,198 @@
     <recipe id="simplified_view">
         <summary>Configure simplified interface options</summary>
         <step>Enable "Simplified view" for cleaner interface</step>
-        <step>Reduce animations &amp; transitions</step>
-        <step>Set up app timers &amp; focus mode</step>
+        <step ref="animation_settings">Reduce animations &amp; transitions</step>
+        <step ref="focus_mode_setup">Set up app timers &amp; focus mode</step>
         <step>Configure notification filtering</step>
     </recipe>
 
     <recipe id="reading_assist">
         <summary>Set up reading assistance features</summary>
-        <step>Enable "Select to Speak" functionality</step>
-        <step>Configure text-to-speech settings</step>
+        <step ref="select_to_speak_setup">Enable "Select to Speak" functionality</step>
+        <step ref="tts_configuration">Configure text-to-speech settings</step>
         <step>Adjust reading speed &amp; voice</step>
-        <step>Set up reading highlights &amp; focus area</step>
+        <step ref="highlight_setup">Set up reading highlights &amp; focus area</step>
+    </recipe>
+
+    <!-- Detailed breakdown recipes -->
+    <recipe id="talkback_tutorial">
+        <summary>Complete the TalkBack tutorial for learning basic navigation</summary>
+        <step>Listen to the initial welcome message</step>
+        <step>Follow the audio instructions for each practice exercise</step>
+        <step>Practice single-finger exploration of the screen</step>
+        <step>Learn to activate items with double-tap</step>
+        <step>Practice scrolling with three fingers</step>
+        <step>Complete the tutorial navigation exercises</step>
+    </recipe>
+
+    <recipe id="talkback_gestures">
+        <summary>Master the basic TalkBack gestures for navigation</summary>
+        <step>Practice single-finger touch to hear items</step>
+        <step>Learn right/left swipes for moving between items</step>
+        <step>Master up/down swipes for changing navigation modes</step>
+        <step>Practice two-finger gestures for continuous reading</step>
+        <step>Learn L-shaped gestures for navigation units</step>
+    </recipe>
+
+    <recipe id="magnification_gestures">
+        <summary>Learn gestures for controlling screen magnification</summary>
+        <step>Practice triple-tap to toggle full-screen magnification</step>
+        <step>Learn to triple-tap and hold for temporary magnification</step>
+        <step>Master two-finger panning while magnified</step>
+        <step>Practice pinch gestures to adjust zoom level</step>
+        <step>Learn to use magnification shortcuts if enabled</step>
+    </recipe>
+
+    <recipe id="text_size_adjustment">
+        <summary>Fine-tune text size for optimal readability</summary>
+        <step>Open Display size and text settings</step>
+        <step>View sample text at different sizes</step>
+        <step>Adjust the slider gradually</step>
+        <step>Test readability in different apps</step>
+        <step>Fine-tune until comfortable reading distance is achieved</step>
+    </recipe>
+
+    <recipe id="color_correction">
+        <summary>Set up color correction for your type of color blindness</summary>
+        <step>Choose color correction type (Deuteranomaly, Protanomaly, or Tritanomaly)</step>
+        <step>View color samples with correction applied</step>
+        <step>Test with real-world images</step>
+        <step>Adjust intensity if available</step>
+        <step>Verify improvement in color distinction</step>
+    </recipe>
+
+    <recipe id="caption_customization">
+        <summary>Customize caption appearance for better readability</summary>
+        <step>Select text size for captions</step>
+        <step>Choose caption font style</step>
+        <step>Pick background color &amp; opacity</step>
+        <step>Select text color for best contrast</step>
+        <step>Test with sample video content</step>
+    </recipe>
+
+    <recipe id="live_transcribe_setup">
+        <summary>Configure Live Transcribe for speech-to-text conversion</summary>
+        <step>Choose primary and secondary languages</step>
+        <step>Set up text size for transcription</step>
+        <step>Configure automatic punctuation</step>
+        <step>Enable sound notifications if needed</step>
+        <step>Set up saving transcripts if desired</step>
+    </recipe>
+
+    <recipe id="mono_audio_setup">
+        <summary>Configure mono audio for combined channel output</summary>
+        <step>Locate mono audio toggle in sound settings</step>
+        <step>Enable mono audio feature</step>
+        <step>Test with stereo content</step>
+        <step>Adjust overall volume as needed</step>
+        <step>Verify audio clarity in both ears</step>
+    </recipe>
+
+    <recipe id="volume_balance">
+        <summary>Adjust audio balance between left and right channels</summary>
+        <step>Find the balance slider in sound settings</step>
+        <step>Play test audio while adjusting</step>
+        <step>Move slider gradually to preferred position</step>
+        <step>Test with different audio sources</step>
+        <step>Verify comfort level with final setting</step>
+    </recipe>
+
+    <recipe id="sound_amplification">
+        <summary>Set up sound amplification for better audio clarity</summary>
+        <step>Enable sound amplification feature</step>
+        <step>Adjust frequency sliders for different sounds</step>
+        <step>Configure noise reduction level</step>
+        <step>Test in different environments</step>
+        <step>Save custom sound profile if available</step>
+    </recipe>
+
+    <recipe id="switch_selection">
+        <summary>Choose and connect appropriate switch device</summary>
+        <step>Identify compatible switch types</step>
+        <step>Connect Bluetooth switch if wireless</step>
+        <step>Connect USB switch if wired</step>
+        <step>Verify switch detection</step>
+        <step>Test switch response time</step>
+    </recipe>
+
+    <recipe id="switch_configuration">
+        <summary>Assign actions to switch controls</summary>
+        <step>Select action for single press</step>
+        <step>Configure double-press actions if available</step>
+        <step>Set up long-press behaviors</step>
+        <step>Assign specialized functions</step>
+        <step>Test all switch configurations</step>
+    </recipe>
+
+    <recipe id="scanning_setup">
+        <summary>Configure switch scanning patterns and timing</summary>
+        <step>Choose scanning pattern (linear, row-column)</step>
+        <step>Set scanning speed</step>
+        <step>Configure auto-scan options</step>
+        <step>Set up scan timeout</step>
+        <step>Adjust reverse scanning options</step>
+    </recipe>
+
+    <recipe id="touch_delay_setup">
+        <summary>Adjust touch &amp; hold delay settings</summary>
+        <step>Select delay duration</step>
+        <step>Configure feedback type (visual, vibration)</step>
+        <step>Test with common actions</step>
+        <step>Adjust duration if needed</step>
+        <step>Save preferred delay settings</step>
+    </recipe>
+
+    <recipe id="gesture_setup">
+        <summary>Configure custom gesture shortcuts</summary>
+        <step>Choose gesture type to customize</step>
+        <step>Assign desired action</step>
+        <step>Practice gesture recognition</step>
+        <step>Test in different apps</step>
+        <step>Adjust sensitivity if needed</step>
+    </recipe>
+
+    <recipe id="animation_settings">
+        <summary>Adjust animation settings for reduced motion</summary>
+        <step>Locate animation scale settings</step>
+        <step>Reduce or disable window animations</step>
+        <step>Adjust transition animations</step>
+        <step>Configure animator duration</step>
+        <step>Test app transitions</step>
+    </recipe>
+
+    <recipe id="focus_mode_setup">
+        <summary>Configure focus mode and app timers</summary>
+        <step>Select apps to allow in focus mode</step>
+        <step>Set up focus mode schedule</step>
+        <step>Configure break times</step>
+        <step>Set up app usage limits</step>
+        <step>Enable focus mode notifications</step>
+    </recipe>
+
+    <recipe id="select_to_speak_setup">
+        <summary>Configure Select to Speak functionality</summary>
+        <step>Enable Select to Speak feature</step>
+        <step>Choose activation method</step>
+        <step>Configure reading speed</step>
+        <step>Set up highlighting options</step>
+        <step>Test with different text types</step>
+    </recipe>
+
+    <recipe id="tts_configuration">
+        <summary>Set up text-to-speech preferences</summary>
+        <step>Choose preferred TTS engine</step>
+        <step>Select language and voice</step>
+        <step>Adjust speech rate</step>
+        <step>Configure pitch settings</step>
+        <step>Test with sample text</step>
+    </recipe>
+
+    <recipe id="highlight_setup">
+        <summary>Configure reading highlights and focus area</summary>
+        <step>Choose highlight color</step>
+        <step>Set highlight thickness</step>
+        <step>Configure focus area size</step>
+        <step>Adjust focus area color</step>
+        <step>Test with different text layouts</step>
     </recipe>
 </guide>
