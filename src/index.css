@@ -145,12 +145,17 @@ app-main .current .item > * {
   border-color: black;
 }
 
-app-main button:enabled {
+app-main .current .item > button:enabled {
   background-color: #c1f1c1;
 }
 
+app-main .current .item > button:focus {
+  border-color: royalblue;
+}
+
 app-main .item {
-  animation: var(--animation-unit) var(--animation-unit) backwards grow,
+  animation:
+    var(--animation-unit) var(--animation-unit) backwards grow,
     var(--animation-unit) calc(2 * var(--animation-unit)) backwards fade-in;
 }
 
@@ -162,7 +167,8 @@ app-main > .menu > menu > li > .item {
 app-main .menu:not(.current) > .title,
 app-main .menu:not(.current) > menu > li:not(.selected) > .item,
 app-main .recipe > li > .choicelist:not(.current) > menu > li > .item {
-  animation: var(--animation-unit) forwards fade-out,
+  animation:
+    var(--animation-unit) forwards fade-out,
     var(--animation-unit) var(--animation-unit) forwards shrink;
 }
 
