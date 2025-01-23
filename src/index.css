@@ -51,15 +51,30 @@ a:hover {
 
 body {
   display: flex;
-  flex-direction: column;
-  flex: auto 1 1;
+  flex-direction: row;
   margin: 0px;
   padding: 0px;
+  background: white;
   position: absolute;
   top: 0px;
   left: 0px;
   bottom: 0px;
   right: 0px;
+}
+
+.wrap-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: auto 1 1;
+  /*
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  bottom: 100px;
+  right: 100px;
+  */
   overflow: hidden;
   background: lightgray;
 }

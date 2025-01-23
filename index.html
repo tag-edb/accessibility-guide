@@ -7,10 +7,19 @@
     <title>Vite + Lit + TS</title>
     <link rel="stylesheet" href="/src/index.css" />
     <script type="module" src="/src/app-main"></script>
+    <script type="module" src="/src/video-clip"></script>
   </head>
   <body>
-    <div class="wrap">
-      <app-main></app-main>
+    <div class="wrap-wrap">
+      <div class="wrap">
+        <app-main></app-main>
+      </div>
     </div>
+    <video-clip
+      src="/videos/turn-on-magnifier.mp4"
+      start="5"
+      end="6"
+      pause="1"
+    ></video-clip>
   </body>
 </html>
