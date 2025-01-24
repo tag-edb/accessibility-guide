@@ -1,4 +1,12 @@
-import { Guide, Chunk, Menu, Recipe, Item, getRoot, get } from "./guide";
+import {
+  Guide,
+  Chunk,
+  Menu,
+  Recipe,
+  Item,
+  getRoot,
+  get,
+} from "./components/app-main/guide";
 import { Maybe } from "./maybe";
 import * as maybe from "./maybe";
 
@@ -24,14 +32,14 @@ export function expandItem(gde: Guide, state: State, index: number = 0): State {
         : maybe.nothing()
       : item(mnu.items[state[0]], state[1]).map((itemState) => [
           state[0],
-          itemState
+          itemState,
         ]);
 
   const recipe = (rcpe: Recipe, state: RecipeState): Maybe<RecipeState> =>
     state.length === 0
       ? recipe(rcpe, [[]])
       : item(rcpe.items[state.length - 1], state[state.length - 1]).map(
-          (itemState) => state.toSpliced(-1, 1, itemState)
+          (itemState) => state.toSpliced(-1, 1, itemState),
         );
 
   const item = (itm: Item, state: ItemState): Maybe<ItemState> =>
@@ -60,7 +68,7 @@ export function nextItem(gde: Guide, state: State): State {
       ? maybe.nothing()
       : item(mnu.items[state[0]], state[1]).map((itemState) => [
           state[0],
-          itemState
+          itemState,
         ]);
 
   const recipe = (rcpe: Recipe, state: RecipeState): Maybe<RecipeState> =>
@@ -71,7 +79,7 @@ export function nextItem(gde: Guide, state: State): State {
           .orElse(
             state.length < rcpe.items.length
               ? maybe.just([...state, [] as ItemState])
-              : maybe.nothing()
+              : maybe.nothing(),
           );
 
   const item = (itm: Item, state: ItemState): Maybe<ItemState> =>

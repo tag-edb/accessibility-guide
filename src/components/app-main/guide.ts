@@ -1,5 +1,5 @@
-import { Maybe } from "./maybe";
-import * as maybe from "./maybe";
+import { Maybe } from "../../maybe";
+import * as maybe from "../../maybe";
 
 export type Id = string;
 

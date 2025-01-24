@@ -1,5 +1,5 @@
-import { Maybe } from "./maybe";
-import * as maybe from "./maybe";
+import { Maybe } from "../../maybe";
+import * as maybe from "../../maybe";
 import { Guide, Chunk, Item } from "./guide";
 
 export async function fetchGuide(url: string): Promise<Guide> {
@@ -19,13 +19,13 @@ function guideFromXML(xml: XMLDocument): Maybe<Guide> {
         element.tagName === "menu"
           ? menuFromXML(element)
           : element.tagName === "recipe"
-          ? recipeFromXML(element)
-          : maybe.nothing();
+            ? recipeFromXML(element)
+            : maybe.nothing();
       return maybeGuide.map2(maybeChunk, (guide, chunk) =>
-        guide.set(chunk.id, chunk)
+        guide.set(chunk.id, chunk),
       );
     },
-    maybe.from(new Map() as Guide)
+    maybe.from(new Map() as Guide),
   );
 }
 
@@ -35,8 +35,8 @@ function menuFromXML(xml: Element): Maybe<Chunk> {
     title: maybe.from(xml.querySelector("prompt")?.textContent),
     content: maybe.all({
       type: maybe.just("menu" as "menu"),
-      items: itemsFromXMLs([...xml.querySelectorAll("choice")])
-    })
+      items: itemsFromXMLs([...xml.querySelectorAll("choice")]),
+    }),
   });
 }
 
@@ -46,8 +46,8 @@ function recipeFromXML(xml: Element): Maybe<Chunk> {
     title: maybe.from(xml.querySelector("summary")?.textContent),
     content: maybe.all({
       type: maybe.just("recipe" as "recipe"),
-      items: itemsFromXMLs([...xml.querySelectorAll("step")])
-    })
+      items: itemsFromXMLs([...xml.querySelectorAll("step")]),
+    }),
   });
 }
 
@@ -58,8 +58,8 @@ function itemsFromXMLs(xmls: Element[]): Maybe<Item[]> {
         ref: maybe.just(item.getAttribute("ref")),
         text: maybe
           .from(item.textContent?.trim())
-          .map((text) => (text.length === 0 ? null : text))
-      })
-    )
+          .map((text) => (text.length === 0 ? null : text)),
+      }),
+    ),
   );
 }
