@@ -7,7 +7,7 @@ import {
   State,
   MenuState,
   RecipeState,
-  ItemState,
+  ItemState
 } from "../../nav-guide";
 
 export type GuideUI = {
@@ -20,7 +20,7 @@ export type ChunkUI = MenuUI | RecipeUI;
 
 export type MenuUI = {
   type: "menu";
-  title: string;
+  prompt: string;
   current: boolean;
   choices: ChoiceUI[];
 };
@@ -48,40 +48,35 @@ export function createUI(gde: Guide, state: State): Maybe<GuideUI> {
   const root = (rt: Chunk): GuideUI => ({
     type: "guide",
     root: chunk(rt, state.state, !state.exhausted),
-    coda: state.exhausted ? maybe.just("YOU'VE FINISHED!") : maybe.nothing(),
+    coda: state.exhausted ? maybe.just("YOU'VE FINISHED!") : maybe.nothing()
   });
 
   const chunk = (
     chnk: Chunk,
     chunkState: ChunkState,
-    current: boolean,
+    current: boolean
   ): ChunkUI =>
     chnk.content.type === "menu"
-      ? menu(chnk.title, chnk.content, chunkState as MenuState, current)
+      ? menu(chnk.content, chunkState as MenuState, current)
       : recipe(chnk.content, chunkState as RecipeState, current);
 
-  const menu = (
-    title: string,
-    mnu: Menu,
-    menuState: MenuState,
-    current: boolean,
-  ): MenuUI => ({
+  const menu = (mnu: Menu, menuState: MenuState, current: boolean): MenuUI => ({
     type: "menu",
-    title: title,
+    prompt: mnu.title,
     current: current && menuState.length === 0,
     choices: mnu.items.map((itm, idx) =>
       menuItem(
         itm,
         menuState.length === 0 || menuState[0] !== idx ? [] : menuState[1],
-        current && (menuState.length === 0 || menuState[0] === idx),
-      ),
-    ),
+        current && (menuState.length === 0 || menuState[0] === idx)
+      )
+    )
   });
 
   const menuItem = (
     itm: Item,
     itemState: ItemState,
-    current: boolean,
+    current: boolean
   ): ChoiceUI => ({
     type: "choice",
     text: itemText(itm),
@@ -90,13 +85,13 @@ export function createUI(gde: Guide, state: State): Maybe<GuideUI> {
         ? []
         : itemLink(itm)
             .map((chnk) => [chunk(chnk, itemState[0], current)])
-            .withDefault([]),
+            .withDefault([])
   });
 
   const recipe = (
     rcpe: Recipe,
     recipeState: RecipeState,
-    current: boolean,
+    current: boolean
   ): RecipeUI =>
     recipeState.length === 0
       ? recipe(rcpe, [[]], current)
@@ -108,9 +103,9 @@ export function createUI(gde: Guide, state: State): Maybe<GuideUI> {
               step(
                 itm,
                 recipeState[idx],
-                current && idx === recipeState.length - 1,
-              ),
-            ),
+                current && idx === recipeState.length - 1
+              )
+            )
         };
 
   const step = (itm: Item, itemState: ItemState, current: boolean): StepUI => ({
@@ -127,20 +122,20 @@ export function createUI(gde: Guide, state: State): Maybe<GuideUI> {
                 ? []
                 : itemLink(itm)
                     .map((chnk) => [chunk(chnk, itemState[0], current)])
-                    .withDefault([]),
+                    .withDefault([])
           })
         : maybe.nothing(),
     next: {
       type: "choice",
       text: "OKAY, WHAT'S NEXT?",
-      children: [],
-    },
+      children: []
+    }
   });
 
   const itemText = (itm: Item): string =>
     itm.text ??
     itemLink(itm)
-      .map((chnk) => chnk.title)
+      .map((chnk) => chnk.content.title)
       .withDefault("MISSING REFERENCE");
 
   const itemLink = (itm: Item): Maybe<Chunk> =>

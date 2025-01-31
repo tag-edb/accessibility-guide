@@ -7,17 +7,18 @@ export type Guide = Map<Id, Chunk>;
 
 export type Chunk = {
   id: Id;
-  title: string;
   content: Content;
 };
 
 export type Menu = {
   type: "menu";
+  title: string;
   items: Item[];
 };
 
 export type Recipe = {
   type: "recipe";
+  title: string;
   items: Item[];
 };
 

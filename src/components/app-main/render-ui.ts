@@ -5,14 +5,14 @@ import {
   MenuUI,
   RecipeUI,
   StepUI,
-  ChoiceUI,
+  ChoiceUI
 } from "./create-ui";
 import { ClassInfo, classMap } from "lit/directives/class-map.js";
 
 export function renderUI(
   gde: GuideUI,
   guideExpand: (index: number) => void,
-  guideNext: () => void,
+  guideNext: () => void
 ): HTMLTemplateResult {
   const chunk = (chnk: ChunkUI): HTMLTemplateResult =>
     chnk.type === "menu" ? menu(chnk) : recipe(chnk);
@@ -21,12 +21,12 @@ export function renderUI(
     choiceList(
       { menu: true },
       mnu.current,
-      mnu.title,
+      mnu.prompt,
       mnu.choices.map((chc, idx) => ({
         classes: { option: true },
         ui: chc,
-        onClick: () => guideExpand(idx),
-      })),
+        onClick: () => guideExpand(idx)
+      }))
     );
 
   const recipe = (rcpe: RecipeUI): HTMLTemplateResult => html`
@@ -41,7 +41,7 @@ export function renderUI(
         step: true,
         expanded: stp.expand
           .map((chc) => chc.children.length > 0)
-          .withDefault(false),
+          .withDefault(false)
       })}
     >
       ${choiceList({ step: true }, stp.current, stp.text, [
@@ -50,11 +50,11 @@ export function renderUI(
             {
               classes: { expand: true },
               ui: chc,
-              onClick: () => guideExpand(0),
-            },
+              onClick: () => guideExpand(0)
+            }
           ])
           .withDefault([]),
-        { classes: { next: true }, ui: stp.next, onClick: guideNext },
+        { classes: { next: true }, ui: stp.next, onClick: guideNext }
       ])}
     </li>
   `;
@@ -63,7 +63,7 @@ export function renderUI(
     classes: ClassInfo,
     current: boolean,
     title: string,
-    choices: { classes: ClassInfo; ui: ChoiceUI; onClick: () => void }[],
+    choices: { classes: ClassInfo; ui: ChoiceUI; onClick: () => void }[]
   ): HTMLTemplateResult => html`
     <div class=${classMap({ ...classes, current: current, choicelist: true })}>
       ${item({ title: true }, html`<p>${title}</p>`)}
@@ -73,11 +73,11 @@ export function renderUI(
             <li class=${classMap({ selected: chc.ui.children.length > 0 })}>
               ${item(
                 chc.classes,
-                choiceButton(chc.ui.text, !current, chc.onClick),
+                choiceButton(chc.ui.text, !current, chc.onClick)
               )}
               ${chc.ui.children.map((chnk) => chunk(chnk))}
             </li>
-          `,
+          `
         )}
       </menu>
     </div>
@@ -85,7 +85,7 @@ export function renderUI(
 
   const item = (
     classes: ClassInfo,
-    content: HTMLTemplateResult,
+    content: HTMLTemplateResult
   ): HTMLTemplateResult => html`
     <div class=${classMap({ ...classes, item: true })}>${content}</div>
   `;
@@ -93,7 +93,7 @@ export function renderUI(
   const choiceButton = (
     text: string,
     disabled: boolean,
-    onClick: () => void,
+    onClick: () => void
   ): HTMLTemplateResult => html`
     <button type="button" ?disabled=${disabled} @click=${() => onClick()}>
       ${text}

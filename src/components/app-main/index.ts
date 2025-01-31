@@ -7,57 +7,52 @@ import { Maybe } from "../../maybe";
 import * as maybe from "../../maybe";
 import { createUI } from "./create-ui";
 import { styles } from "./styles";
+import { customElement, state } from "lit/decorators.js";
 
-customElements.define(
-  "app-main",
+@customElement("app-main")
+export class AppMain extends LitElement {
+  static styles = styles;
 
-  class AppMain extends LitElement {
-    static styles = styles;
+  @state()
+  private _guide: Maybe<Guide>;
+  @state()
+  private _state: State;
 
-    declare private _guide: Maybe<Guide>;
-    declare private _state: State;
-
-    static properties = {
-      _guide: { state: true },
-      _state: { state: true },
-    };
-
-    constructor() {
-      super();
-      this._guide = maybe.nothing();
-      this._state = { state: [], exhausted: false };
-      fetchGuide("guide-claude.xml").then((guide) => {
-        this._guide = maybe.just(guide);
-        history.replaceState(this._state, "");
-        addEventListener("popstate", (e) => {
-          this._state = e.state;
-        });
+  constructor() {
+    super();
+    this._guide = maybe.nothing();
+    this._state = { state: [], exhausted: false };
+    fetchGuide("guide-claude.xml").then((guide) => {
+      this._guide = maybe.just(guide);
+      history.replaceState(this._state, "");
+      addEventListener("popstate", (e) => {
+        this._state = e.state;
       });
-    }
+    });
+  }
 
-    private _guideExpand = (index: number) => {
+  render() {
+    const guideExpand = (index: number) => {
       this._guide.map((guide) => {
         this._state = expandItem(guide, this._state, index);
         history.pushState(this._state, "");
       });
     };
 
-    private _guideNext = () => {
+    const guideNext = () => {
       this._guide.map((guide) => {
         this._state = nextItem(guide, this._state);
         history.pushState(this._state, "");
       });
     };
 
-    render() {
-      return this._guide
-        .andThen((guide) => createUI(guide, this._state))
-        .map((ui) => {
-          console.log(ui);
-          return ui;
-        })
-        .map((guideUI) => renderUI(guideUI, this._guideExpand, this._guideNext))
-        .withDefault(html`<h1>GUIDE NOT LOADED</h1>`);
-    }
-  },
-);
+    return this._guide
+      .andThen((guide) => createUI(guide, this._state))
+      .map((ui) => {
+        console.log(ui);
+        return ui;
+      })
+      .map((guideUI) => renderUI(guideUI, guideExpand, guideNext))
+      .withDefault(html`<h1>GUIDE NOT LOADED</h1>`);
+  }
+}

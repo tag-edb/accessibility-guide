@@ -40,9 +40,9 @@ export class VideoClip extends LitElement {
               .animate(
                 [
                   { opacity: 1, filter: "blur(0px)" },
-                  { opacity: 0, filter: "blur(100px)" },
+                  { opacity: 0, filter: "blur(100px)" }
                 ],
-                { delay: this.pause * 1000, duration: 500 },
+                { delay: this.pause * 1000, duration: 500 }
               )
               .finished.then(() => {
                 video.currentTime = this.start;
@@ -50,9 +50,9 @@ export class VideoClip extends LitElement {
                   .animate(
                     [
                       { opacity: 0, filter: "blur(100px)" },
-                      { opacity: 1, filter: "blur(0px)" },
+                      { opacity: 1, filter: "blur(0px)" }
                     ],
-                    { duration: 500 },
+                    { duration: 500 }
                   )
                   .finished.then(() => video.play());
               });
