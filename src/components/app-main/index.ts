@@ -22,13 +22,16 @@ export class AppMain extends LitElement {
     super();
     this._guide = maybe.nothing();
     this._state = { state: [], exhausted: false };
-    fetchGuide("guide-claude.xml").then((guide) => {
-      this._guide = maybe.just(guide);
-      history.replaceState(this._state, "");
-      addEventListener("popstate", (e) => {
-        this._state = e.state;
-      });
-    });
+    fetchGuide("guide-claude.xml")
+      .then((guide) => {
+        this._guide = maybe.just(guide);
+        history.replaceState(this._state, "");
+        addEventListener("popstate", (e) => {
+          this._state = e.state;
+          ``;
+        });
+      })
+      .catch((e) => console.log(`Guide fetch error: ${e}`));
   }
 
   render() {
