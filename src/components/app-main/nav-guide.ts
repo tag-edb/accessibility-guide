@@ -1,14 +1,6 @@
-import {
-  Guide,
-  Chunk,
-  Menu,
-  Recipe,
-  Item,
-  getRoot,
-  get
-} from "./components/app-main/guide";
-import { Maybe } from "./maybe";
-import * as maybe from "./maybe";
+import { Guide, Chunk, Menu, Recipe, Item, getRoot, get } from "./guide";
+import { Maybe } from "../../maybe";
+import * as maybe from "../../maybe";
 
 export type Path = number[];
 

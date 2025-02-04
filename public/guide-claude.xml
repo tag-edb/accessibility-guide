@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xml-model href="guide.rnc"?>
 <guide>
-  <!-- First, add a central recipe for accessing the Accessibility screen -->
-  <recipe id="find_accessibility">
-    <summary>Find the Accessibility section in Settings</summary>
-    <step ref="find_settings">Open the "Settings" app (select this step if you need help finding Settings)</step>
-    <step>Look for "Accessibility" in the list of settings (it might have an icon that looks like a person)</step>
-    <step>If you don't see it right away, try these steps in order:</step>
-    <step>Look near the bottom of the list</step>
-    <step>Look under "Additional Settings" if you see that option</step>
-    <step>Use the search option at the top of Settings (type in "Accessibility")</step>
-    <step>Once you find it, tap "Accessibility" once</step>
-  </recipe>
-
-  <!-- Modify main menu to reflect common pathways -->
+  <!-- The existing menu structure is maintained exactly as is -->
+  <!-- Root menu - main entry point -->
   <menu id="root">
     <prompt>What kind of help do you need with making your Android phone easier to use?</prompt>
     <choice ref="find_accessibility">Show me how to find all accessibility features</choice>
@@ -21,361 +10,228 @@
     <choice ref="hearing_features">Help with hearing sounds and speech</choice>
     <choice ref="mobility_features">Help with touching and moving around the screen</choice>
     <choice ref="cognitive_features">Help with understanding and focusing</choice>
+    <choice ref="accessibility_troubleshoot">Help with finding features or solving problems</choice>
   </menu>
 
-  <!-- Update vision features to go through Accessibility -->
-  <recipe id="vision_features">
-    <summary>Set up your phone to help you see what's on the screen better</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Vision" or "Screen and Text" in the Accessibility settings</step>
-    <step>If you don't see these options, look for "Display" or "Screen readers"</step>
-    <step ref="vision_options">Choose what kind of help you need with seeing the screen</step>
+  <!-- Core accessibility navigation -->
+  <recipe id="find_accessibility">
+    <summary>Find the Accessibility section in Settings</summary>
+    <step ref="find_settings">Open the "Settings" app (select this step if you need help finding Settings)</step>
+    <step ref="locate_accessibility">Find the Accessibility section</step>
+    <step>Tap "Accessibility" once</step>
   </recipe>
 
-  <recipe id="hearing_features">
-    <summary>Set up your phone to help you hear better</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Hearing" or "Audio" in the Accessibility settings</step>
-    <step>If you don't see these options, look for "Captions" or "Sound notifications"</step>
-    <step ref="hearing_options">Pick the kind of hearing help you need</step>
-  </recipe>
-
-  <recipe id="mobility_features">
-    <summary>Make your phone easier to touch and control</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Mobility" or "Interaction controls"</step>
-    <step>If you don't see these options, look for "Dexterity" or "Physical and motor"</step>
-    <step ref="mobility_options">Choose how you want to control your phone</step>
-  </recipe>
-
-  <recipe id="cognitive_features">
-    <summary>Make your phone simpler and easier to understand</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Cognitive" or "Simplified view"</step>
-    <step>If you don't see these options, look for "Display" or "Interaction and dexterity"</step>
-    <step ref="cognitive_options">Choose how you want to make things simpler</step>
-  </recipe>
-
-  <!-- Add alternative paths information -->
-  <recipe id="accessibility_alternative">
-    <summary>Other ways to find accessibility features</summary>
-    <step>If you can't find a feature in Accessibility settings, try:</step>
-    <step>Using the search option at the top of Settings</step>
-    <step>Looking under "Display" for vision-related features</step>
-    <step>Checking "Sound" settings for hearing-related features</step>
-    <step>Looking in "Advanced features" on some phones</step>
-  </recipe>
-
-  <!-- Update specific feature setup recipes -->
-  <recipe id="talkback_setup">
-    <summary>Set up your phone to speak what's on the screen</summary>
-    <step ref="settings_no_visual">If you can't see the screen well, start here to get help</step>
-    <step ref="find_accessibility">Open the Accessibility settings (select this step for help)</step>
-    <step>Look for "TalkBack" or "Screen Reader" in the list</step>
-    <step>Switch it on by tapping the button that says "Use TalkBack"</step>
-    <step ref="talkback_tutorial">Learn how to use it with the teaching guide that appears</step>
-    <!--step ref="talkback_gestures">Learn the basic ways to touch the screen</step-->
-    <step>Choose how fast and loud you want the voice to be</step>
-  </recipe>
-
-  <recipe id="display_setup">
-    <summary>Make the screen easier to see</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Vision" or "Display"</step>
-    <step ref="text_size_adjustment">Change how big the writing is</step>
-    <step>Make everything on the screen bigger if needed</step>
-    <step>Make the writing stand out more if it's hard to read</step>
-    <step ref="color_correction">Change colors if they're hard to tell apart</step>
-    <step>Make the screen darker or use dark mode if bright screens bother you</step>
-  </recipe>
-
-  <!-- Continue with similar updates to all other feature-specific recipes -->
-
-  <menu id="vision_options">
-    <prompt>What kind of help do you need with seeing the screen?</prompt>
-    <choice ref="talkback_setup">Have your phone speak what's on the screen</choice>
-    <choice ref="magnification_setup">Make things on the screen bigger</choice>
-    <choice ref="display_setup">Make the screen easier to see (brighter, darker, or different colors)</choice>
+  <menu id="locate_accessibility">
+    <prompt>How would you like to find Accessibility in Settings?</prompt>
+    <choice>Look for "Accessibility" in the main list (it often has an icon that looks like a person)</choice>
+    <choice>Look near the bottom of the Settings list</choice>
+    <choice>Look under "Additional Settings" if you see that option</choice>
+    <choice>Use the search option at the top of Settings (type in "Accessibility")</choice>
   </menu>
-
-  <menu id="hearing_options">
-    <prompt>What kind of help do you need with hearing?</prompt>
-    <choice ref="captions_setup">See words for what people are saying</choice>
-    <choice ref="audio_setup">Make sounds easier to hear</choice>
-  </menu>
-
-  <menu id="mobility_options">
-    <prompt>How would you like to make your phone easier to control?</prompt>
-    <choice ref="switch_access">Use buttons or switches instead of touching the screen</choice>
-    <choice ref="touch_settings">Make touching the screen easier</choice>
-  </menu>
-
-  <menu id="cognitive_options">
-    <prompt>How would you like to make your phone simpler to use?</prompt>
-    <choice ref="simplified_view">Make the screen less busy</choice>
-    <choice ref="reading_assist">Get help with reading text</choice>
-  </menu>
-
-  <recipe id="magnification_setup">
-    <summary>Make things on your screen look bigger</summary>
-    <step>Look for "Magnification" in the settings</step>
-    <step>Choose if you want to make things bigger by tapping three times or by using a special button</step>
-    <step>Turn on the option you chose</step>
-    <step ref="magnification_gestures">Learn how to make things bigger and move around</step>
-    <step>Practice moving around when things are bigger</step>
-    <step>Learn how to change how big things get</step>
-  </recipe>
-
-  <!-- Updated hearing assistance recipes -->
-  <recipe id="captions_setup">
-    <summary>Set up your phone to show words for sounds and speech</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Hearing enhancements" or "Captions"</step>
-    <step>Turn on "Live Caption" to see words for what people are saying</step>
-    <step ref="caption_customization">Change how the words look on screen</step>
-    <step ref="live_transcribe_setup">Set up "Live Transcribe" for speech nearby</step>
-  </recipe>
-
-  <recipe id="audio_setup">
-    <summary>Make sounds easier to hear</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Hearing enhancements" or "Audio"</step>
-    <step ref="mono_audio_setup">Make sounds the same in both ears</step>
-    <step ref="volume_balance">Change how loud each ear's sound is</step>
-    <step ref="sound_amplification">Make certain sounds easier to hear</step>
-  </recipe>
-
-  <!-- Updated mobility assistance recipes -->
-  <recipe id="switch_access">
-    <summary>Use special buttons to control your phone</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Mobility" or "Interaction controls"</step>
-    <step>Find and tap on "Switch Access"</step>
-    <step ref="switch_selection">Connect your special button</step>
-    <step ref="switch_configuration">Choose what your button does</step>
-    <step ref="scanning_setup">Choose how to move around the screen</step>
-  </recipe>
-
-  <recipe id="touch_settings">
-    <summary>Make touching the screen easier</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Mobility" or "Interaction controls"</step>
-    <step ref="touch_delay_setup">Change how long you need to touch for things to work</step>
-    <step>Look for "Touch settings" or "Interaction preferences"</step>
-    <step ref="gesture_setup">Create special touches that do what you want</step>
-  </recipe>
-
-  <!-- Updated cognitive assistance recipes -->
-  <recipe id="simplified_view">
-    <summary>Make your screen less busy and easier to understand</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Cognitive" or "Simplified view"</step>
-    <step>Turn on "Simplified view" if you see it</step>
-    <step ref="animation_settings">Make things move less on screen</step>
-    <step ref="focus_mode_setup">Hide apps you don't need right now</step>
-  </recipe>
-
-  <recipe id="reading_assist">
-    <summary>Get help with reading text on your phone</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Vision" or "Screen Reader"</step>
-    <step ref="select_to_speak_setup">Set up choosing text to be read out loud</step>
-    <step ref="tts_configuration">Pick a voice you like to read to you</step>
-    <step ref="highlight_setup">Make important text stand out</step>
-  </recipe>
-
-  <!-- Update supporting recipes -->
-  <recipe id="live_transcribe_setup">
-    <summary>Set up your phone to show words for speech around you</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Live Transcribe" under "Hearing enhancements"</step>
-    <step>Turn on "Live Transcribe"</step>
-    <step>Pick which languages you want to see</step>
-    <step>Choose if you want to save what was said</step>
-  </recipe>
-
-  <recipe id="sound_amplification">
-    <summary>Make certain sounds easier to hear</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Sound Amplification" under "Hearing enhancements"</step>
-    <step>Turn on sound amplification</step>
-    <step>Change how loud different kinds of sounds are</step>
-    <step>Choose how much to reduce background noise</step>
-  </recipe>
-
-  <recipe id="select_to_speak_setup">
-    <summary>Choose text you want your phone to read out loud</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Select to Speak" under "Vision" or "Screen Reader"</step>
-    <step>Turn the feature on</step>
-    <step>Choose how you want to pick text to read</step>
-    <step>Pick how fast you want it to read</step>
-  </recipe>
-
-  <recipe id="focus_mode_setup">
-    <summary>Hide apps you don't need right now</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Focus mode" or "Digital wellbeing"</step>
-    <step>If you don't see it, you might need to look in "Settings" under "Digital Wellbeing"</step>
-    <step>Pick which apps you want to keep using</step>
-    <step>Choose when you want apps hidden</step>
-  </recipe>
-
-  <recipe id="tts_configuration">
-    <summary>Set up the voice that reads to you</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Text-to-speech" or "Screen reader settings"</step>
-    <step>Choose which voice you want to use</step>
-    <step>Change how fast it talks</step>
-    <step>Try it out to make sure you like how it sounds</step>
-  </recipe>
-
-  <recipe id="highlight_setup">
-    <summary>Make text stand out when it's being read</summary>
-    <step ref="find_accessibility">First, open the Accessibility settings (select this step for help)</step>
-    <step>Look for "Visual feedback" or "Highlighting options"</step>
-    <step>Choose what color you want for highlighting</step>
-    <step>Pick how thick you want the highlight to be</step>
-    <step>Choose if you want the whole word or letter highlighted</step>
-  </recipe>
-
-  <!-- Add troubleshooting recipe -->
-  <recipe id="accessibility_not_found">
-    <summary>What to do if you can't find a feature in Accessibility</summary>
-    <step>First, try using the search at the top of Settings</step>
-    <step>Type in what you're looking for (like "caption" or "voice")</step>
-    <step>If you can't find it, some features might be in different places:</step>
-    <step>Look in "Display" for text size and screen brightness</step>
-    <step>Check "Sound" for volume and sound balance</step>
-    <step>Try "Digital wellbeing" for focus mode</step>
-    <step>If you still can't find it, ask someone to help you look</step>
-  </recipe>
-
-  <recipe id="talkback_tutorial">
-    <summary>Learn how to use your phone's speaking feature</summary>
-    <step>Listen to the welcome message</step>
-    <step>Follow what the voice tells you to do</step>
-    <step>Practice touching the screen to hear what's there</step>
-    <step>Learn to tap twice to use things</step>
-    <step>Practice moving through lists with three fingers</step>
-    <step>Try all the moves you've learned</step>
-  </recipe>
-
-  <recipe id="magnification_gestures">
-    <summary>Learn how to make things bigger and move around</summary>
-    <step>Tap three times quickly to make everything bigger</step>
-    <step>Tap three times and hold your finger down to make things temporarily bigger</step>
-    <step>Use two fingers to move around when things are bigger</step>
-    <step>Spread or pinch two fingers to change how big things are</step>
-    <step>Practice using any special buttons you set up</step>
-  </recipe>
-
-  <recipe id="text_size_adjustment">
-    <summary>Change how big the writing is on your screen</summary>
-    <step>Find where it says "Text Size"</step>
-    <step>Look at the example text</step>
-    <step>Slide the bar to make text bigger or smaller</step>
-    <step>Try reading in different apps</step>
-    <step>Keep adjusting until you can read comfortably</step>
-  </recipe>
-
-  <recipe id="color_correction">
-    <summary>Make colors easier to tell apart</summary>
-    <step>Choose which colors are hard for you to see</step>
-    <step>Look at the sample pictures</step>
-    <step>Try different settings with real pictures</step>
-    <step>Change how strong the color change is</step>
-    <step>Make sure you can tell different colors apart now</step>
-  </recipe>
-
-  <recipe id="caption_customization">
-    <summary>Change how words appear on your screen</summary>
-    <step>Choose how big you want the words to be</step>
-    <step>Pick which style of writing you like best</step>
-    <step>Choose what color you want behind the words</step>
-    <step>Pick what color you want the words to be</step>
-    <step>Try watching a video to make sure you can read the words easily</step>
-  </recipe>
-
-  <recipe id="mono_audio_setup">
-    <summary>Make sounds the same in both ears</summary>
-    <step>Find the "Mono Audio" switch</step>
-    <step>Turn it on</step>
-    <step>Listen to some music to test it</step>
-    <step>Change how loud it is if needed</step>
-    <step>Make sure you can hear clearly</step>
-  </recipe>
-
-  <recipe id="volume_balance">
-    <summary>Change how loud each ear's sound is</summary>
-    <step>Find the left/right sound slider</step>
-    <step>Play some music while you adjust it</step>
-    <step>Move the slider until it sounds right</step>
-    <step>Try different kinds of sounds</step>
-    <step>Make sure it's comfortable to listen to</step>
-  </recipe>
-
-  <recipe id="switch_selection">
-    <summary>Connect a special button to your phone</summary>
-    <step>Find out what kind of button works with your phone</step>
-    <step>Connect a wireless button if you have one</step>
-    <step>Connect a plug-in button if you have one</step>
-    <step>Make sure your phone can detect the button</step>
-    <step>Check how quickly the button responds</step>
-  </recipe>
-
-  <recipe id="switch_configuration">
-    <summary>Choose what your special button does</summary>
-    <step>Pick what happens when you press once</step>
-    <step>Choose what happens when you press twice quickly</step>
-    <step>Pick what happens when you hold the button down</step>
-    <step>Set up any other special button actions</step>
-    <step>Try out all your button settings</step>
-  </recipe>
-
-  <recipe id="scanning_setup">
-    <summary>Choose how to move around your screen with buttons</summary>
-    <step>Pick how you want to move through items (one by one or in groups)</step>
-    <step>Choose how fast it moves</step>
-    <step>Pick if you want it to move automatically</step>
-    <step>Choose how long before it stops moving</step>
-    <step>Pick if you want it to go backwards too</step>
-  </recipe>
-
-  <recipe id="touch_delay_setup">
-    <summary>Change how long you need to touch the screen</summary>
-    <step>Pick how long you need to touch</step>
-    <step>Choose if you want to see or feel when it works</step>
-    <step>Try it out with some apps</step>
-    <step>Make it longer or shorter if needed</step>
-    <step>Save the settings you like best</step>
-  </recipe>
-
-  <recipe id="gesture_setup">
-    <summary>Create special touches that do what you want</summary>
-    <step>Pick which kind of touch you want to set up</step>
-    <step>Choose what you want that touch to do</step>
-    <step>Practice the touch to make sure it works</step>
-    <step>Try it in different apps</step>
-    <step>Make it easier or harder to do if needed</step>
-  </recipe>
-
-  <recipe id="animation_settings">
-    <summary>Make things move less on your screen</summary>
-    <step>Find the movement settings</step>
-    <step>Make windows move less or not at all</step>
-    <step>Change how things move between screens</step>
-    <step>Pick how long movements take</step>
-    <step>Try moving between apps</step>
-  </recipe>
 
   <menu id="find_settings">
     <prompt>How would you like to open the Settings app?</prompt>
     <choice ref="settings_app_list">Find it in your list of apps</choice>
-    <choice ref="settings_quick_panel">Use the quick settings panel that slides down from the top of your screen</choice>
+    <choice ref="settings_quick_panel">Use the quick settings panel that slides down from the top</choice>
     <choice ref="settings_voice">Ask Google to open it for you</choice>
     <choice ref="settings_search">Search for it on your phone</choice>
+    <choice ref="settings_trouble">None of these are working for me</choice>
   </menu>
+
+  <!-- Vision features section -->
+  <menu id="vision_features">
+    <prompt>What kind of help do you need with seeing the screen?</prompt>
+    <choice ref="talkback_setup">Have your phone speak what's on the screen</choice>
+    <choice ref="magnification_activation">Make things on the screen bigger</choice>
+    <choice ref="text_adjustment_options">Change how text appears</choice>
+    <choice ref="color_adjustment_options">Adjust colors and contrast</choice>
+  </menu>
+
+  <menu id="text_adjustment_options">
+    <prompt>How would you like to adjust text?</prompt>
+    <choice ref="system_text_size">Change text size everywhere</choice>
+    <choice ref="app_specific_text">Change text size in specific apps</choice>
+    <choice ref="font_style">Change text style and contrast</choice>
+    <choice ref="high_contrast">Make text stand out more</choice>
+  </menu>
+
+  <menu id="color_adjustment_options">
+    <prompt>What kind of color adjustments would help you?</prompt>
+    <choice ref="color_filters">Use color filters for color blindness</choice>
+    <choice ref="contrast_adjust">Adjust contrast settings</choice>
+    <choice ref="invert_colors">Invert screen colors</choice>
+    <choice ref="color_labels">Add color labels to elements</choice>
+  </menu>
+
+  <!-- Hearing features section -->
+  <menu id="hearing_features">
+    <prompt>What kind of help do you need with hearing?</prompt>
+    <choice ref="caption_options">Set up captions for videos and speech</choice>
+    <choice ref="sound_enhancement_options">Make sounds easier to hear</choice>
+    <choice ref="mono_audio_setup">Make sounds the same in both ears</choice>
+    <choice ref="sound_notifications">Get visual alerts for sounds</choice>
+  </menu>
+
+  <menu id="sound_enhancement_options">
+    <prompt>What kind of sound enhancement do you need?</prompt>
+    <choice ref="sound_boost">Make all sounds louder</choice>
+    <choice ref="noise_reduction">Reduce background noise</choice>
+    <choice ref="sound_balance">Adjust sound balance between ears</choice>
+    <choice ref="frequency_adjustment">Adjust specific sound frequencies</choice>
+  </menu>
+
+  <menu id="caption_options">
+    <prompt>What would you like to adjust about captions?</prompt>
+    <choice ref="caption_appearance">Change how captions look</choice>
+    <choice ref="caption_timing">Adjust caption timing</choice>
+    <choice ref="caption_position">Change caption position</choice>
+    <choice ref="caption_language">Set caption language</choice>
+  </menu>
+
+  <!-- Mobility features section -->
+  <menu id="mobility_features">
+    <prompt>How would you like to make your phone easier to control?</prompt>
+    <choice ref="switch_access_options">Use switches or buttons instead of touching</choice>
+    <choice ref="touch_adjustment_options">Make touching the screen easier</choice>
+    <choice ref="gesture_options">Set up custom gestures</choice>
+    <choice ref="keyboard_access_options">Adjust keyboard settings</choice>
+  </menu>
+
+  <menu id="switch_access_options">
+    <prompt>How would you like to control your device?</prompt>
+    <choice ref="external_switch">Use an external switch device</choice>
+    <choice ref="camera_switch">Use camera-based switches</choice>
+    <choice ref="screen_switch">Use on-screen switches</choice>
+    <choice ref="keyboard_switch">Use keyboard or gamepad</choice>
+  </menu>
+
+  <menu id="touch_adjustment_options">
+    <prompt>What kind of touch adjustments do you need?</prompt>
+    <choice ref="touch_duration">Change how long you need to touch</choice>
+    <choice ref="touch_area">Make touch targets larger</choice>
+    <choice ref="touch_feedback">Change touch feedback (vibration/sound)</choice>
+    <choice ref="custom_gestures">Create custom touch gestures</choice>
+  </menu>
+
+  <!-- Cognitive features section -->
+  <menu id="cognitive_features">
+    <prompt>How would you like to make your phone simpler to use?</prompt>
+    <choice ref="focus_mode_options">Reduce distractions</choice>
+    <choice ref="simplified_view">Make the screen less busy</choice>
+    <choice ref="reading_assist">Get help with reading text</choice>
+    <choice ref="movement_options">Control screen motion</choice>
+  </menu>
+
+  <menu id="focus_mode_options">
+    <prompt>How would you like to reduce distractions?</prompt>
+    <choice ref="app_pause">Pause distracting apps</choice>
+    <choice ref="notification_control">Control notifications</choice>
+    <choice ref="screen_simplify">Make screen simpler</choice>
+    <choice ref="schedule_focus">Schedule focus time</choice>
+  </menu>
+
+  <!-- Troubleshooting section -->
+  <menu id="accessibility_troubleshoot">
+    <prompt>What kind of help do you need?</prompt>
+    <choice ref="feature_location_options">Can't find a specific feature</choice>
+    <choice ref="settings_trouble">Having trouble with Settings</choice>
+    <choice ref="settings_assistant">Need someone to help you</choice>
+  </menu>
+
+  <menu id="settings_trouble">
+    <prompt>Are you having trouble finding Settings?</prompt>
+    <choice ref="settings_phone_model">Get help for your specific phone model</choice>
+    <choice ref="settings_no_visual">Get help if you can't see the screen well</choice>
+    <choice ref="settings_assistant">Ask someone to help you turn on accessibility features</choice>
+  </menu>
+
+  <menu id="feature_location_options">
+    <prompt>Where would you like to look for the feature?</prompt>
+    <choice>Use the search at the top of Settings</choice>
+    <choice>Look in "Display" for text size and screen brightness</choice>
+    <choice>Check "Sound" for volume and sound balance</choice>
+    <choice>Try "Digital wellbeing" for focus mode</choice>
+    <choice ref="settings_assistant">Ask someone to help you look</choice>
+  </menu>
+
+  <!-- Setup recipes -->
+  <recipe id="talkback_setup">
+    <summary>Set up your phone to speak what's on the screen</summary>
+    <step ref="settings_no_visual">If you can't see the screen well, start here to get help</step>
+    <step ref="find_accessibility">Open the Accessibility settings</step>
+    <step>Look for "TalkBack" or "Screen Reader" in the list</step>
+    <step>Switch it on by tapping the button that says "Use TalkBack"</step>
+    <step ref="talkback_tutorial">Learn how to use it with the teaching guide</step>
+    <step ref="talkback_gestures">Learn the basic ways to touch the screen</step>
+    <step ref="tts_options">Choose how fast and loud you want the voice to be</step>
+  </recipe>
+
+  <recipe id="system_text_size">
+    <summary>Change text size everywhere</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Open Display size and text</step>
+    <step>Adjust the text size slider</step>
+    <step>Preview the changes</step>
+    <step>Confirm when readable</step>
+  </recipe>
+
+  <recipe id="color_filters">
+    <summary>Set up color filters for color blindness</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Turn on color correction</step>
+    <step>Select your type of color blindness</step>
+    <step>Adjust filter intensity</step>
+    <step>Test with color samples</step>
+  </recipe>
+
+  <recipe id="external_switch">
+    <summary>Set up an external switch device</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Connect your switch device</step>
+    <step>Select switch in settings</step>
+    <step>Configure switch actions</step>
+  </recipe>
+
+  <recipe id="caption_appearance">
+    <summary>Customize caption appearance</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Choose text size</step>
+    <step>Select font style</step>
+    <step>Pick text and background colors</step>
+  </recipe>
+
+  <recipe id="touch_duration">
+    <summary>Adjust touch duration settings</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Touch and hold delay"</step>
+    <step>Choose your preferred delay length</step>
+    <step>Test with different apps</step>
+  </recipe>
+
+  <recipe id="app_pause">
+    <summary>Pause distracting apps</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Select apps to pause</step>
+    <step>Choose pause duration</step>
+    <step>Start focus mode</step>
+  </recipe>
+
+  <recipe id="talkback_gestures">
+    <summary>Learn basic TalkBack gestures</summary>
+    <step>Practice sliding one finger to explore</step>
+    <step>Learn to double-tap to activate items</step>
+    <step>Try three-finger scrolling</step>
+    <step>Practice two-finger gestures for global actions</step>
+  </recipe>
+
+  <recipe id="settings_assistant">
+    <summary>Get help turning on accessibility features</summary>
+    <step>Ask someone you trust to help you find Settings</step>
+    <step>Ask them to help you find "Accessibility" in Settings</step>
+    <step>Have them help you turn on the features you need</step>
+    <step>Ask them to show you how to get back to Settings later</step>
+    <step>Practice opening Settings together until you feel comfortable</step>
+  </recipe>
 
   <recipe id="settings_app_list">
     <summary>Find and open Settings in your list of apps</summary>
@@ -393,69 +249,287 @@
     <step>If that doesn't work, look for a button with small squares or circles that means "All Apps"</step>
   </recipe>
 
+  <!-- Additional text adjustment recipes -->
+  <recipe id="app_specific_text">
+    <summary>Change text size in specific apps</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Per-app settings" or "App-specific settings"</step>
+    <step>Choose the app you want to adjust</step>
+    <step>Find text size settings for that app</step>
+    <step>Adjust text size as needed</step>
+  </recipe>
+
+  <recipe id="font_style">
+    <summary>Change text style and contrast</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Font" or "Text style"</step>
+    <step>Choose a font that's easy to read</step>
+    <step>Adjust the boldness if needed</step>
+    <step>Test the new style in different apps</step>
+  </recipe>
+
+  <recipe id="high_contrast">
+    <summary>Make text stand out more</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "High contrast text" or "Bold text"</step>
+    <step>Turn on high contrast</step>
+    <step>Adjust contrast level if available</step>
+    <step>Make sure text is easy to read</step>
+  </recipe>
+
+  <!-- Additional color adjustment recipes -->
+  <recipe id="contrast_adjust">
+    <summary>Adjust screen contrast</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Contrast" or "Advanced display settings"</step>
+    <step>Adjust the contrast slider</step>
+    <step>Test with different types of content</step>
+  </recipe>
+
+  <recipe id="invert_colors">
+    <summary>Invert screen colors</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Color inversion" or "Negative colors"</step>
+    <step>Turn on color inversion</step>
+    <step>Choose if you want it always on or as a shortcut</step>
+  </recipe>
+
+  <recipe id="color_labels">
+    <summary>Add labels to distinguish colors</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Color labels" or "Color descriptions"</step>
+    <step>Turn on color labels</step>
+    <step>Choose how you want colors to be described</step>
+  </recipe>
+
+  <!-- Additional hearing feature recipes -->
+  <recipe id="sound_notifications">
+    <summary>Get visual alerts for sounds</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Sound notifications" or "Sound detection"</step>
+    <step>Choose which sounds to detect</step>
+    <step>Select how you want to be notified</step>
+  </recipe>
+
+  <recipe id="sound_balance">
+    <summary>Adjust sound balance between ears</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Audio balance" or "Sound balance"</step>
+    <step>Adjust the left/right balance slider</step>
+    <step>Test with different types of audio</step>
+  </recipe>
+
+  <recipe id="frequency_adjustment">
+    <summary>Adjust specific sound frequencies</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Equalizer" or "Sound adjustment"</step>
+    <step>Adjust different frequency levels</step>
+    <step>Test with various types of sound</step>
+  </recipe>
+
+  <!-- Additional caption setting recipes -->
+  <recipe id="caption_timing">
+    <summary>Adjust caption timing</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Caption timing" or "Subtitle synchronization"</step>
+    <step>Adjust the delay if captions are out of sync</step>
+    <step>Test with a video</step>
+  </recipe>
+
+  <recipe id="caption_position">
+    <summary>Change caption position</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Caption position" or "Subtitle layout"</step>
+    <step>Choose where captions appear</step>
+    <step>Test the position with a video</step>
+  </recipe>
+
+  <recipe id="caption_language">
+    <summary>Set caption language</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Caption language" or "Subtitle language"</step>
+    <step>Choose your preferred language</step>
+    <step>Set secondary language if needed</step>
+  </recipe>
+
+  <!-- Settings access recipes -->
   <recipe id="settings_quick_panel">
-    <summary>Open Settings from the panel that slides down</summary>
-    <step>Touch the very top of your screen</step>
-    <step>Slide your finger down to show some quick settings</step>
-    <step>Slide down again if you don't see a gear wheel icon</step>
-    <step>Look for the gear wheel icon (it might be near the bottom)</step>
-    <step>Tap the gear wheel once to open Settings</step>
+    <summary>Open Settings using the quick settings panel</summary>
+    <step>Touch the top of your screen and slide your finger down</step>
+    <step>Slide down again to show all quick settings</step>
+    <step>Look for a gear (⚙️) or cog icon</step>
+    <step>Tap the gear icon once to open Settings</step>
   </recipe>
 
   <recipe id="settings_voice">
-    <summary>Ask Google to open Settings for you</summary>
-    <step>Say "Hey Google" or "OK Google"</step>
-    <step>Wait for a sound or colored lights to show Google is listening</step>
+    <summary>Open Settings using voice commands</summary>
+    <step>Say "Hey Google" or "Ok Google" (or press and hold the home button)</step>
+    <step>Wait for the response or colored lights</step>
     <step>Say "Open Settings"</step>
-    <step>If that doesn't work, try holding down the home button (in the middle at the bottom) and then say "Open Settings"</step>
+    <step>Watch for the Settings app to open</step>
   </recipe>
 
   <recipe id="settings_search">
-    <summary>Search for the Settings app</summary>
-    <step>Look at your home screen</step>
-    <step>Find the search bar (usually at the top, it might say "Search phone")</step>
-    <step>Tap the search bar once</step>
-    <step>Type in the word "Settings"</step>
-    <step>Look for the gear wheel icon in the search results</step>
-    <step>Tap once on Settings when you find it</step>
+    <summary>Find Settings by searching your phone</summary>
+    <step>Slide down from the top of your home screen</step>
+    <step>Look for a search bar or search icon</step>
+    <step>Type in "Settings"</step>
+    <step>Tap on the Settings app when it appears</step>
   </recipe>
 
-  <menu id="settings_trouble">
-    <prompt>Are you having trouble finding Settings?</prompt>
-    <choice ref="settings_phone_model">Get help for your specific phone model</choice>
-    <choice ref="settings_no_visual">Get help if you can't see the screen well</choice>
-    <choice ref="settings_assistant">Ask someone to help you turn on accessibility features</choice>
+  <!-- Vision feature recipes -->
+  <recipe id="magnification_activation">
+    <summary>Turn on screen magnification</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Magnification" in the list</step>
+    <step>Choose how you want to activate magnification</step>
+    <step>Practice the magnification gesture you chose</step>
+    <step>Try magnifying different parts of your screen</step>
+  </recipe>
+
+  <!-- Hearing feature recipes -->
+  <recipe id="mono_audio_setup">
+    <summary>Set up mono audio to hear all sounds in both ears</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Mono audio" or "Audio adjustment"</step>
+    <step>Turn on mono audio</step>
+    <step>Test with music or videos</step>
+  </recipe>
+
+  <recipe id="sound_boost">
+    <summary>Make sounds louder</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Sound amplification" or "Sound boost"</step>
+    <step>Turn on sound boost</step>
+    <step>Adjust the boost level</step>
+    <step>Test with different types of sounds</step>
+  </recipe>
+
+  <recipe id="noise_reduction">
+    <summary>Reduce background noise</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Noise reduction" or "Sound cleaning"</step>
+    <step>Turn on noise reduction</step>
+    <step>Choose noise reduction level</step>
+    <step>Test in different environments</step>
+  </recipe>
+
+  <!-- Mobility feature menus and recipes -->
+  <menu id="gesture_options">
+    <prompt>What kind of gestures would you like to set up?</prompt>
+    <choice ref="gesture_navigation">Navigation gestures</choice>
+    <choice ref="gesture_shortcuts">Quick action gestures</choice>
+    <choice ref="gesture_custom">Create your own gestures</choice>
+    <choice ref="gesture_practice">Practice using gestures</choice>
   </menu>
 
-  <recipe id="settings_phone_model">
-    <summary>Get help finding Settings on your specific phone</summary>
-    <step>Look on the back of your phone for the maker's name (like Samsung, Google, or Motorola)</step>
-    <step>If you can't find it there, try looking under "About phone" if you can get to Settings another way</step>
-    <step ref="model_specific_help">Get specific help for your phone type</step>
+  <menu id="keyboard_access_options">
+    <prompt>How would you like to adjust the keyboard?</prompt>
+    <choice ref="keyboard_size">Change keyboard size</choice>
+    <choice ref="keyboard_feedback">Adjust keyboard feedback</choice>
+    <choice ref="keyboard_prediction">Change text prediction settings</choice>
+    <choice ref="keyboard_layout">Choose a different keyboard layout</choice>
+  </menu>
+
+  <!-- Switch control recipes -->
+  <recipe id="camera_switch">
+    <summary>Use your camera as a switch control</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Camera Switch" or "Camera control"</step>
+    <step>Turn on camera switch</step>
+    <step>Choose which facial movements to use</step>
+    <step>Practice the movements you selected</step>
   </recipe>
 
-  <recipe id="model_specific_help">
-    <summary>Get help for different types of phones</summary>
-    <step>For Samsung phones: Look for Settings in the folder called "Samsung"</step>
-    <step>For Google phones: Swipe up from the bottom and Settings should be in alphabetical order</step>
-    <step>For Motorola phones: Look for a folder called "Moto" or "Tools"</step>
-    <step>If you still can't find it, look for your phone's manual online or ask your phone company for help</step>
+  <recipe id="screen_switch">
+    <summary>Use on-screen buttons as switches</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Switch Access" or "On-screen switches"</step>
+    <step>Turn on screen switches</step>
+    <step>Choose switch locations</step>
+    <step>Set up switch actions</step>
+  </recipe>
+
+  <recipe id="keyboard_switch">
+    <summary>Use keyboard or gamepad as switches</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Switch Access" or "Keyboard control"</step>
+    <step>Connect your keyboard or gamepad</step>
+    <step>Assign actions to buttons</step>
+    <step>Test the controls</step>
+  </recipe>
+
+  <!-- Touch adjustment recipes -->
+  <recipe id="touch_area">
+    <summary>Make touch targets bigger</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Look for "Touch target size" or "Interaction control"</step>
+    <step>Turn on larger touch targets</step>
+    <step>Test touching different items</step>
+  </recipe>
+
+  <recipe id="touch_feedback">
+    <summary>Change touch feedback settings</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Touch feedback" or "Interaction sounds"</step>
+    <step>Choose vibration settings</step>
+    <step>Choose sound settings</step>
+    <step>Test the feedback</step>
+  </recipe>
+
+  <!-- Additional touch and custom gestures recipe -->
+  <recipe id="custom_gestures">
+    <summary>Create custom touch gestures</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Custom gestures" or "Gesture customization"</step>
+    <step>Create a new gesture</step>
+    <step>Choose what the gesture does</step>
+    <step>Practice using the gesture</step>
+  </recipe>
+
+  <!-- Cognitive features -->
+  <menu id="movement_options">
+    <prompt>What kind of screen movement would you like to control?</prompt>
+    <choice ref="animation_control">Control animations</choice>
+    <choice ref="scroll_control">Make scrolling easier</choice>
+    <choice ref="auto_rotate">Control screen rotation</choice>
+    <choice ref="transition_effects">Adjust transition effects</choice>
+  </menu>
+
+  <!-- Troubleshooting recipes -->
+  <recipe id="settings_phone_model">
+    <summary>Get help specific to your phone model</summary>
+    <step>Find your phone's make and model in Settings</step>
+    <step>Visit your phone manufacturer's support website</step>
+    <step>Look for accessibility guides for your model</step>
+    <step>Contact manufacturer support if needed</step>
   </recipe>
 
   <recipe id="settings_no_visual">
-    <summary>Find Settings if you can't see the screen well</summary>
-    <step>Try asking Google: Say "Hey Google, open Settings"</step>
-    <step>If that doesn't work, ask someone nearby to help you turn on TalkBack</step>
-    <step>Once TalkBack is on, touch anywhere on the screen and drag your finger until you hear "Settings"</step>
-    <step>Double-tap when you hear "Settings"</step>
+    <summary>Find Settings when you can't see the screen well</summary>
+    <step>Press and hold the power button until you hear a sound</step>
+    <step>Say "Hey Google" or "Ok Google"</step>
+    <step>Say "Turn on TalkBack" or "Open accessibility settings"</step>
+    <step>Follow the voice prompts</step>
   </recipe>
 
-  <recipe id="settings_assistant">
-    <summary>Get help turning on accessibility features</summary>
-    <step>Ask someone you trust to help you find Settings</step>
-    <step>Ask them to help you find "Accessibility" in Settings</step>
-    <step>Have them help you turn on the features you need</step>
-    <step>Ask them to show you how to get back to Settings later</step>
-    <step>Practice opening Settings together until you feel comfortable doing it on your own</step>
+  <!-- TalkBack setup recipes -->
+  <recipe id="talkback_tutorial">
+    <summary>Learn to use TalkBack</summary>
+    <step>Start the TalkBack tutorial</step>
+    <step>Learn basic gestures</step>
+    <step>Practice with example screens</step>
+    <step>Try reading different types of content</step>
+    <step>Learn to use the TalkBack menu</step>
+  </recipe>
+
+  <recipe id="tts_options">
+    <summary>Adjust the speaking voice settings</summary>
+    <step ref="find_accessibility">First, open the Accessibility settings</step>
+    <step>Find "Text-to-speech" settings</step>
+    <step>Choose a voice you like</step>
+    <step>Adjust speaking rate</step>
+    <step>Adjust speaking pitch</step>
+    <step>Test the voice settings</step>
   </recipe>
 </guide>

@@ -1,7 +1,7 @@
 import { LitElement, html } from "lit";
 import { Guide } from "./guide";
 import { fetchGuide } from "./fetch-guide";
-import { State, expandItem, nextItem } from "../../nav-guide";
+import { State, expandItem, nextItem } from "./nav-guide";
 import { renderUI } from "./render-ui";
 import { Maybe } from "../../maybe";
 import * as maybe from "../../maybe";

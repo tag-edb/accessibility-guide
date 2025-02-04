@@ -8,7 +8,7 @@ import {
   MenuState,
   RecipeState,
   ItemState
-} from "../../nav-guide";
+} from "./nav-guide";
 
 export type GuideUI = {
   type: "guide";
